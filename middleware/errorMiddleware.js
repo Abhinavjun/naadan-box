@@ -37,16 +37,16 @@ const errorHandler = (err, req, res, next) => {
         message = "Image dimensions are invalid or too large.";
 
     // Invalid or corrupted image data.
-    } 
-    
-    
+    }
+
+
 else if (err.message === "INVALID_IMAGE_CONTENT") {
     statusCode = 400;
     message = "The uploaded image is invalid or corrupted.";
 }
 
-    
-    
+
+
     else if (
         err.message === "Input file contains unsupported image format" ||
         err.message === "Input buffer contains unsupported image format"

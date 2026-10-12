@@ -697,7 +697,7 @@ const verifyForgotPasswordOtp = async (req, res) => {
     clearForgotPasswordOtpSession();
 
     // Verification is valid for five minutes only.
-  
+
 clearForgotPasswordOtpSession();
 
 // Verification is valid for five minutes only.
@@ -925,7 +925,7 @@ const resetPassword = async (req, res) => {
             });
         }
 
-    
+
 await resetUserPasswordService(
     req.session.userId,
     password

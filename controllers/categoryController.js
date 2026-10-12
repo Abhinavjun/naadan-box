@@ -28,7 +28,7 @@ const createCategory = async (req, res, next) => {
 
     next(error);
 }
-    
+
 };
 
 
@@ -75,8 +75,8 @@ const getCategoryById = async (req, res, next) => {
 const updateCategory = async (req, res, next) => {
     try {
         const result = await categoryService.updateCategoryService(
-            req.params.categoryId,{...req.body,image: req.file?.path,} 
-            
+            req.params.categoryId,{...req.body,image: req.file?.path,}
+
         );
 
         const {category,oldImage} = result;
@@ -88,7 +88,7 @@ if(req.file?.path && category._oldImage) {
         console.error("Failed to remove old category image:" ,fileError)
     }
 }
-    
+
 
         return res.status(200).json({
             success: true,
@@ -147,9 +147,9 @@ const restoreCategory = async(req,res,next) => {
     }
 catch (error) {
     next(error);
-}   
+}
 
-    
+
 
 };
 
