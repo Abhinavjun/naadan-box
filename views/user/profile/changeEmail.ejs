@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Change Email - Naadan Box</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    >
+
+    <style>
+
+        :root {
+            --green: #1B4D2E;
+            --green-dark: #133821;
+            --gold: #C89B3C;
+            --cream: #FBF7EE;
+            --cream-soft: #F8F4EA;
+            --white: #FFFFFF;
+            --text: #1F2D26;
+            --muted: #718078;
+            --border: #E4DED2;
+            --input: #FCFAF5;
+            --danger: #DC3545;
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+
+        body {
+            background: var(--cream);
+            color: var(--text);
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+        }
+
+
+        /* =========================
+           MINIMAL HEADER
+           ========================= */
+
+        .security-header {
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+
+            background: rgba(251, 247, 238, .98);
+
+            border-bottom: 1px solid var(--border);
+
+            position: relative;
+            z-index: 10;
+        }
+
+.security-header-inner {
+    width: 100%;
+    margin: 0;
+    padding: 0 52px;
+}
+
+        .brand {
+            color: var(--green);
+
+            font-size: 1.35rem;
+            font-weight: 800;
+
+            letter-spacing: .7px;
+
+            text-decoration: none;
+        }
+
+
+        .brand:hover {
+            color: var(--green);
+        }
+
+
+        .security-label {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+
+            color: var(--muted);
+
+            font-size: .72rem;
+            font-weight: 600;
+
+            letter-spacing: .4px;
+        }
+
+
+        .security-label i {
+            color: var(--green);
+
+            font-size: .9rem;
+        }
+
+
+        /* =========================
+           PAGE
+           ========================= */
+
+        .change-email-page {
+            position: relative;
+
+            min-height: calc(100vh - 72px);
+
+            display: flex;
+            flex-direction: column;
+
+            overflow: hidden;
+        }
+
+
+        .page-content {
+            position: relative;
+            z-index: 2;
+
+            flex: 1;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 3.2rem 1.25rem 3.5rem;
+        }
+
+
+        /* =========================
+           BANANA LEAF DECORATIONS
+           ========================= */
+
+        .leaf {
+            position: absolute;
+
+            pointer-events: none;
+
+            z-index: 0;
+
+            opacity: .065;
+        }
+
+
+        .leaf svg {
+            display: block;
+
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .leaf-top-left {
+            width: 330px;
+            height: 330px;
+
+            left: -105px;
+            top: 35px;
+
+            transform: rotate(-10deg);
+        }
+
+
+        .leaf-bottom-right {
+            width: 390px;
+            height: 390px;
+
+            right: -135px;
+            bottom: -135px;
+
+            transform: rotate(12deg);
+        }
+
+
+        .leaf-middle {
+            width: 190px;
+            height: 190px;
+
+            right: 8%;
+            top: 15%;
+
+            opacity: .025;
+
+            transform: rotate(145deg);
+        }
+
+
+        .leaf-bottom-left {
+            width: 150px;
+            height: 150px;
+
+            left: 15%;
+            bottom: 4%;
+
+            opacity: .025;
+
+            transform: rotate(-35deg);
+        }
+
+
+        /* =========================
+           CONTENT
+           ========================= */
+
+        .change-email-content {
+            position: relative;
+            z-index: 2;
+
+            width: 100%;
+            max-width: 560px;
+
+            margin: 0 auto;
+        }
+
+
+        .page-kicker {
+            text-align: center;
+
+            margin-bottom: .55rem;
+
+            color: var(--gold);
+
+            font-size: .68rem;
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+        }
+
+
+        .page-title {
+            margin: 0;
+
+            color: var(--green);
+
+            text-align: center;
+
+            font-size: 2rem;
+            font-weight: 800;
+
+            letter-spacing: -.5px;
+        }
+
+
+        .page-description {
+            max-width: 500px;
+
+            margin: .65rem auto 0;
+
+            color: var(--muted);
+
+            text-align: center;
+
+            font-size: .86rem;
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           GOLD DECORATION
+           ========================= */
+
+        .heading-decoration {
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 7px;
+
+            margin: .9rem 0 1.7rem;
+        }
+
+
+        .heading-decoration span {
+            display: block;
+
+            width: 32px;
+            height: 2px;
+
+            background: var(--gold);
+
+            border-radius: 3px;
+        }
+
+
+        .heading-decoration span:nth-child(2) {
+            width: 7px;
+            height: 7px;
+
+            transform: rotate(45deg);
+        }
+
+
+        /* =========================
+           MAIN CARD
+           ========================= */
+
+        .change-email-card {
+            position: relative;
+
+            background: rgba(255, 255, 255, .96);
+
+            border: 1px solid rgba(27, 77, 46, .09);
+
+            border-radius: 17px;
+
+            padding: 1.9rem;
+
+            box-shadow:
+                0 18px 45px rgba(27, 77, 46, .08),
+                0 3px 12px rgba(27, 77, 46, .035);
+
+            overflow: hidden;
+        }
+
+
+        .change-email-card::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 3px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--green),
+                    var(--gold),
+                    var(--green)
+                );
+        }
+
+
+        .card-heading {
+            display: flex;
+
+            align-items: center;
+
+            gap: .85rem;
+
+            margin-bottom: 1.55rem;
+        }
+
+
+        .card-icon {
+            width: 43px;
+            height: 43px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(27, 77, 46, .07);
+
+            border: 1px solid rgba(27, 77, 46, .1);
+
+            border-radius: 12px;
+
+            color: var(--green);
+
+            font-size: 1.1rem;
+        }
+
+
+        .card-title {
+            margin: 0 0 .15rem;
+
+            color: var(--green);
+
+            font-size: .95rem;
+            font-weight: 800;
+        }
+
+
+        .card-subtitle {
+            margin: 0;
+
+            color: var(--muted);
+
+            font-size: .74rem;
+            line-height: 1.45;
+        }
+
+
+        /* =========================
+           FORM
+           ========================= */
+
+        .form-label-custom {
+            display: block;
+
+            margin-bottom: .5rem;
+
+            color: var(--text);
+
+            font-size: .7rem;
+            font-weight: 800;
+
+            letter-spacing: .65px;
+
+            text-transform: uppercase;
+        }
+
+
+        .current-email-box {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 1rem;
+
+            padding: .85rem .95rem;
+
+            background: var(--cream-soft);
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+        }
+
+
+        .current-email-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: .65rem;
+
+            min-width: 0;
+        }
+
+
+        .email-icon {
+            width: 32px;
+            height: 32px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            border-radius: 8px;
+
+            color: var(--green);
+
+            font-size: .82rem;
+        }
+
+
+        .current-email {
+            color: var(--text);
+
+            font-size: .8rem;
+            font-weight: 700;
+
+            word-break: break-word;
+        }
+
+
+        .verified-badge {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: .25rem;
+
+            flex-shrink: 0;
+
+            padding: .27rem .55rem;
+
+            background: rgba(40, 115, 59, .08);
+
+            border: 1px solid rgba(40, 115, 59, .12);
+
+            color: #28733B;
+
+            border-radius: 20px;
+
+            font-size: .61rem;
+            font-weight: 800;
+        }
+
+
+        .verified-badge i {
+            font-size: .62rem;
+        }
+
+
+        .form-divider {
+            margin: 1.4rem 0;
+
+            border: 0;
+            border-top: 1px solid var(--border);
+
+            opacity: 1;
+        }
+
+
+        .profile-input {
+            height: 46px;
+
+            background: var(--input);
+
+            border: 1px solid var(--border);
+
+            border-radius: 9px;
+
+            color: var(--text);
+
+            font-size: .83rem;
+
+            padding: .65rem .9rem;
+
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease,
+                background .2s ease;
+        }
+
+
+        .profile-input::placeholder {
+            color: #9A9B96;
+        }
+
+
+        .profile-input:hover {
+            border-color: #CFC8BA;
+        }
+
+
+        .profile-input:focus {
+            background: #fff;
+
+            border-color: var(--green);
+
+            box-shadow:
+                0 0 0 .18rem rgba(27, 77, 46, .09);
+
+            outline: none;
+        }
+
+
+        .input-help {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: .35rem;
+
+            margin: .5rem 0 0;
+
+            color: var(--muted);
+
+            font-size: .67rem;
+
+            line-height: 1.5;
+        }
+
+
+        .input-help i {
+            flex-shrink: 0;
+
+            margin-top: 1px;
+
+            color: var(--gold);
+        }
+
+
+        /* =========================
+           BUTTONS
+           ========================= */
+
+        .email-actions {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: .7rem;
+
+            margin-top: 1.55rem;
+        }
+
+
+        .btn-email {
+            min-height: 44px;
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            font-size: .78rem;
+            font-weight: 700;
+
+            text-decoration: none;
+
+            transition:
+                background .2s ease,
+                border-color .2s ease,
+                color .2s ease,
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .btn-update {
+            background: var(--green);
+
+            border: 1px solid var(--green);
+
+            color: #fff;
+        }
+
+
+        .btn-update:hover {
+            background: var(--green-dark);
+
+            border-color: var(--green-dark);
+
+            color: #fff;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 7px 16px rgba(27, 77, 46, .15);
+        }
+
+
+        .btn-update:disabled {
+            opacity: .7;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        .btn-cancel {
+            background: transparent;
+
+            border: 1px solid var(--gold);
+
+            color: var(--text);
+        }
+
+
+        .btn-cancel:hover {
+            background: var(--gold);
+
+            border-color: var(--gold);
+
+            color: #fff;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 7px 16px rgba(200, 155, 60, .12);
+        }
+
+
+        /* =========================
+           SECURITY NOTE
+           ========================= */
+
+        .security-note {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: .75rem;
+
+            margin-top: .9rem;
+
+            padding: .9rem 1rem;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255, 248, 233, .96),
+                    rgba(251, 247, 238, .96)
+                );
+
+            border: 1px solid rgba(200, 155, 60, .25);
+
+            border-radius: 11px;
+        }
+
+
+        .security-icon {
+            width: 31px;
+            height: 31px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(27, 77, 46, .08);
+
+            border-radius: 8px;
+
+            color: var(--green);
+
+            font-size: .82rem;
+        }
+
+
+        .security-title {
+            margin: 0 0 .15rem;
+
+            color: var(--green);
+
+            font-size: .7rem;
+            font-weight: 800;
+        }
+
+
+        .security-text {
+            margin: 0;
+
+            color: var(--muted);
+
+            font-size: .66rem;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           FOOTER
+           ========================= */
+
+        .security-footer {
+            position: relative;
+
+            padding: 1rem 1.25rem;
+
+            background: var(--cream-soft);
+
+            border-top: 1px solid var(--border);
+
+            text-align: center;
+        }
+
+
+        .security-footer::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 50%;
+
+            width: 100px;
+            height: 2px;
+
+            background: var(--gold);
+
+            transform: translateX(-50%);
+
+            opacity: .65;
+        }
+
+
+        .footer-brand {
+            margin-bottom: .25rem;
+
+            color: var(--green);
+
+            font-size: .82rem;
+            font-weight: 800;
+
+            letter-spacing: .6px;
+        }
+
+
+        .footer-text {
+            margin: 0;
+
+            color: var(--muted);
+
+            font-size: .66rem;
+        }
+
+
+        .footer-links {
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 1rem;
+
+            margin-top: .45rem;
+        }
+
+
+        .footer-links a {
+            color: var(--muted);
+
+            font-size: .64rem;
+
+            text-decoration: none;
+
+            transition: color .2s ease;
+        }
+
+
+        .footer-links a:hover {
+            color: var(--green);
+        }
+
+
+        /* =========================
+           RESPONSIVE
+           ========================= */
+
+        @media (max-width: 767.98px) {
+
+            .security-header {
+                height: 64px;
+            }
+
+
+            .security-header-inner {
+                padding: 0 1.25rem;
+            }
+
+
+            .brand {
+                font-size: 1.15rem;
+            }
+
+
+            .security-label {
+                font-size: .62rem;
+            }
+
+
+            .page-content {
+                padding: 2.2rem 1rem 2.5rem;
+            }
+
+
+            .page-title {
+                font-size: 1.65rem;
+            }
+
+
+            .page-description {
+                font-size: .8rem;
+            }
+
+
+            .change-email-card {
+                padding: 1.45rem 1.2rem;
+            }
+
+
+            .leaf-top-left {
+                width: 230px;
+                height: 230px;
+
+                left: -100px;
+            }
+
+
+            .leaf-bottom-right {
+                width: 260px;
+                height: 260px;
+
+                right: -120px;
+                bottom: -80px;
+            }
+
+
+            .leaf-middle,
+            .leaf-bottom-left {
+                display: none;
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .security-label {
+                display: none;
+            }
+
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+
+            .current-email-box {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .verified-badge {
+                margin-left: 2.4rem;
+            }
+
+
+            .email-actions {
+                grid-template-columns: 1fr;
+            }
+
+
+            .security-note {
+                padding: .8rem;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         MINIMAL HEADER
+         ========================= -->
+
+  <header class="security-header">
+    <div class="security-header-inner">
+
+        <a href="/" class="brand">
+            NAADAN BOX
+        </a>
+
+        <div class="security-label">
+            <i class="bi bi-shield-check"></i>
+            <span>Secure Account Verification</span>
+        </div>
+
+    </div>
+</header>
+
+
+    <!-- =========================
+         MAIN
+         ========================= -->
+
+    <main class="change-email-page">
+
+
+        <!-- BANANA LEAF TOP LEFT -->
+
+        <div class="leaf leaf-top-left">
+
+            <svg
+                viewBox="0 0 400 400"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+            >
+
+                <path
+                    d="
+                        M42 344
+                        C75 267 116 178 214 101
+                        C270 57 330 35 373 27
+                        C366 74 348 132 315 184
+                        C259 272 171 329 42 344
+                        Z
+                    "
+                    fill="#1B4D2E"
+                />
+
+                <path
+                    d="
+                        M48 340
+                        C129 292 205 218 351 48
+                    "
+                    fill="none"
+                    stroke="#C89B3C"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                />
+
+                <path
+                    d="
+                        M117 293
+                        C108 250 111 214 123 180
+                    "
+                    fill="none"
+                    stroke="#C89B3C"
+                    stroke-width="1.4"
+                    opacity=".7"
+                />
+
+                <path
+                    d="
+                        M166 260
+                        C159 214 165 174 181 139
+                    "
+                    fill="none"
+                    stroke="#C89B3C"
+                    stroke-width="1.4"
+                    opacity=".7"
+                />
+
+                <path
+                    d="
+                        M220 215
+                        C220 176 232 136 249 106
+                    "
+                    fill="none"
+                    stroke="#C89B3C"
+                    stroke-width="1.4"
+                    opacity=".7"
+                />
+
+            </svg>
+
+        </div>
+
+
+        <!-- BANANA LEAF MIDDLE -->
+
+        <div class="leaf leaf-middle">
+
+            <svg
+                viewBox="0 0 400 400"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+            >
+
+                <path
+                    d="
+                        M42 344
+                        C75 267 116 178 214 101
+                        C270 57 330 35 373 27
+                        C366 74 348 132 315 184
+                        C259 272 171 329 42 344
+                        Z
+                    "
+                    fill="#1B4D2E"
+                />
+
+                <path
+                    d="
+                        M48 340
+                        C129 292 205 218 351 48
+                    "
+                    fill="none"
+                    stroke="#C89B3C"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                />
+
+            </svg>
+
+        </div>
+
+
+        <!-- BANANA LEAF BOTTOM RIGHT -->
+
+        <div class="leaf leaf-bottom-right">
+
+            <svg
+                viewBox="0 0 400 400"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+            >
+
+                <path
+                    d="
+                        M42 344
+                        C75 267 116 178 214 101
+                        C270 57 330 35 373 27
+                        C366 74 348 132 315 184
+                        C259 272 171 329 42 344
+                        Z
+                    "
+                    fill="#1B4D2E"
+                />
+
+                <path
+                    d="
+                        M48 340
+                        C129 292 205 218 351 48
+                    "
+                    fill="none"
+                    stroke="#C89B3C"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                />
+
+                <path
+                    d="
+                        M117 293
+                        C108 250 111 214 123 180
+                    "
+                    fill="none"
+                    stroke="#C89B3C"
+                    stroke-width="1.4"
+                    opacity=".7"
+                />
+
+                <path
+                    d="
+                        M166 260
+                        C159 214 165 174 181 139
+                    "
+                    fill="none"
+                    stroke="#C89B3C"
+                    stroke-width="1.4"
+                    opacity=".7"
+                />
+
+                <path
+                    d="
+                        M220 215
+                        C220 176 232 136 249 106
+                    "
+                    fill="none"
+                    stroke="#C89B3C"
+                    stroke-width="1.4"
+                    opacity=".7"
+                />
+
+            </svg>
+
+        </div>
+
+
+        <!-- SMALL BANANA LEAF -->
+
+        <div class="leaf leaf-bottom-left">
+
+            <svg
+                viewBox="0 0 400 400"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+            >
+
+                <path
+                    d="
+                        M42 344
+                        C75 267 116 178 214 101
+                        C270 57 330 35 373 27
+                        C366 74 348 132 315 184
+                        C259 272 171 329 42 344
+                        Z
+                    "
+                    fill="#1B4D2E"
+                />
+
+                <path
+                    d="
+                        M48 340
+                        C129 292 205 218 351 48
+                    "
+                    fill="none"
+                    stroke="#C89B3C"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                />
+
+            </svg>
+
+        </div>
+
+
+        <div class="page-content">
+
+
+            <div class="change-email-content">
+
+
+                <!-- PAGE HEADING -->
+
+                <div class="page-kicker">
+                    Account Security
+                </div>
+
+
+                <h1 class="page-title">
+                    Change Email Address
+                </h1>
+
+
+                <p class="page-description">
+
+                    Update the email connected to your Naadan Box account.
+                    Your new email address will be verified before the change is completed.
+
+                </p>
+
+
+                <div class="heading-decoration">
+
+                    <span></span>
+
+                    <span></span>
+
+                    <span></span>
+
+                </div>
+
+
+                <!-- =========================
+                     CHANGE EMAIL CARD
+                     ========================= -->
+
+                <form id="changeEmailForm">
+
+                    <div class="change-email-card">
+
+
+                        <!-- CARD HEADER -->
+
+                        <div class="card-heading">
+
+                            <div class="card-icon">
+
+                                <i class="bi bi-envelope-at"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <h2 class="card-title">
+                                    Email Address
+                                </h2>
+
+
+                                <p class="card-subtitle">
+
+                                    Enter the new email address you want to use
+                                    for your Naadan Box account.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CURRENT EMAIL -->
+
+                        <div>
+
+                            <label
+                                for="currentEmail"
+                                class="form-label-custom"
+                            >
+                                Current Email
+                            </label>
+
+
+                            <div class="current-email-box">
+
+
+                                <div class="current-email-left">
+
+                                    <div class="email-icon">
+
+                                        <i class="bi bi-envelope-check"></i>
+
+                                    </div>
+
+
+                                    <span class="current-email">
+
+                                        <%= user.email %>
+
+                                    </span>
+
+                                </div>
+
+
+                                <span class="verified-badge">
+
+                                    <i class="bi bi-check-circle-fill"></i>
+
+                                    Verified
+
+                                </span>
+
+
+                            </div>
+
+                        </div>
+
+
+                        <hr class="form-divider">
+
+
+                        <!-- NEW EMAIL -->
+
+                        <div>
+
+                            <label
+                                for="newEmail"
+                                class="form-label-custom"
+                            >
+                                New Email Address
+                            </label>
+
+
+                            <input
+                                type="email"
+                                id="newEmail"
+                                name="newEmail"
+                                class="form-control profile-input"
+                                placeholder="Enter your new email address"
+                                required
+                                autocomplete="email"
+                            >
+
+
+                            <p class="input-help">
+
+                                <i class="bi bi-info-circle"></i>
+
+                                <span>
+                                    A verification code will be sent to this email address.
+                                </span>
+
+                            </p>
+
+                        </div>
+
+
+                        <!-- ACTION BUTTONS -->
+
+                        <div class="email-actions">
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-email btn-update"
+                                id="btnUpdateEmail"
+                            >
+
+                                <i class="bi bi-shield-check me-2"></i>
+
+                                Update Email
+
+                            </button>
+
+
+                            <a
+                                href="/profile"
+                                class="btn btn-email btn-cancel"
+                            >
+
+                                Cancel
+
+                            </a>
+
+
+                        </div>
+
+
+                    </div>
+
+                </form>
+
+
+                <!-- =========================
+                     SECURITY NOTE
+                     ========================= -->
+
+                <div class="security-note">
+
+
+                    <div class="security-icon">
+
+                        <i class="bi bi-shield-lock-fill"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <p class="security-title">
+                            Your account stays protected
+                        </p>
+
+
+                        <p class="security-text">
+
+                            For security, a one-time verification code will be
+                            sent to your new email address. Your email will only
+                            be changed after successful verification.
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         MINIMAL FOOTER
+         ========================= -->
+
+    <footer class="security-footer">
+
+
+        <div class="footer-brand">
+            NAADAN BOX
+        </div>
+
+
+        <p class="footer-text">
+            Authentic Kerala flavors, made for home.
+        </p>
+
+
+        <div class="footer-links">
+
+            <a href="/privacy">
+                Privacy Policy
+            </a>
+
+
+            <a href="/terms">
+                Terms of Service
+            </a>
+
+
+            <a href="/">
+                Back to Home
+            </a>
+
+        </div>
+
+
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- =========================
+         EXISTING CHANGE EMAIL FUNCTIONALITY
+         ========================= -->
+
+    <script>
+
+        document
+            .getElementById("changeEmailForm")
+            .addEventListener("submit", async function(e) {
+
+                e.preventDefault();
+
+
+                const newEmail =
+                    document
+                        .getElementById("newEmail")
+                        .value
+                        .trim();
+
+
+                const button =
+                    document.getElementById("btnUpdateEmail");
+
+
+                if (!newEmail) {
+
+                    alert("Please enter your new email address.");
+
+                    return;
+
+                }
+
+
+                button.disabled = true;
+
+                button.textContent = "Sending...";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/profile/email/send-otp",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+
+                                body: JSON.stringify({
+                                    newEmail
+                                })
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (data.success) {
+
+                        window.location.href =
+                            "/profile/security/verify-email";
+
+                        return;
+
+                    }
+
+
+                    alert(data.message);
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Email change error:",
+                        error
+                    );
+
+                    alert(
+                        "Something went wrong. Please try again."
+                    );
+
+                } finally {
+
+                    button.disabled = false;
+
+                    button.innerHTML =
+                        '<i class="bi bi-shield-check me-2"></i>Update Email';
+
+                }
+
+            });
+
+    </script>
+
+
+</body>
+
+</html>

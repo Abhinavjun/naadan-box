@@ -1,0 +1,649 @@
+<!-- ACCOUNT PROFILE -->
+
+<style>
+.account-profile-card {
+    background: #ffffff;
+    border: 1px solid var(--border-divider-neutral);
+    border-radius: 14px;
+    padding: 1.75rem;
+}
+
+.account-profile-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-bottom: 1.35rem;
+    border-bottom: 1px solid var(--border-divider-neutral);
+}
+
+.account-profile-heading {
+    min-width: 0;
+}
+
+.account-profile-title {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding-bottom: .45rem;
+    color: var(--brand-primary-green);
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.account-profile-title::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 3px;
+    margin-top: .4rem;
+    background-color: var(--brand-gold);
+    border-radius: 2px;
+}
+
+.account-profile-subtext {
+    margin: .45rem 0 0;
+    color: var(--muted-text);
+    font-size: .8rem;
+    line-height: 1.5;
+}
+
+.profile-actions {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    flex-shrink: 0;
+}
+
+.btn-profile-outline,
+.btn-profile-primary {
+    min-height: 38px;
+    padding: .55rem .9rem;
+    border-radius: 8px;
+    font-size: .77rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all .2s ease;
+}
+
+.btn-profile-outline {
+    background: #ffffff;
+    color: var(--brand-primary-green);
+    border: 1px solid var(--brand-primary-green);
+}
+
+.btn-profile-outline:hover {
+    background: #E8F3EC;
+    color: var(--brand-primary-green);
+    border-color: var(--brand-primary-green);
+}
+
+.btn-profile-primary {
+    background: var(--brand-primary-green);
+    color: #ffffff;
+    border: 1px solid var(--brand-primary-green);
+}
+
+.btn-profile-primary:hover {
+    background: var(--brand-hover-green);
+    color: #ffffff;
+    border-color: var(--brand-hover-green);
+}
+
+.profile-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 5rem;
+    padding-top: .65rem;
+}
+
+.profile-detail-item {
+    min-width: 0;
+    padding: 1.15rem 0;
+    border-bottom: 1px solid var(--border-divider-neutral);
+}
+
+.profile-detail-item:nth-last-child(-n + 2) {
+    border-bottom: none;
+}
+
+.field-label {
+    margin-bottom: .4rem;
+    color: var(--muted-text);
+    font-size: .67rem;
+    font-weight: 600;
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: .65px;
+}
+
+.field-value {
+    color: var(--primary-text-dark);
+    font-size: .9rem;
+    font-weight: 600;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.profile-edit-form {
+    padding-top: 1.5rem;
+}
+
+.form-label-custom {
+    display: block;
+    margin-bottom: .4rem;
+    color: var(--primary-text-dark);
+    font-size: .75rem;
+    font-weight: 600;
+}
+
+.profile-input,
+.profile-select {
+    min-height: 42px;
+    padding: .55rem .75rem;
+    background: var(--input-bg-subtle);
+    color: var(--primary-text-dark);
+    border: 1px solid var(--border-divider-neutral);
+    border-radius: 8px;
+    font-size: .8rem;
+    box-shadow: none;
+}
+
+.profile-input:focus,
+.profile-select:focus {
+    background: #ffffff;
+    border-color: var(--brand-primary-green);
+    box-shadow: 0 0 0 .15rem rgba(27, 77, 46, .08);
+}
+
+.profile-input[readonly] {
+    background: #F1EEE7;
+    color: #666666;
+}
+
+.profile-edit-form .input-group .profile-input {
+    border-radius: 8px 0 0 8px;
+}
+
+.profile-edit-form .input-group .btn-profile-outline {
+    border-radius: 0 8px 8px 0;
+}
+
+.profile-edit-form .text-danger {
+    font-size: .68rem;
+}
+
+#btnCancelEdit {
+    min-height: 38px;
+    padding: .5rem .9rem;
+    border-radius: 8px;
+    font-size: .75rem;
+    font-weight: 600;
+}
+
+#btnSaveProfile {
+    min-height: 38px;
+    padding: .5rem .9rem;
+    border-radius: 8px;
+    font-size: .75rem;
+    font-weight: 600;
+}
+
+@media (max-width: 767px) {
+
+    .account-profile-card {
+        padding: 1.25rem;
+        border-radius: 12px;
+    }
+
+    .account-profile-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .profile-actions {
+        width: 100%;
+    }
+
+    .profile-actions .btn {
+        flex: 1;
+    }
+
+    .profile-details {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+    }
+
+    .profile-detail-item:nth-last-child(-n + 2) {
+        border-bottom: 1px solid var(--border-divider-neutral);
+    }
+
+    .profile-detail-item:last-child {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 575px) {
+
+    .account-profile-title {
+        font-size: 1.2rem;
+    }
+
+    .account-profile-subtext {
+        font-size: .75rem;
+    }
+
+    .profile-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .profile-actions .btn {
+        width: 100%;
+    }
+
+    .profile-detail-item {
+        padding: .9rem 0;
+    }
+}
+</style>
+
+
+<!-- ACCOUNT PROFILE -->
+
+<div class="content-card account-profile-card">
+
+    <!-- PROFILE HEADER -->
+
+    <div class="account-profile-header">
+
+        <div class="account-profile-heading">
+
+            <h3 class="account-profile-title">
+                Profile Information
+            </h3>
+
+            <p class="account-profile-subtext">
+                Manage your personal account details.
+            </p>
+
+        </div>
+
+        <div class="profile-actions">
+
+            <button
+                type="button"
+                class="btn btn-profile-outline"
+                id="btnViewDetails"
+            >
+                <i class="bi bi-eye me-1"></i>
+                View Details
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-profile-primary"
+                id="btnEditProfile"
+            >
+                <i class="bi bi-pencil me-1"></i>
+                Edit Profile
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROFILE DISPLAY -->
+
+    <div
+        id="profileReadView"
+        class="profile-details"
+    >
+
+        <!-- FULL NAME -->
+
+        <div class="profile-detail-item">
+
+            <div class="field-label">
+                Full Name
+            </div>
+
+            <div
+                class="field-value"
+                id="valFullName"
+            >
+                <%= user.name || "Not provided" %>
+            </div>
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="profile-detail-item">
+
+            <div class="field-label">
+                Email Address
+            </div>
+
+            <div
+                class="field-value"
+                id="valEmail"
+            >
+                <%= user.email || "Not provided" %>
+            </div>
+
+        </div>
+
+
+        <!-- PHONE -->
+
+        <div class="profile-detail-item">
+
+            <div class="field-label">
+                Phone Number
+            </div>
+
+            <div
+                class="field-value"
+                id="valPhone"
+            >
+                <%= user.phone || "Not provided" %>
+            </div>
+
+        </div>
+
+
+        <!-- GENDER -->
+
+        <div class="profile-detail-item">
+
+            <div class="field-label">
+                Gender
+            </div>
+
+            <div
+                class="field-value"
+                id="valGender"
+            >
+                <%= user.gender || "Not provided" %>
+            </div>
+
+        </div>
+
+
+        <!-- DATE OF BIRTH -->
+
+        <div class="profile-detail-item">
+
+            <div class="field-label">
+                Date of Birth
+            </div>
+
+            <div
+                class="field-value"
+                id="valDob"
+            >
+                <%= user.dateOfBirth
+                    ? new Date(user.dateOfBirth).toLocaleDateString("en-IN", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    })
+                    : "Not provided"
+                %>
+            </div>
+
+        </div>
+
+
+        <!-- MEMBER SINCE -->
+
+        <div class="profile-detail-item">
+
+            <div class="field-label">
+                Member Since
+            </div>
+
+            <div class="field-value">
+
+                <%= user.createdAt
+                    ? new Date(user.createdAt).toLocaleDateString("en-IN", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    })
+                    : "Not available"
+                %>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROFILE EDIT -->
+
+    <form
+        id="profileEditForm"
+        class="profile-edit-form d-none"
+        novalidate
+    >
+
+        <div class="row g-3">
+
+            <!-- FULL NAME -->
+
+            <div class="col-12 col-md-6">
+
+                <label
+                    for="inputFullName"
+                    class="form-label-custom"
+                >
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="inputFullName"
+                    class="form-control profile-input"
+                    value="<%= user.name || '' %>"
+                    minlength="3"
+                    maxlength="50"
+                    autocomplete="name"
+                    required
+                >
+
+                <div
+                    id="nameError"
+                    class="text-danger small mt-1"
+                ></div>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="col-12 col-md-6">
+
+                <label
+                    for="inputEmail"
+                    class="form-label-custom"
+                >
+                    Email Address
+                </label>
+
+                <div class="input-group">
+
+                    <input
+                        type="email"
+                        id="inputEmail"
+                        class="form-control profile-input"
+                        value="<%= user.email || '' %>"
+                        autocomplete="email"
+                        readonly
+                    >
+
+                    <button
+                        type="button"
+                        class="btn btn-profile-outline"
+                        id="btnChangeEmail"
+                    >
+                        Change
+                    </button>
+
+                </div>
+
+                <div
+                    id="emailError"
+                    class="text-danger small mt-1"
+                ></div>
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="col-12 col-md-6">
+
+                <label
+                    for="inputPhone"
+                    class="form-label-custom"
+                >
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="inputPhone"
+                    class="form-control profile-input"
+                    value="<%= user.phone || '' %>"
+                    maxlength="10"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                >
+
+                <div
+                    id="phoneError"
+                    class="text-danger small mt-1"
+                ></div>
+
+            </div>
+
+
+            <!-- GENDER -->
+
+            <div class="col-12 col-md-6">
+
+                <label
+                    for="selectGender"
+                    class="form-label-custom"
+                >
+                    Gender
+                </label>
+
+                <select
+                    id="selectGender"
+                    class="form-select profile-select"
+                >
+
+                    <option value="">
+                        Select Gender
+                    </option>
+
+                    <option
+                        value="Male"
+                        <%= user.gender === "Male" ? "selected" : "" %>
+                    >
+                        Male
+                    </option>
+
+                    <option
+                        value="Female"
+                        <%= user.gender === "Female" ? "selected" : "" %>
+                    >
+                        Female
+                    </option>
+
+                    <option
+                        value="Other"
+                        <%= user.gender === "Other" ? "selected" : "" %>
+                    >
+                        Other
+                    </option>
+
+                </select>
+
+                <div
+                    id="genderError"
+                    class="text-danger small mt-1"
+                ></div>
+
+            </div>
+
+
+            <!-- DATE OF BIRTH -->
+
+            <div class="col-12 col-md-6">
+
+                <label
+                    for="inputDob"
+                    class="form-label-custom"
+                >
+                    Date of Birth
+                </label>
+
+                <input
+                    type="date"
+                    id="inputDob"
+                    class="form-control profile-input"
+                    value="<%= user.dateOfBirth
+                        ? new Date(user.dateOfBirth).toISOString().split('T')[0]
+                        : ''
+                    %>"
+                >
+
+                <div
+                    id="dobError"
+                    class="text-danger small mt-1"
+                ></div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="col-12">
+
+                <div class="d-flex justify-content-end gap-2 mt-2">
+
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary btn-sm"
+                        id="btnCancelEdit"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-profile-primary btn-sm"
+                        id="btnSaveProfile"
+                    >
+                        <i class="bi bi-check2 me-1"></i>
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

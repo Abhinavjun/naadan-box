@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Naadan Box</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    >
+
+    <style>
+        :root {
+            --brand-primary-green: #1B4D2E;
+            --brand-hover-green: #133821;
+            --brand-gold: #C89B3C;
+            --background-cream: #FBF7EE;
+            --card-background: #F8F3E6;
+            --primary-text-dark: #1F2D26;
+            --muted-text: #718078;
+            --border-divider-neutral: #E3DED3;
+            --input-bg-subtle: #FAF7F0;
+            --danger-validation-red: #DC3545;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--background-cream);
+            color: var(--primary-text-dark);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+            overflow: hidden;
+        }
+
+        /* ================================
+           HEADER
+        ================================= */
+
+        .auth-header {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+            background: var(--background-cream);
+            border-bottom: 1px solid var(--border-divider-neutral);
+            position: relative;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .auth-brand {
+            color: var(--brand-primary-green);
+            text-decoration: none;
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: .6px;
+        }
+
+        .auth-brand:hover {
+            color: var(--brand-primary-green);
+        }
+
+        /* ================================
+           MAIN
+        ================================= */
+
+        .auth-main {
+            height: calc(100vh - 72px - 58px);
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 6%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ================================
+           LEAF DECORATIONS
+        ================================= */
+
+        .leaf-decoration {
+            position: absolute;
+            pointer-events: none;
+            opacity: .55;
+        }
+
+        .leaf-top-right {
+            width: 210px;
+            height: 210px;
+            right: -65px;
+            top: -55px;
+            border-radius: 80% 0 80% 0;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(27, 77, 46, .07),
+                    rgba(200, 155, 60, .04)
+                );
+            transform: rotate(25deg);
+        }
+
+        .leaf-top-right::after {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 180px;
+            background: rgba(200, 155, 60, .12);
+            left: 48%;
+            top: 10px;
+            transform: rotate(35deg);
+        }
+
+        .leaf-bottom-left {
+            width: 180px;
+            height: 180px;
+            left: -70px;
+            bottom: -65px;
+            border-radius: 0 80% 0 80%;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(27, 77, 46, .06),
+                    rgba(200, 155, 60, .035)
+                );
+            transform: rotate(25deg);
+        }
+
+        .leaf-bottom-left::after {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 150px;
+            background: rgba(200, 155, 60, .10);
+            left: 50%;
+            top: 15px;
+            transform: rotate(-35deg);
+        }
+
+        /* ================================
+           AUTH CARD
+        ================================= */
+
+        .auth-card {
+            width: 100%;
+            max-width: 1050px;
+            min-height: 560px;
+            max-height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: rgba(255, 255, 255, .45);
+            border: 1px solid var(--border-divider-neutral);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow:
+                0 12px 35px rgba(27, 77, 46, .055);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ================================
+           LEFT SIDE
+        ================================= */
+
+        .auth-intro {
+            background: var(--card-background);
+            display: flex;
+            align-items: center;
+            padding: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-intro::before {
+            content: "";
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            right: -100px;
+            bottom: -100px;
+            border-radius: 50%;
+            background: rgba(27, 77, 46, .035);
+        }
+
+        .auth-intro-content {
+            max-width: 400px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .intro-eyebrow {
+            color: var(--brand-gold);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            margin-bottom: .75rem;
+            display: flex;
+            align-items: center;
+            gap: .55rem;
+        }
+
+        .intro-eyebrow::before {
+            content: "";
+            width: 34px;
+            height: 2px;
+            background: var(--brand-gold);
+        }
+
+        .intro-title {
+            color: var(--brand-primary-green);
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            margin: 0 0 1.25rem;
+        }
+
+        .intro-description {
+            color: var(--muted-text);
+            font-size: .95rem;
+            line-height: 1.7;
+            max-width: 360px;
+            margin: 0;
+        }
+
+        .intro-decoration {
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            margin-top: 1.5rem;
+        }
+
+        .intro-decoration span:nth-child(1),
+        .intro-decoration span:nth-child(3) {
+            width: 38px;
+            height: 2px;
+            background: var(--brand-gold);
+        }
+
+        .intro-decoration span:nth-child(2) {
+            width: 6px;
+            height: 6px;
+            background: var(--brand-gold);
+            transform: rotate(45deg);
+        }
+
+        /* ================================
+           RIGHT SIDE
+        ================================= */
+
+        .auth-form-side {
+            background: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 390px;
+        }
+
+        /* ================================
+           LOGIN HEADING
+        ================================= */
+
+        .login-heading {
+            text-align: center;
+            margin-bottom: 1.6rem;
+        }
+
+        .login-heading h1 {
+            color: var(--brand-primary-green);
+            font-size: 1.55rem;
+            font-weight: 800;
+            margin: 0 0 .35rem;
+        }
+
+        .login-heading p {
+            color: var(--muted-text);
+            font-size: .78rem;
+            margin: 0;
+        }
+
+        .heading-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .35rem;
+            margin-top: .7rem;
+        }
+
+        .heading-decoration span:nth-child(1),
+        .heading-decoration span:nth-child(3) {
+            width: 32px;
+            height: 2px;
+            background: var(--brand-gold);
+        }
+
+        .heading-decoration span:nth-child(2) {
+            width: 5px;
+            height: 5px;
+            background: var(--brand-gold);
+            transform: rotate(45deg);
+        }
+
+        /* ================================
+           ERROR
+        ================================= */
+
+        .alert-danger-custom {
+            background: #FDF2F2;
+            border: 1px solid rgba(220, 53, 69, .25);
+            color: var(--danger-validation-red);
+            border-radius: 8px;
+            font-size: .75rem;
+            padding: .65rem .75rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ================================
+           FORM
+        ================================= */
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label-custom {
+            display: block;
+            color: var(--primary-text-dark);
+            font-size: .75rem;
+            font-weight: 700;
+            margin-bottom: .4rem;
+        }
+
+        .form-control-custom {
+            width: 100%;
+            height: 44px;
+            padding: .65rem .85rem;
+            background: var(--input-bg-subtle);
+            border: 1px solid var(--border-divider-neutral);
+            border-radius: 8px;
+            color: var(--primary-text-dark);
+            font-size: .8rem;
+            outline: none;
+            transition: all .2s ease;
+        }
+
+        .form-control-custom::placeholder {
+            color: #9BA39E;
+        }
+
+        .form-control-custom:focus {
+            background: #FFFFFF;
+            border-color: var(--brand-primary-green);
+            box-shadow: 0 0 0 3px rgba(27, 77, 46, .08);
+        }
+
+        /* ================================
+           PASSWORD
+        ================================= */
+
+        .password-field-wrapper {
+            position: relative;
+        }
+
+        .password-toggle-btn {
+            position: absolute;
+            top: 50%;
+            right: .8rem;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--muted-text);
+            font-size: .95rem;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .password-toggle-btn:hover {
+            color: var(--brand-primary-green);
+        }
+
+        /* ================================
+           REMEMBER / FORGOT
+        ================================= */
+
+        .login-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: .1rem 0 1.1rem;
+        }
+
+        .remember-wrapper {
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+        }
+
+        .remember-wrapper input {
+            width: 15px;
+            height: 15px;
+            accent-color: var(--brand-primary-green);
+            cursor: pointer;
+        }
+
+        .remember-label {
+            color: var(--muted-text);
+            font-size: .72rem;
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            color: var(--brand-primary-green);
+            font-size: .72rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .forgot-link:hover {
+            color: var(--brand-hover-green);
+        }
+
+        /* ================================
+           LOGIN BUTTON
+        ================================= */
+
+        .btn-login {
+            width: 100%;
+            height: 44px;
+            background: var(--brand-primary-green);
+            border: 1px solid var(--brand-primary-green);
+            border-radius: 8px;
+            color: #FFFFFF;
+            font-size: .8rem;
+            font-weight: 700;
+            transition: all .2s ease;
+        }
+
+        .btn-login:hover {
+            background: var(--brand-hover-green);
+            border-color: var(--brand-hover-green);
+            color: #FFFFFF;
+            transform: translateY(-1px);
+        }
+
+        /* ================================
+           DIVIDER
+        ================================= */
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+            margin: 1.15rem 0;
+            color: var(--muted-text);
+            font-size: .68rem;
+            font-weight: 600;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border-divider-neutral);
+        }
+
+        /* ================================
+           GOOGLE
+        ================================= */
+
+        .google-button {
+            width: 100%;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .55rem;
+            background: #FFFFFF;
+            border: 1px solid var(--border-divider-neutral);
+            border-radius: 8px;
+            color: var(--primary-text-dark);
+            font-size: .78rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all .2s ease;
+        }
+
+        .google-button:hover {
+            background: var(--input-bg-subtle);
+            border-color: #CFC8BB;
+            color: var(--primary-text-dark);
+        }
+
+        .google-button svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        /* ================================
+           SIGNUP
+        ================================= */
+
+        .signup-text {
+            text-align: center;
+            color: var(--muted-text);
+            font-size: .72rem;
+            margin-top: 1.2rem;
+        }
+
+        .signup-link {
+            color: var(--brand-primary-green);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .signup-link:hover {
+            color: var(--brand-hover-green);
+        }
+
+        /* ================================
+           SECURITY
+        ================================= */
+
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .4rem;
+            margin-top: 1rem;
+            color: var(--muted-text);
+            font-size: .65rem;
+        }
+
+        .security-note i {
+            color: var(--brand-primary-green);
+            font-size: .75rem;
+        }
+
+        /* ================================
+           FOOTER
+        ================================= */
+
+        .auth-footer {
+            height: 58px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4%;
+            background: var(--background-cream);
+            border-top: 1px solid var(--border-divider-neutral);
+            position: relative;
+            z-index: 5;
+        }
+
+        .footer-inner {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .footer-brand {
+            color: var(--brand-primary-green);
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: .4px;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .footer-links a {
+            color: var(--muted-text);
+            font-size: .65rem;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-primary-green);
+        }
+
+        .footer-copy {
+            color: var(--muted-text);
+            font-size: .65rem;
+        }
+
+        /* ================================
+           TABLET
+        ================================= */
+
+        @media (max-width: 991px) {
+
+            body {
+                overflow: auto;
+            }
+
+            .auth-header {
+                height: 64px;
+                padding: 0 1.5rem;
+            }
+
+            .auth-brand {
+                font-size: 1.45rem;
+            }
+
+            .auth-main {
+                height: auto;
+                min-height: calc(100vh - 64px);
+                padding: 1.25rem;
+                overflow: visible;
+            }
+
+            .auth-card {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+                min-height: auto;
+            }
+
+            .auth-intro {
+                padding: 2rem;
+                min-height: 220px;
+            }
+
+            .intro-title {
+                font-size: 2.4rem;
+            }
+
+            .auth-form-side {
+                padding: 2rem 1.5rem;
+                overflow: visible;
+            }
+
+            .auth-footer {
+                height: auto;
+                padding: .9rem 1.25rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 575px) {
+
+            .auth-header {
+                height: 60px;
+                padding: 0 1rem;
+            }
+
+            .auth-brand {
+                font-size: 1.25rem;
+            }
+
+            .auth-main {
+                padding: .75rem;
+            }
+
+            .auth-card {
+                border-radius: 14px;
+            }
+
+            .auth-intro {
+                padding: 1.5rem;
+                min-height: 190px;
+            }
+
+            .intro-eyebrow {
+                font-size: .62rem;
+            }
+
+            .intro-title {
+                font-size: 2rem;
+                letter-spacing: -1px;
+                margin-bottom: .8rem;
+            }
+
+            .intro-description {
+                font-size: .78rem;
+                line-height: 1.55;
+            }
+
+            .intro-decoration {
+                margin-top: 1rem;
+            }
+
+            .auth-form-side {
+                padding: 1.5rem 1rem;
+            }
+
+            .login-heading {
+                margin-bottom: 1.3rem;
+            }
+
+            .login-heading h1 {
+                font-size: 1.4rem;
+            }
+
+            .footer-links {
+                gap: .75rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .footer-copy {
+                text-align: center;
+            }
+
+            .leaf-top-right {
+                width: 130px;
+                height: 130px;
+            }
+
+            .leaf-bottom-left {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="auth-header">
+
+        <a
+            href="/"
+            class="auth-brand"
+        >
+            NAADAN BOX
+        </a>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="auth-main">
+
+        <!-- BRAND DECORATIONS -->
+
+        <div class="leaf-decoration leaf-top-right"></div>
+
+        <div class="leaf-decoration leaf-bottom-left"></div>
+
+
+        <!-- AUTH CARD -->
+
+        <div class="auth-card">
+
+            <!-- LEFT INTRO -->
+
+            <section class="auth-intro">
+
+                <div class="auth-intro-content">
+
+                    <div class="intro-eyebrow">
+                        Authentic Kerala
+                    </div>
+
+                    <h1 class="intro-title">
+                        Welcome Back<br>
+                        to NAADAN BOX
+                    </h1>
+
+                    <p class="intro-description">
+                        Continue your journey with authentic Kerala
+                        Ready-to-Cook Curry Kits.
+                    </p>
+
+                    <div class="intro-decoration">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- LOGIN SIDE -->
+
+            <section class="auth-form-side">
+
+                <div class="login-card">
+
+                    <!-- LOGIN HEADING -->
+
+                    <div class="login-heading">
+
+                        <h1>
+                            Login
+                        </h1>
+
+                        <p>
+                            Sign in to continue shopping.
+                        </p>
+
+                        <div class="heading-decoration">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- ERROR -->
+
+                    <% if (typeof error !== 'undefined' && error) { %>
+
+                        <div
+                            class="alert-danger-custom"
+                            role="alert"
+                        >
+
+                            <i class="bi bi-exclamation-triangle-fill me-1"></i>
+
+                            <%= error %>
+
+                        </div>
+
+                    <% } %>
+
+
+                    <!-- LOGIN FORM -->
+
+                    <form
+                        action="/login"
+                        method="POST"
+                        id="loginForm"
+                    >
+
+                        <!-- EMAIL -->
+
+                        <div class="form-group">
+
+                            <label
+                                for="email"
+                                class="form-label-custom"
+                            >
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control-custom"
+                                id="email"
+                                name="email"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="form-group">
+
+                            <label
+                                for="password"
+                                class="form-label-custom"
+                            >
+                                Password
+                            </label>
+
+                            <div class="password-field-wrapper">
+
+                                <input
+                                    type="password"
+                                    class="form-control-custom"
+                                    id="password"
+                                    name="password"
+                                    placeholder="••••••••"
+                                    autocomplete="new-password"
+                                    required
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle-btn"
+                                    id="togglePasswordBtn"
+                                    aria-label="Show or hide password"
+                                >
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- REMEMBER + FORGOT -->
+
+                        <div class="login-options">
+
+                            <div class="remember-wrapper">
+
+                                <input
+                                    type="checkbox"
+                                    id="rememberMe"
+                                    name="rememberMe"
+                                >
+
+                                <label
+                                    for="rememberMe"
+                                    class="remember-label"
+                                >
+                                    Remember Me
+                                </label>
+
+                            </div>
+
+                            <a
+                                href="/forgot-password"
+                                class="forgot-link"
+                            >
+                                Forgot Password?
+                            </a>
+
+                        </div>
+
+
+                        <!-- LOGIN BUTTON -->
+
+                        <button
+                            type="submit"
+                            class="btn-login"
+                        >
+                            Login
+                        </button>
+
+                    </form>
+
+
+                    <!-- DIVIDER -->
+
+                    <div class="login-divider">
+                        <span>OR</span>
+                    </div>
+
+
+                    <!-- GOOGLE LOGIN -->
+
+                    <a
+                        href="/auth/google"
+                        class="google-button"
+                    >
+
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+
+                            <path
+                                fill="#4285F4"
+                                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                            />
+
+                            <path
+                                fill="#34A853"
+                                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                            />
+
+                            <path
+                                fill="#FBBC05"
+                                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                            />
+
+                            <path
+                                fill="#EA4335"
+                                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                            />
+
+                        </svg>
+
+                        Continue with Google
+
+                    </a>
+
+
+                    <!-- SIGNUP -->
+
+                    <div class="signup-text">
+
+                        Don't have an account?
+
+                        <a
+                            href="/signup"
+                            class="signup-link"
+                        >
+                            Create Account
+                        </a>
+
+                    </div>
+
+
+                    <!-- SECURITY -->
+
+                    <div class="security-note">
+
+                        <i class="bi bi-shield-check"></i>
+
+                        <span>
+                            Your information is securely protected
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="auth-footer">
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+                NAADAN BOX
+            </div>
+
+            <div class="footer-links">
+
+                <a href="#">
+                    Privacy Policy
+                </a>
+
+                <a href="#">
+                    Terms of Service
+                </a>
+
+                <a href="#">
+                    Shipping Policy
+                </a>
+
+                <a href="#">
+                    Refund Policy
+                </a>
+
+            </div>
+
+            <div class="footer-copy">
+                © 2024 NAADAN BOX
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Bootstrap JS -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+
+    <!-- Login JS -->
+
+    <script src="/js/login.js"></script>
+
+</body>
+</html>

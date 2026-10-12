@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Dashboard - Naadan Box
+    </title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+         ===================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         DASHBOARD STYLES
+         ===================================================== -->
+
+    <style>
+
+        /* =====================================================
+           ROOT
+           ===================================================== */
+
+        :root {
+
+            --naadan-green: #1B5233;
+
+            --naadan-green-dark: #16452B;
+
+            --naadan-green-light: #EDF4ED;
+
+            --naadan-gold: #C99B25;
+
+            --naadan-gold-light: #F8EFCF;
+
+            --naadan-cream: #F8F5ED;
+
+            --naadan-white: #FFFDF8;
+
+            --naadan-border: #E5DFD2;
+
+            --naadan-text: #25372C;
+
+            --naadan-muted: #7B857D;
+
+            --naadan-red: #C95454;
+
+        }
+
+
+        /* =====================================================
+           GLOBAL
+           ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            overflow-y: scroll;
+        }
+
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            padding: 0;
+
+            background: var(--naadan-cream);
+
+            color: var(--naadan-text);
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+        }
+
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
+
+        .admin-main {
+
+            margin-left: 255px;
+
+            min-height: 100vh;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           DASHBOARD CONTENT
+           ===================================================== */
+
+        .dashboard-content {
+
+            position: relative;
+
+            padding: 30px 34px 45px;
+
+            max-width: 1700px;
+
+            margin: 0 auto;
+        }
+
+
+        /* =====================================================
+           BOTANICAL DECORATIONS
+           ===================================================== */
+
+        .dashboard-decoration {
+
+            position: absolute;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        /* Large right leaf */
+
+        .dashboard-leaf-right {
+
+            width: 190px;
+            height: 80px;
+
+            right: -55px;
+            top: 85px;
+
+            background:
+                rgba(214, 217, 200, .28);
+
+            border-radius:
+                100% 0 100% 0;
+
+            transform: rotate(-35deg);
+        }
+
+
+        .dashboard-leaf-right::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 1px;
+            height: 130px;
+
+            left: 95px;
+            top: -28px;
+
+            background:
+                rgba(193, 181, 143, .25);
+
+            transform: rotate(-20deg);
+        }
+
+
+        /* Bottom-left leaf */
+
+        .dashboard-leaf-bottom {
+
+            width: 145px;
+            height: 62px;
+
+            left: -70px;
+            bottom: 55px;
+
+            background:
+                rgba(218, 218, 203, .25);
+
+            border-radius:
+                100% 0 100% 0;
+
+            transform: rotate(42deg);
+        }
+
+
+        .dashboard-leaf-bottom::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 1px;
+            height: 100px;
+
+            left: 72px;
+            top: -18px;
+
+            background:
+                rgba(193, 181, 143, .20);
+
+            transform: rotate(-20deg);
+        }
+
+
+        /* =====================================================
+           DASHBOARD INTRO
+           ===================================================== */
+
+        .dashboard-intro {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin-bottom: 26px;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-between;
+        }
+
+
+        .dashboard-heading-wrap {
+
+            position: relative;
+        }
+
+
+        .dashboard-eyebrow {
+
+            margin-bottom: 7px;
+
+            color: var(--naadan-gold);
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+
+        .dashboard-heading {
+
+            margin: 0;
+
+            color: var(--naadan-green);
+
+            font-size: 27px;
+
+            font-weight: 800;
+
+            letter-spacing: -.5px;
+        }
+
+
+        .dashboard-subtitle {
+
+            margin: 6px 0 0;
+
+            color: var(--naadan-muted);
+
+            font-size: 12px;
+        }
+
+
+        /* Gold decorative line */
+
+        .heading-decoration {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            margin-top: 13px;
+        }
+
+
+        .heading-decoration::before {
+
+            content: "";
+
+            width: 34px;
+            height: 2px;
+
+            background: var(--naadan-gold);
+
+            border-radius: 10px;
+        }
+
+
+        .heading-decoration span {
+
+            width: 5px;
+            height: 5px;
+
+            background: var(--naadan-gold);
+
+            transform: rotate(45deg);
+        }
+
+
+        .heading-decoration::after {
+
+            content: "";
+
+            width: 26px;
+            height: 1px;
+
+            background: #D9CDA9;
+        }
+
+
+        /* =====================================================
+           DATE / OVERVIEW LABEL
+           ===================================================== */
+
+        .dashboard-date {
+
+            padding: 9px 13px;
+
+            border: 1px solid var(--naadan-border);
+
+            border-radius: 8px;
+
+            background: rgba(255,255,255,.52);
+
+            color: var(--naadan-muted);
+
+            font-size: 11px;
+        }
+
+
+        .dashboard-date i {
+
+            margin-right: 5px;
+
+            color: var(--naadan-green);
+        }
+
+
+        /* =====================================================
+           STATISTICS
+           ===================================================== */
+
+        .stats-grid {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =====================================================
+           STAT CARD
+           ===================================================== */
+
+        .stat-card {
+
+            position: relative;
+
+            min-height: 142px;
+
+            padding: 20px;
+
+            background: var(--naadan-white);
+
+            border: 1px solid var(--naadan-border);
+
+            border-radius: 13px;
+
+            overflow: hidden;
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .stat-card:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px rgba(27,82,51,.07);
+        }
+
+
+        /* Gold top line */
+
+        .stat-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 20px;
+
+            top: 0;
+
+            width: 35px;
+
+            height: 3px;
+
+            background: var(--naadan-gold);
+
+            border-radius:
+                0 0 5px 5px;
+        }
+
+
+        /* Subtle decorative circle */
+
+        .stat-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 85px;
+
+            height: 85px;
+
+            right: -35px;
+
+            top: -35px;
+
+            background:
+                rgba(232,232,220,.42);
+
+            border-radius: 50%;
+        }
+
+
+        .stat-top {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        /* =====================================================
+           STAT ICON
+           ===================================================== */
+
+        .stat-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: var(--naadan-green);
+
+            background: var(--naadan-green-light);
+
+            font-size: 18px;
+        }
+
+
+        .stat-card:nth-child(2) .stat-icon,
+        .stat-card:nth-child(4) .stat-icon {
+
+            color: var(--naadan-gold);
+
+            background: var(--naadan-gold-light);
+        }
+
+
+        /* =====================================================
+           GROWTH
+           ===================================================== */
+
+        .stat-growth {
+
+            color: var(--naadan-green);
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+
+        .stat-growth i {
+
+            margin-right: 2px;
+
+            font-size: 9px;
+        }
+
+
+        /* =====================================================
+           STAT TEXT
+           ===================================================== */
+
+        .stat-label {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin-top: 17px;
+
+            color: var(--naadan-muted);
+
+            font-size: 11px;
+
+            font-weight: 500;
+        }
+
+
+        .stat-value {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin-top: 3px;
+
+            color: var(--naadan-green);
+
+            font-size: 24px;
+
+            font-weight: 800;
+
+            letter-spacing: -.3px;
+        }
+
+
+        /* =====================================================
+           MIDDLE GRID
+           ===================================================== */
+
+        .dashboard-grid {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 2.05fr)
+                minmax(300px, 1fr);
+
+            gap: 17px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =====================================================
+           COMMON CARD
+           ===================================================== */
+
+        .dashboard-card {
+
+            position: relative;
+
+            background: var(--naadan-white);
+
+            border: 1px solid var(--naadan-border);
+
+            border-radius: 13px;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           CARD HEADER
+           ===================================================== */
+
+        .card-header-custom {
+
+            position: relative;
+
+            padding: 20px 21px 0;
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+        }
+
+
+        .card-heading-wrap {
+
+            position: relative;
+        }
+
+
+        .card-title {
+
+            margin: 0;
+
+            color: var(--naadan-green);
+
+            font-size: 17px;
+
+            font-weight: 800;
+        }
+
+
+        .card-subtitle {
+
+            margin-top: 4px;
+
+            color: var(--naadan-muted);
+
+            font-size: 10.5px;
+        }
+
+
+        /* Small gold line */
+
+        .card-heading-decoration {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            margin-top: 9px;
+        }
+
+
+        .card-heading-decoration::before {
+
+            content: "";
+
+            width: 29px;
+            height: 2px;
+
+            background: var(--naadan-gold);
+
+            border-radius: 5px;
+        }
+
+
+        .card-heading-decoration span {
+
+            width: 4px;
+            height: 4px;
+
+            background: var(--naadan-gold);
+
+            transform: rotate(45deg);
+        }
+
+
+        /* =====================================================
+           PERIOD SELECT
+           ===================================================== */
+
+        .period-select {
+
+            height: 34px;
+
+            min-width: 108px;
+
+            padding: 0 9px;
+
+            border: 1px solid var(--naadan-border);
+
+            border-radius: 8px;
+
+            outline: none;
+
+            background: #F8F5ED;
+
+            color: var(--naadan-text);
+
+            font-size: 11px;
+
+            cursor: pointer;
+        }
+
+
+        .period-select:focus {
+
+            border-color: #CDBB7C;
+
+            box-shadow:
+                0 0 0 3px rgba(201,155,37,.08);
+        }
+
+
+        /* =====================================================
+           SALES CHART
+           ===================================================== */
+
+        .sales-chart {
+
+            height: 250px;
+
+            padding: 12px 20px 15px;
+        }
+
+
+        .sales-chart svg {
+
+            width: 100%;
+
+            height: 100%;
+
+            display: block;
+        }
+
+
+        /* =====================================================
+           QUICK ACTIONS
+           ===================================================== */
+
+        .quick-actions {
+
+            padding: 20px;
+        }
+
+
+        .quick-action-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+
+            margin-top: 17px;
+        }
+
+
+        .quick-action {
+
+            position: relative;
+
+            min-height: 86px;
+
+            padding: 12px;
+
+            border: 1px solid transparent;
+
+            border-radius: 10px;
+
+            background: #F8F5ED;
+
+            color: var(--naadan-text);
+
+            text-decoration: none;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            transition:
+                transform .2s ease,
+                border-color .2s ease,
+                background .2s ease;
+        }
+
+
+        .quick-action:hover {
+
+            transform: translateY(-2px);
+
+            border-color: #DAD1BC;
+
+            background: #F4F0E6;
+
+            color: var(--naadan-green);
+        }
+
+
+        .quick-action i {
+
+            font-size: 19px;
+
+            color: var(--naadan-green);
+        }
+
+
+        /* Primary */
+
+        .quick-action.primary {
+
+            background: var(--naadan-green);
+
+            color: #fff;
+
+            border-color: var(--naadan-green);
+        }
+
+
+        .quick-action.primary i {
+
+            color: #fff;
+        }
+
+
+        .quick-action.primary:hover {
+
+            background: var(--naadan-green-dark);
+
+            color: #fff;
+        }
+
+
+        /* Gold */
+
+        .quick-action.gold {
+
+            background: var(--naadan-gold-light);
+
+            color: var(--naadan-text);
+        }
+
+
+        .quick-action.gold i {
+
+            color: var(--naadan-gold);
+        }
+
+
+        .quick-action.gold:hover {
+
+            background: #F5E8BC;
+
+            color: var(--naadan-green);
+        }
+
+
+        /* =====================================================
+           ORDER STATUS
+           ===================================================== */
+
+        .order-status-card {
+
+            position: relative;
+
+            z-index: 2;
+
+            padding-bottom: 20px;
+        }
+
+
+        .order-status-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 10px;
+
+            padding: 17px 20px 0;
+        }
+
+
+        /* =====================================================
+           STATUS BOX
+           ===================================================== */
+
+        .status-box {
+
+            position: relative;
+
+            min-height: 78px;
+
+            padding: 10px;
+
+            border: 1px solid #ECE7DC;
+
+            border-radius: 10px;
+
+            background: #F8F5ED;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+
+        .status-box::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 3px;
+
+            border-radius:
+                0 4px 4px 0;
+        }
+
+
+        .status-box.pending::before {
+
+            background: var(--naadan-gold);
+        }
+
+
+        .status-box.processing::before {
+
+            background: var(--naadan-green);
+        }
+
+
+        .status-box.shipped::before {
+
+            background: #A65C5C;
+        }
+
+
+        .status-box.delivered::before {
+
+            background: #4C8060;
+        }
+
+
+        .status-label {
+
+            color: var(--naadan-muted);
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: .5px;
+
+            text-transform: uppercase;
+        }
+
+
+        .status-value {
+
+            margin-top: 5px;
+
+            color: var(--naadan-green);
+
+            font-size: 20px;
+
+            font-weight: 800;
+        }
+
+
+        .status-box.pending .status-value {
+
+            color: var(--naadan-gold);
+        }
+
+
+        .status-box.shipped .status-value {
+
+            color: #9B4D4D;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 1200px) {
+
+            .stats-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .dashboard-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 900px) {
+
+            .admin-main {
+
+                margin-left: 78px;
+            }
+
+
+            .dashboard-content {
+
+                padding:
+                    25px
+                    22px
+                    35px;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .admin-main {
+
+                margin-left: 65px;
+            }
+
+
+            .dashboard-content {
+
+                padding:
+                    20px
+                    13px
+                    30px;
+            }
+
+
+            .dashboard-intro {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 12px;
+            }
+
+
+            .dashboard-heading {
+
+                font-size: 23px;
+            }
+
+
+            .dashboard-date {
+
+                display: none;
+            }
+
+
+            .stats-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .order-status-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .sales-chart {
+
+                height: 215px;
+
+                padding-left: 12px;
+
+                padding-right: 12px;
+            }
+
+
+            .card-header-custom {
+
+                padding-left: 16px;
+
+                padding-right: 16px;
+            }
+
+
+            .quick-actions {
+
+                padding: 16px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <%- include("partials/sidebar", {
+        activePage: "dashboard"
+    }) %>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="admin-main">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <%- include("partials/header", {
+            pageTitle: "Dashboard",
+            showSearch: true,
+            admin: admin
+        }) %>
+
+
+        <!-- =================================================
+             DECORATIONS
+             ================================================= -->
+
+        <div class="dashboard-decoration dashboard-leaf-right"></div>
+
+        <div class="dashboard-decoration dashboard-leaf-bottom"></div>
+
+
+        <!-- =================================================
+             DASHBOARD CONTENT
+             ================================================= -->
+
+        <section class="dashboard-content">
+
+
+            <!-- =================================================
+                 INTRO
+                 ================================================= -->
+
+            <div class="dashboard-intro">
+
+
+                <div class="dashboard-heading-wrap">
+
+                    <div class="dashboard-eyebrow">
+                        Naadan Box Overview
+                    </div>
+
+
+                    <h2 class="dashboard-heading">
+                        Welcome back, Admin
+                    </h2>
+
+
+                    <p class="dashboard-subtitle">
+                        Here's what's happening with your store today.
+                    </p>
+
+
+                    <div class="heading-decoration">
+
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-date">
+
+                    <i class="bi bi-calendar3"></i>
+
+                    Store Overview
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 STATISTICS
+                 ================================================= -->
+
+            <div class="stats-grid">
+
+
+                <!-- Revenue -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-cash-stack"></i>
+
+                        </div>
+
+
+                        <div class="stat-growth">
+
+                            <i class="bi bi-graph-up-arrow"></i>
+
+                            +12%
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-label">
+
+                        Total Revenue
+
+                    </div>
+
+
+                    <div class="stat-value">
+
+                        ₹1,45,000
+
+                    </div>
+
+                </div>
+
+
+                <!-- Orders -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-bag-fill"></i>
+
+                        </div>
+
+
+                        <div class="stat-growth">
+
+                            <i class="bi bi-graph-up-arrow"></i>
+
+                            +8.4%
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-label">
+
+                        Total Orders
+
+                    </div>
+
+
+                    <div class="stat-value">
+
+                        1,245
+
+                    </div>
+
+                </div>
+
+
+                <!-- Customers -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-person-fill"></i>
+
+                        </div>
+
+
+                        <div class="stat-growth">
+
+                            <i class="bi bi-graph-up-arrow"></i>
+
+                            +9.2%
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-label">
+
+                        Total Customers
+
+                    </div>
+
+
+                    <div class="stat-value">
+
+                        860
+
+                    </div>
+
+                </div>
+
+
+                <!-- Products -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-box-fill"></i>
+
+                        </div>
+
+
+                        <div class="stat-growth">
+
+                            <i class="bi bi-graph-up-arrow"></i>
+
+                            +2.1%
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-label">
+
+                        Total Products
+
+                    </div>
+
+
+                    <div class="stat-value">
+
+                        482
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SALES + QUICK ACTIONS
+                 ================================================= -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- =================================================
+                     SALES OVERVIEW
+                     ================================================= -->
+
+                <div class="dashboard-card">
+
+
+                    <div class="card-header-custom">
+
+
+                        <div class="card-heading-wrap">
+
+                            <h2 class="card-title">
+
+                                Sales Overview
+
+                            </h2>
+
+
+                            <div class="card-subtitle">
+
+                                Revenue performance over time
+
+                            </div>
+
+
+                            <div class="card-heading-decoration">
+
+                                <span></span>
+
+                            </div>
+
+                        </div>
+
+
+                        <select class="period-select">
+
+                            <option value="7">
+                                Last 7 Days
+                            </option>
+
+                            <option value="30">
+                                Last 30 Days
+                            </option>
+
+                            <option value="90">
+                                Last 3 Months
+                            </option>
+
+                            <option value="365">
+                                Last 12 Months
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         SALES CHART
+                         ================================================= -->
+
+                    <div class="sales-chart">
+
+                        <svg
+                            viewBox="0 0 900 250"
+                            preserveAspectRatio="none"
+                        >
+
+
+                            <!-- Grid -->
+
+                            <line
+                                x1="0"
+                                y1="30"
+                                x2="900"
+                                y2="30"
+                                stroke="#E5DFD2"
+                                stroke-width="1"
+                                stroke-dasharray="3 3"
+                            />
+
+
+                            <line
+                                x1="0"
+                                y1="85"
+                                x2="900"
+                                y2="85"
+                                stroke="#E5DFD2"
+                                stroke-width="1"
+                                stroke-dasharray="3 3"
+                            />
+
+
+                            <line
+                                x1="0"
+                                y1="140"
+                                x2="900"
+                                y2="140"
+                                stroke="#E5DFD2"
+                                stroke-width="1"
+                                stroke-dasharray="3 3"
+                            />
+
+
+                            <line
+                                x1="0"
+                                y1="195"
+                                x2="900"
+                                y2="195"
+                                stroke="#E5DFD2"
+                                stroke-width="1"
+                                stroke-dasharray="3 3"
+                            />
+
+
+                            <!-- Area -->
+
+                            <path
+                                d="
+                                    M0,225
+                                    L80,205
+                                    L160,215
+                                    L240,165
+                                    L320,180
+                                    L400,125
+                                    L480,145
+                                    L560,105
+                                    L640,130
+                                    L720,95
+                                    L810,103
+                                    L900,110
+                                    L900,240
+                                    L0,240
+                                    Z
+                                "
+                                fill="#1B5233"
+                                opacity=".07"
+                            />
+
+
+                            <!-- Line -->
+
+                            <polyline
+                                points="
+                                    0,225
+                                    80,205
+                                    160,215
+                                    240,165
+                                    320,180
+                                    400,125
+                                    480,145
+                                    560,105
+                                    640,130
+                                    720,95
+                                    810,103
+                                    900,110
+                                "
+                                fill="none"
+                                stroke="#1B5233"
+                                stroke-width="2.5"
+                            />
+
+
+                            <!-- Highlight -->
+
+                            <circle
+                                cx="720"
+                                cy="95"
+                                r="5"
+                                fill="#C99B25"
+                            />
+
+
+                            <circle
+                                cx="720"
+                                cy="95"
+                                r="9"
+                                fill="#C99B25"
+                                opacity=".12"
+                            />
+
+
+                            <!-- Labels -->
+
+                            <text
+                                x="0"
+                                y="248"
+                                font-size="10"
+                                fill="#7B857D"
+                            >
+                                WK 1
+                            </text>
+
+
+                            <text
+                                x="285"
+                                y="248"
+                                font-size="10"
+                                fill="#7B857D"
+                            >
+                                WK 2
+                            </text>
+
+
+                            <text
+                                x="570"
+                                y="248"
+                                font-size="10"
+                                fill="#7B857D"
+                            >
+                                WK 3
+                            </text>
+
+
+                            <text
+                                x="875"
+                                y="248"
+                                font-size="10"
+                                fill="#7B857D"
+                            >
+                                WK 4
+                            </text>
+
+
+                        </svg>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     QUICK ACTIONS
+                     ================================================= -->
+
+                <div class="dashboard-card">
+
+
+                    <div class="quick-actions">
+
+
+                        <div class="card-heading-wrap">
+
+                            <h2 class="card-title">
+
+                                Quick Actions
+
+                            </h2>
+
+
+                            <div class="card-subtitle">
+
+                                Manage your store quickly
+
+                            </div>
+
+
+                            <div class="card-heading-decoration">
+
+                                <span></span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quick-action-grid">
+
+
+                            <a
+                                href="#"
+                                class="quick-action primary"
+                            >
+
+                                <i class="bi bi-plus-circle"></i>
+
+                                <span>
+                                    Add Product
+                                </span>
+
+                            </a>
+
+
+                            <a
+                                href="#"
+                                class="quick-action"
+                            >
+
+                                <i class="bi bi-folder-plus"></i>
+
+                                <span>
+                                    Add Category
+                                </span>
+
+                            </a>
+
+
+                            <a
+                                href="#"
+                                class="quick-action"
+                            >
+
+                                <i class="bi bi-ticket-perforated"></i>
+
+                                <span>
+                                    Create Coupon
+                                </span>
+
+                            </a>
+
+
+                            <a
+                                href="#"
+                                class="quick-action gold"
+                            >
+
+                                <i class="bi bi-file-earmark-bar-graph"></i>
+
+                                <span>
+                                    Sales Report
+                                </span>
+
+                            </a>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ORDER STATUS
+                 ================================================= -->
+
+            <div class="dashboard-card order-status-card">
+
+
+                <div class="card-header-custom">
+
+
+                    <div class="card-heading-wrap">
+
+                        <h2 class="card-title">
+
+                            Order Status Overview
+
+                        </h2>
+
+
+                        <div class="card-subtitle">
+
+                            Current order distribution
+
+                        </div>
+
+
+                        <div class="card-heading-decoration">
+
+                            <span></span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="order-status-grid">
+
+
+                    <!-- Pending -->
+
+                    <div class="status-box pending">
+
+                        <span class="status-label">
+                            Pending
+                        </span>
+
+                        <span class="status-value">
+                            28
+                        </span>
+
+                    </div>
+
+
+                    <!-- Processing -->
+
+                    <div class="status-box processing">
+
+                        <span class="status-label">
+                            Processing
+                        </span>
+
+                        <span class="status-value">
+                            145
+                        </span>
+
+                    </div>
+
+
+                    <!-- Shipped -->
+
+                    <div class="status-box shipped">
+
+                        <span class="status-label">
+                            Shipped
+                        </span>
+
+                        <span class="status-value">
+                            38
+                        </span>
+
+                    </div>
+
+
+                    <!-- Delivered -->
+
+                    <div class="status-box delivered">
+
+                        <span class="status-label">
+                            Delivered
+                        </span>
+
+                        <span class="status-value">
+                            892
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         DASHBOARD JAVASCRIPT
+         ===================================================== -->
+
+    <script src="/js/adminDashboard.js"></script>
+
+
+    <!-- =====================================================
+         BOOTSTRAP JAVASCRIPT
+         ===================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+
+</body>
+
+</html>

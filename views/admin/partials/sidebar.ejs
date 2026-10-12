@@ -1,0 +1,1217 @@
+<!-- =========================================================
+     NAADAN BOX ADMIN SIDEBAR
+     Designed to match the USER-SIDE Naadan Box UI
+     ========================================================= -->
+
+<style>
+
+    /* =========================================================
+       SIDEBAR
+       ========================================================= */
+
+    .admin-sidebar {
+        position: fixed;
+
+        top: 0;
+        left: 0;
+
+        width: 255px;
+        height: 100vh;
+
+        background: #f8f5ed;
+
+        border-right: 1px solid #e7e2d7;
+
+        z-index: 1000;
+
+        display: flex;
+        flex-direction: column;
+
+        overflow: hidden;
+
+        box-sizing: border-box;
+    }
+
+
+    /* =========================================================
+       BOTANICAL DECORATIONS
+       ========================================================= */
+
+    .admin-sidebar-decoration {
+        position: absolute;
+
+        pointer-events: none;
+
+        z-index: 0;
+    }
+
+
+    /*
+       Large soft leaf in upper-right
+    */
+
+    .admin-leaf-top {
+        width: 125px;
+        height: 55px;
+
+        right: -50px;
+        top: 125px;
+
+        background: rgba(214, 217, 200, .35);
+
+        border-radius: 100% 0 100% 0;
+
+        transform: rotate(-35deg);
+    }
+
+
+    .admin-leaf-top::after {
+        content: "";
+
+        position: absolute;
+
+        width: 1px;
+        height: 90px;
+
+        left: 62px;
+        top: -15px;
+
+        background: rgba(190, 181, 145, .25);
+
+        transform: rotate(-20deg);
+    }
+
+
+    /*
+       Lower-left leaf
+    */
+
+    .admin-leaf-bottom {
+        width: 105px;
+        height: 46px;
+
+        left: -48px;
+        bottom: 145px;
+
+        background: rgba(220, 218, 201, .30);
+
+        border-radius: 100% 0 100% 0;
+
+        transform: rotate(45deg);
+    }
+
+
+    .admin-leaf-bottom::after {
+        content: "";
+
+        position: absolute;
+
+        width: 1px;
+        height: 75px;
+
+        left: 52px;
+        top: -13px;
+
+        background: rgba(190, 181, 145, .22);
+
+        transform: rotate(-20deg);
+    }
+
+
+    /*
+       Very subtle bottom leaf
+    */
+
+    .admin-leaf-small {
+        width: 70px;
+        height: 32px;
+
+        right: 20px;
+        bottom: 25px;
+
+        background: rgba(220, 218, 201, .18);
+
+        border-radius: 100% 0 100% 0;
+
+        transform: rotate(28deg);
+    }
+
+
+    /* =========================================================
+       BRAND
+       ========================================================= */
+
+    .admin-brand {
+        position: relative;
+
+        z-index: 2;
+
+        padding: 31px 25px 27px;
+
+        border-bottom: 1px solid #e7e2d7;
+    }
+
+
+    .admin-brand-title {
+        margin: 0;
+
+        color: #1b5233;
+
+        font-size: 23px;
+
+        font-weight: 800;
+
+        letter-spacing: 1px;
+
+        line-height: 1.1;
+    }
+
+
+    .admin-brand-title span {
+        color: #c99b25;
+    }
+
+
+    .admin-brand-subtitle {
+        margin: 7px 0 0;
+
+        color: #7d857e;
+
+        font-size: 9px;
+
+        font-weight: 600;
+
+        letter-spacing: 2px;
+
+        text-transform: uppercase;
+    }
+
+
+    /*
+       Small gold botanical divider
+    */
+
+    .admin-brand-divider {
+        display: flex;
+
+        align-items: center;
+
+        gap: 7px;
+
+        margin-top: 17px;
+    }
+
+
+    .admin-brand-divider::before {
+        content: "";
+
+        width: 30px;
+        height: 2px;
+
+        background: #d0a12d;
+
+        border-radius: 10px;
+    }
+
+
+    .admin-brand-divider span {
+        width: 5px;
+        height: 5px;
+
+        background: #d0a12d;
+
+        transform: rotate(45deg);
+    }
+
+
+    .admin-brand-divider::after {
+        content: "";
+
+        width: 35px;
+        height: 1px;
+
+        background: #ded5bf;
+    }
+
+
+    /* =========================================================
+       NAVIGATION
+       ========================================================= */
+
+    .admin-nav {
+        position: relative;
+
+        z-index: 2;
+
+        flex: 1;
+
+        padding: 22px 12px 10px;
+
+        overflow-y: auto;
+
+        overflow-x: hidden;
+    }
+
+
+    .admin-nav::-webkit-scrollbar {
+        width: 3px;
+    }
+
+
+    .admin-nav::-webkit-scrollbar-thumb {
+        background: #d8d1c1;
+
+        border-radius: 10px;
+    }
+
+
+    .admin-nav a {
+        position: relative;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 14px;
+
+        width: 100%;
+        height: 46px;
+
+        margin-bottom: 5px;
+
+        padding: 0 15px;
+
+        box-sizing: border-box;
+
+        border-radius: 9px;
+
+        color: #39463d;
+
+        text-decoration: none;
+
+        font-size: 13px;
+
+        font-weight: 500;
+
+        transition:
+            background .2s ease,
+            color .2s ease,
+            transform .2s ease;
+    }
+
+
+    /* =========================================================
+       ICONS
+       ========================================================= */
+
+    .admin-nav a i {
+        width: 19px;
+
+        color: #567461;
+
+        font-size: 16px;
+
+        text-align: center;
+
+        transition: color .2s ease;
+    }
+
+
+    /* =========================================================
+       HOVER
+       ========================================================= */
+
+    .admin-nav a:hover {
+        background: #eeece4;
+
+        color: #1b5233;
+
+        transform: translateX(2px);
+    }
+
+
+    .admin-nav a:hover i {
+        color: #1b5233;
+    }
+
+
+    /* =========================================================
+       ACTIVE ITEM
+       Same visual language as user-side profile sidebar
+       ========================================================= */
+
+    .admin-nav a.active {
+        background: #1b5233;
+
+        color: #ffffff;
+
+        font-weight: 600;
+
+        box-shadow:
+            0 5px 12px rgba(27, 82, 51, .12);
+    }
+
+
+    .admin-nav a.active i {
+        color: #ffffff;
+    }
+
+
+    /*
+       Gold accent on active item
+    */
+
+    .admin-nav a.active::before {
+        content: "";
+
+        position: absolute;
+
+        left: 0;
+
+        top: 11px;
+        bottom: 11px;
+
+        width: 3px;
+
+        background: #d0a12d;
+
+        border-radius: 0 4px 4px 0;
+    }
+
+
+    /* =========================================================
+       LOGOUT
+       ========================================================= */
+
+    .admin-sidebar-logout {
+        position: relative;
+
+        z-index: 2;
+
+        margin: 0 12px;
+
+        padding: 12px 0 19px;
+
+        border-top: 1px solid #e5dfd2;
+    }
+
+
+    .admin-sidebar-logout .admin-nav {
+        padding: 0;
+    }
+
+
+    .admin-sidebar-logout .admin-nav a {
+        margin-bottom: 0;
+
+        color: #c94c4c;
+    }
+
+
+    .admin-sidebar-logout .admin-nav a i {
+        color: #d35b5b;
+    }
+
+
+    .admin-sidebar-logout .admin-nav a:hover {
+        background: #f6eaea;
+
+        color: #b83d3d;
+
+        transform: none;
+    }
+
+
+    /* =========================================================
+       LOGOUT MODAL
+       ========================================================= */
+
+    .logout-modal-overlay {
+        position: fixed;
+
+        inset: 0;
+
+        z-index: 5000;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: rgba(30, 45, 35, .38);
+
+        backdrop-filter: blur(5px);
+
+        -webkit-backdrop-filter: blur(5px);
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        transition: .2s ease;
+    }
+
+
+    .logout-modal-overlay.show {
+        opacity: 1;
+
+        visibility: visible;
+    }
+
+
+    .logout-modal {
+        width: 390px;
+
+        max-width: calc(100% - 30px);
+
+        padding: 32px;
+
+        background: #fffdf8;
+
+        border: 1px solid #e5dfd2;
+
+        border-radius: 15px;
+
+        text-align: center;
+
+        box-shadow:
+            0 25px 65px rgba(30, 45, 35, .18);
+
+        transform: translateY(10px) scale(.98);
+
+        transition: .2s ease;
+    }
+
+
+    .logout-modal-overlay.show .logout-modal {
+        transform: translateY(0) scale(1);
+    }
+
+
+    .logout-modal-icon {
+        width: 52px;
+        height: 52px;
+
+        margin: 0 auto 16px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background: #edf4ed;
+
+        color: #1b5233;
+
+        font-size: 20px;
+    }
+
+
+    .logout-modal h3 {
+        margin: 0;
+
+        color: #1b5233;
+
+        font-size: 20px;
+
+        font-weight: 700;
+    }
+
+
+    .logout-modal p {
+        margin: 8px 0 24px;
+
+        color: #788078;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+
+    .logout-modal-actions {
+        display: flex;
+
+        justify-content: center;
+
+        gap: 10px;
+    }
+
+
+    .logout-modal-actions button {
+        min-width: 105px;
+
+        height: 40px;
+
+        border-radius: 7px;
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+    }
+
+
+    .logout-cancel {
+        background: #fff;
+
+        border: 1px solid #ddd7ca;
+
+        color: #606961;
+    }
+
+
+    .logout-confirm {
+        background: #1b5233;
+
+        border: none;
+
+        color: #fff;
+    }
+
+
+    .logout-confirm:hover {
+        background: #16452b;
+    }
+
+
+    /* =========================================================
+       TABLET
+       ========================================================= */
+
+    @media (max-width: 900px) {
+
+        .admin-sidebar {
+            width: 78px;
+        }
+
+
+        .admin-brand {
+            padding: 25px 10px;
+
+            text-align: center;
+        }
+
+
+        .admin-brand-title {
+            font-size: 17px;
+
+            letter-spacing: .5px;
+        }
+
+
+        .admin-brand-title span {
+            display: none;
+        }
+
+
+        .admin-brand-subtitle,
+        .admin-brand-divider {
+            display: none;
+        }
+
+
+        .admin-nav {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+
+        .admin-nav a {
+            justify-content: center;
+
+            padding: 0;
+        }
+
+
+        .admin-nav a span {
+            display: none;
+        }
+
+
+        .admin-nav a i {
+            width: auto;
+        }
+
+
+        .admin-nav a.active::before {
+            left: 0;
+        }
+
+
+        .admin-sidebar-logout {
+            margin: 0 8px;
+        }
+
+
+        .admin-leaf-top,
+        .admin-leaf-bottom,
+        .admin-leaf-small {
+            opacity: .35;
+        }
+
+    }
+
+
+    /* =========================================================
+       MOBILE
+       ========================================================= */
+
+    @media (max-width: 650px) {
+
+        .admin-sidebar {
+            width: 65px;
+        }
+
+
+        .admin-brand-title {
+            font-size: 15px;
+        }
+
+    }
+
+</style>
+
+
+<!-- =========================================================
+     BOTANICAL DECORATIONS
+     ========================================================= -->
+
+<div class="admin-sidebar-decoration admin-leaf-top"></div>
+
+<div class="admin-sidebar-decoration admin-leaf-bottom"></div>
+
+<div class="admin-sidebar-decoration admin-leaf-small"></div>
+
+
+<!-- =========================================================
+     SIDEBAR
+     ========================================================= -->
+
+<aside class="admin-sidebar">
+
+
+    <!-- =====================================================
+         BRAND
+         ===================================================== -->
+
+    <div class="admin-brand">
+
+        <h1 class="admin-brand-title">
+            NAADAN <span>BOX</span>
+        </h1>
+
+
+        <p class="admin-brand-subtitle">
+            Admin Console
+        </p>
+
+
+        <div class="admin-brand-divider">
+            <span></span>
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         NAVIGATION
+         ===================================================== -->
+
+    <nav class="admin-nav">
+
+
+        <!-- Dashboard -->
+
+        <a
+            href="/admin/dashboard"
+            class="<%= activePage === 'dashboard' ? 'active' : '' %>"
+        >
+
+            <i class="bi bi-grid-1x2"></i>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <!-- Products -->
+
+        <a href="#">
+
+            <i class="bi bi-box-seam"></i>
+
+            <span>
+                Products
+            </span>
+
+        </a>
+
+
+        <!-- Categories -->
+
+        <a
+            href="/admin/categories"
+            class="<%= activePage === 'categories' ? 'active' : '' %>"
+        >
+
+            <i class="bi bi-diagram-3"></i>
+
+            <span>
+                Categories
+            </span>
+
+        </a>
+
+
+        <!-- Offers -->
+
+        <a href="#">
+
+            <i class="bi bi-tags"></i>
+
+            <span>
+                Offers
+            </span>
+
+        </a>
+
+
+        <!-- Orders -->
+
+        <a href="#">
+
+            <i class="bi bi-bag"></i>
+
+            <span>
+                Orders
+            </span>
+
+        </a>
+
+
+        <!-- Customers -->
+
+        <a
+            href="/admin/customers"
+            class="<%= activePage === 'customers' ? 'active' : '' %>"
+        >
+
+            <i class="bi bi-people"></i>
+
+            <span>
+                Customers
+            </span>
+
+        </a>
+
+
+        <!-- Coupons -->
+
+        <a href="#">
+
+            <i class="bi bi-ticket-perforated"></i>
+
+            <span>
+                Coupons
+            </span>
+
+        </a>
+
+
+        <!-- Sales Reports -->
+
+        <a href="#">
+
+            <i class="bi bi-bar-chart"></i>
+
+            <span>
+                Sales Reports
+            </span>
+
+        </a>
+
+
+        <!-- Settings -->
+
+        <a href="#">
+
+            <i class="bi bi-sliders"></i>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+    </nav>
+
+
+    <!-- =====================================================
+         LOGOUT
+         ===================================================== -->
+
+    <div class="admin-sidebar-logout">
+
+        <nav class="admin-nav">
+
+            <a
+                href="/admin/logout"
+                class="logout-link"
+                id="adminLogout"
+            >
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </nav>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     LOGOUT MODAL
+     ========================================================= -->
+
+<div
+    class="logout-modal-overlay"
+    id="logoutModal"
+>
+
+    <div class="logout-modal">
+
+        <div class="logout-modal-icon">
+
+            <i class="bi bi-box-arrow-right"></i>
+
+        </div>
+
+
+        <h3>
+            Logout
+        </h3>
+
+
+        <p>
+            Are you sure you want to logout from the admin panel?
+        </p>
+
+
+        <div class="logout-modal-actions">
+
+            <button
+                type="button"
+                class="logout-cancel"
+                id="logoutCancel"
+            >
+                Cancel
+            </button>
+
+
+            <button
+                type="button"
+                class="logout-confirm"
+                id="logoutConfirm"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     LOGOUT SCRIPT
+     ========================================================= -->
+
+<script>
+
+    const logoutLink =
+        document.getElementById("adminLogout");
+
+    const logoutModal =
+        document.getElementById("logoutModal");
+
+    const logoutCancel =
+        document.getElementById("logoutCancel");
+
+    const logoutConfirm =
+        document.getElementById("logoutConfirm");
+
+
+    logoutLink?.addEventListener(
+        "click",
+        function(event) {
+
+            event.preventDefault();
+
+            logoutModal.classList.add("show");
+
+        }
+    );
+
+
+    logoutCancel?.addEventListener(
+        "click",
+        function() {
+
+            logoutModal.classList.remove("show");
+
+        }
+    );
+
+
+    logoutConfirm?.addEventListener(
+        "click",
+        function() {
+
+            window.location.href =
+                logoutLink.href;
+
+        }
+    );
+
+
+    logoutModal?.addEventListener(
+        "click",
+        function(event) {
+
+            if (event.target === logoutModal) {
+
+                logoutModal.classList.remove("show");
+
+            }
+
+        }
+    );
+
+
+
+
+    
+
+</script>
+
+ 
+<!-- ADMIN SESSION EXPIRED MODAL -->
+<div
+    class="session-expired-overlay"
+    id="adminSessionExpiredModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="sessionExpiredTitle"
+    aria-describedby="sessionExpiredMessage"
+    hidden
+>
+    <div class="session-expired-modal">
+        <div class="session-expired-icon">
+            <i class="bi bi-shield-lock"></i>
+        </div>
+
+        <h3 id="sessionExpiredTitle">Session Expired</h3>
+
+        <p id="sessionExpiredMessage">
+            Your admin session has expired for security reasons.
+            Please log in again to continue.
+        </p>
+
+        <button
+            type="button"
+            class="session-expired-login"
+            id="adminSessionLoginAgain"
+        >
+            Login Again
+            <i class="bi bi-arrow-right"></i>
+        </button>
+    </div>
+</div>
+
+<style>
+    .session-expired-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 6000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(30, 45, 35, .52);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+    }
+
+    .session-expired-overlay[hidden] {
+        display: none !important;
+    }
+
+    .session-expired-modal {
+        width: 400px;
+        max-width: 100%;
+        padding: 34px 30px;
+        text-align: center;
+        background: #fffdf8;
+        border: 1px solid #e5dfd2;
+        border-radius: 16px;
+        box-shadow: 0 25px 65px rgba(30, 45, 35, .22);
+        animation: sessionModalEnter .22s ease;
+    }
+
+    .session-expired-icon {
+        width: 58px;
+        height: 58px;
+        margin: 0 auto 17px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #edf4ed;
+        color: #1b5233;
+        font-size: 24px;
+    }
+
+    .session-expired-modal h3 {
+        margin: 0;
+        color: #1b5233;
+        font-size: 21px;
+        font-weight: 800;
+    }
+
+    .session-expired-modal p {
+        margin: 11px 0 24px;
+        color: #788078;
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .session-expired-login {
+        width: 100%;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        border: 0;
+        border-radius: 8px;
+        background: #1b5233;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background .2s ease;
+    }
+
+    .session-expired-login:hover {
+        background: #16452b;
+    }
+
+    .session-expired-login:focus-visible {
+        outline: 3px solid #c99b25;
+        outline-offset: 3px;
+    }
+
+    @keyframes sessionModalEnter {
+        from {
+            opacity: 0;
+            transform: translateY(10px) scale(.98);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .session-expired-modal {
+            padding: 28px 22px;
+        }
+    }
+</style>
+
+<script>
+    (() => {
+        // Prevent duplicate initialization if this script is loaded twice.
+        if (window.adminSessionWatcherStarted) return;
+        window.adminSessionWatcherStarted = true;
+
+        const modal = document.getElementById("adminSessionExpiredModal");
+        const loginButton = document.getElementById("adminSessionLoginAgain");
+
+        if (!modal || !loginButton) return;
+
+        let sessionExpired = false;
+        let checkingSession = false;
+
+        const showExpiredModal = () => {
+            if (sessionExpired) return;
+
+            sessionExpired = true;
+            modal.hidden = false;
+
+            // Prevent accidental interaction with the expired admin page.
+            document.body.style.overflow = "hidden";
+            loginButton.focus();
+        };
+
+        loginButton.addEventListener("click", () => {
+            window.location.replace("/admin/login");
+        });
+
+        const checkAdminSession = async () => {
+            if (sessionExpired || checkingSession) return;
+
+            checkingSession = true;
+
+            try {
+                const response = await fetch("/admin/session-status", {
+                    method: "GET",
+                    credentials: "same-origin",
+                    cache: "no-store",
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                });
+
+                if (response.status === 401) {
+                    showExpiredModal();
+                    return;
+                }
+
+                // A server error or unexpected response is not proof
+                // that the session has expired. Try again next time.
+                if (!response.ok) return;
+
+                const result = await response.json();
+
+                if (result.authenticated !== true) {
+                    showExpiredModal();
+                }
+            } catch (error) {
+                // Temporary network errors should not log out the admin.
+                console.error("Admin session check failed:", error);
+            } finally {
+                checkingSession = false;
+            }
+        };
+
+        // Check immediately, then every 15 seconds.
+        checkAdminSession();
+        window.setInterval(checkAdminSession, 15000);
+    })();
+</script>

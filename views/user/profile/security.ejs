@@ -1,0 +1,582 @@
+<!-- SECURITY SECTION -->
+
+<style>
+
+/* =========================================
+   NAADAN BOX - SECURITY
+   ========================================= */
+
+.security-section {
+    position:relative;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.security-section-header {
+    margin-bottom:1rem;
+}
+
+.security-row-title {
+    margin-bottom:.15rem;
+    color:var(--primary-text-dark);
+    font-size:.82rem;
+    font-weight:800;
+    line-height:1.35;
+}
+
+.security-row-text {
+    margin:0;
+    color:var(--muted-text);
+    font-size:.7rem;
+    line-height:1.45;
+}
+
+.security-row-value {
+    margin-top:.25rem;
+    color:#68756E;
+    font-size:.68rem;
+    font-weight:600;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.security-heading-decoration {
+    display:flex;
+    align-items:center;
+    gap:.3rem;
+    margin-top:.45rem;
+}
+
+.security-heading-decoration span {
+    width:24px;
+    height:2px;
+    display:block;
+    background:var(--brand-gold);
+    border-radius:2px;
+}
+
+.security-heading-decoration span:nth-child(2) {
+    width:4px;
+    height:4px;
+    border-radius:50%;
+}
+
+/* =========================================
+   MAIN SECURITY CARD
+   ========================================= */
+
+.security-card {
+    position:relative;
+    overflow:hidden;
+    background:#fff;
+    border:1px solid rgba(27,77,46,.08);
+    border-radius:12px;
+    box-shadow:0 5px 18px rgba(27,77,46,.035);
+}
+
+.security-card::before {
+    content:"";
+    position:absolute;
+    width:150px;
+    height:100px;
+    top:-35px;
+    right:-55px;
+    background:rgba(27,77,46,.025);
+    border-radius:70% 30% 70% 30%;
+    transform:rotate(-18deg);
+    pointer-events:none;
+}
+
+.security-card::after {
+    content:"";
+    position:absolute;
+    width:80px;
+    height:60px;
+    left:-35px;
+    bottom:-25px;
+    background:rgba(200,155,60,.025);
+    border-radius:30% 70% 30% 70%;
+    transform:rotate(20deg);
+    pointer-events:none;
+}
+
+.security-card-content {
+    position:relative;
+    z-index:1;
+}
+
+/* =========================================
+   SECURITY ROW
+   ========================================= */
+
+.security-row {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    padding:1rem 1.1rem;
+}
+
+.security-row + .security-row {
+    border-top:1px solid rgba(27,77,46,.07);
+}
+
+/* =========================================
+   ICON
+   ========================================= */
+
+.security-icon {
+    width:42px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    background:#F2F6F3;
+    border:1px solid rgba(27,77,46,.07);
+    border-radius:10px;
+    color:var(--brand-primary-green);
+    font-size:.95rem;
+}
+
+.security-google-icon {
+    color:#4285F4;
+    background:#F7F8FA;
+}
+
+/* =========================================
+   CONTENT
+   ========================================= */
+
+.security-row-left {
+    display:flex;
+    align-items:center;
+    gap:.85rem;
+    min-width:0;
+    flex:1;
+}
+
+.security-row-content {
+    min-width:0;
+}
+
+.security-row-title {
+    margin-bottom:.2rem;
+    color:var(--primary-text-dark);
+    font-size:.95rem;
+    font-weight:800;
+    line-height:1.35;
+}
+
+.security-row-text {
+    margin:0;
+    color:var(--muted-text);
+    font-size:.78rem;
+    line-height:1.5;
+}
+
+.security-row-value {
+    margin-top:.3rem;
+    color:#68756E;
+    font-size:.78rem;
+    font-weight:600;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* =========================================
+   STATUS
+   ========================================= */
+
+.security-connected {
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    padding:.25rem .55rem;
+    background:#E5F3E9;
+    border-radius:20px;
+    color:var(--brand-primary-green);
+    font-size:.6rem;
+    font-weight:700;
+}
+
+.security-connected i {
+    font-size:.5rem;
+}
+
+/* =========================================
+   LABEL
+   ========================================= */
+
+.security-label {
+    margin-bottom:.2rem;
+    color:#7A877F;
+    font-size:.58rem;
+    font-weight:800;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+}
+
+/* =========================================
+   ACTION BUTTON
+   ========================================= */
+
+.security-button {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.3rem;
+    flex-shrink:0;
+    padding:.55rem .8rem;
+    background:var(--brand-primary-green);
+    border:1px solid var(--brand-primary-green);
+    border-radius:7px;
+    color:#fff;
+    font-size:.72rem;
+    font-weight:700;
+    text-decoration:none;
+    transition:all .2s ease;
+}
+
+.security-button:hover {
+    background:var(--brand-hover-green);
+    border-color:var(--brand-hover-green);
+    color:#fff;
+    transform:translateY(-1px);
+}
+
+/* =========================================
+   SECURITY NOTE
+   ========================================= */
+
+.security-note {
+    display:flex;
+    align-items:center;
+    gap:.65rem;
+    margin:0 1.1rem 1.1rem;
+    padding:.7rem .8rem;
+    background:var(--background-cream);
+    border:1px solid rgba(200,155,60,.08);
+    border-radius:8px;
+}
+
+.security-note-icon {
+    width:28px;
+    height:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    background:#fff;
+    border:1px solid rgba(27,77,46,.06);
+    border-radius:50%;
+    color:var(--brand-primary-green);
+    font-size:.7rem;
+}
+
+.security-note-text {
+    margin:0;
+    color:var(--muted-text);
+    font-size:.7rem;
+    line-height:1.5;
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width:767px) {
+
+    .security-row {
+        align-items:flex-start;
+        flex-wrap:wrap;
+        padding:.9rem;
+    }
+
+    .security-row-left {
+        width:100%;
+    }
+
+    .security-button {
+        width:100%;
+    }
+
+    .security-note {
+        margin:0 .9rem .9rem;
+    }
+}
+
+@media (max-width:575px) {
+
+    .security-section-header .section-heading {
+        font-size:1.15rem;
+    }
+
+    .security-section-header .section-subtext {
+        font-size:.74rem;
+    }
+
+    .security-icon {
+        width:39px;
+        height:39px;
+        font-size:.9rem;
+    }
+
+    .security-row-title {
+        font-size:.78rem;
+    }
+
+    .security-row-text {
+        font-size:.65rem;
+    }
+
+    .security-row-value {
+        font-size:.64rem;
+    }
+
+}
+
+</style>
+
+
+<div class="profile-section d-none security-section" data-section="security">
+
+    <!-- SECURITY HEADER -->
+
+    <div class="security-section-header">
+
+        <h3 class="section-heading">
+            Security
+        </h3>
+
+        <% if (user.googleId) { %>
+
+            <p class="section-subtext">
+                Your account is securely connected with Google.
+            </p>
+
+        <% } else { %>
+
+            <p class="section-subtext">
+                Manage your account security settings.
+            </p>
+
+        <% } %>
+
+        <div class="security-heading-decoration">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+    </div>
+
+
+    <!-- SECURITY CARD -->
+
+    <div class="security-card">
+
+        <div class="security-card-content">
+
+
+            <% if (!user.googleId) { %>
+
+                <!-- EMAIL -->
+
+                <div class="security-row">
+
+                    <div class="security-row-left">
+
+                        <div class="security-icon">
+
+                            <i class="bi bi-envelope"></i>
+
+                        </div>
+
+                        <div class="security-row-content">
+
+                            <div class="security-row-title">
+                                Email Address
+                            </div>
+
+                            <div class="security-row-value">
+                                <%= user.email %>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="/profile/security/change-email"
+                        class="security-button"
+                    >
+
+                        <i class="bi bi-pencil"></i>
+
+                        Change
+
+                    </a>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="security-row">
+
+                    <div class="security-row-left">
+
+                        <div class="security-icon">
+
+                            <i class="bi bi-key"></i>
+
+                        </div>
+
+                        <div class="security-row-content">
+
+                            <div class="security-row-title">
+                                Password
+                            </div>
+
+                            <div class="security-row-value">
+                                ••••••••••••
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="/profile/security/change-password"
+                        class="security-button"
+                    >
+
+                        <i class="bi bi-key"></i>
+
+                        Change
+
+                    </a>
+
+                </div>
+
+
+            <% } else { %>
+
+
+                <!-- GOOGLE ACCOUNT -->
+
+                <div class="security-row">
+
+                    <div class="security-row-left">
+
+                        <div class="security-icon security-google-icon">
+
+                            <i class="bi bi-google"></i>
+
+                        </div>
+
+                        <div class="security-row-content">
+
+                            <div class="security-row-title">
+                                Google Account
+                            </div>
+
+                            <div class="security-row-value">
+                                <%= user.email %>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-connected">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        Connected
+
+                    </div>
+
+                </div>
+
+
+                <!-- SIGN IN METHOD -->
+
+                <div class="security-row">
+
+                    <div class="security-row-left">
+
+                        <div class="security-icon">
+
+                            <i class="bi bi-shield-check"></i>
+
+                        </div>
+
+                        <div class="security-row-content">
+
+                            <div class="security-label">
+                                Sign-in Method
+                            </div>
+
+                            <div class="security-row-title">
+                                Google
+                            </div>
+
+                            <p class="security-row-text">
+                                Your Google account is used to sign in securely.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            <% } %>
+
+
+            <!-- SECURITY NOTE -->
+
+            <div class="security-note">
+
+                <div class="security-note-icon">
+
+                    <i class="bi bi-shield-lock"></i>
+
+                </div>
+
+                <p class="security-note-text">
+
+                    <% if (user.googleId) { %>
+
+                        Your account security is managed through Google.
+                        Never share your Google password or verification codes.
+
+                    <% } else { %>
+
+                        Never share your password or verification codes with anyone.
+                        Naadan Box will never ask for your password or OTP.
+
+                    <% } %>
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>

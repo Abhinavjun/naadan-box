@@ -1,0 +1,2246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Customer Details - Naadan Box</title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+         ===================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         STYLES
+         ===================================================== -->
+
+    <style>
+
+        /* =====================================================
+           ROOT
+           ===================================================== */
+
+        :root {
+
+            --green: #1B5233;
+            --green-dark: #16452B;
+            --green-soft: #EDF4ED;
+
+            --gold: #C99B25;
+            --gold-soft: #F8EFCF;
+
+            --cream: #F8F5ED;
+            --cream-dark: #F1EDE3;
+
+            --white: #FFFDF8;
+
+            --text: #25372C;
+            --muted: #7B857D;
+
+            --border: #E5DFD2;
+
+            --danger: #C95454;
+            --danger-soft: #FFF0F0;
+        }
+
+
+        /* =====================================================
+           GLOBAL
+           ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            overflow-y: scroll;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            background: var(--cream);
+
+            color: var(--text);
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+        }
+
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
+
+        .admin-main {
+
+            position: relative;
+
+            margin-left: 255px;
+
+            width: calc(100% - 255px);
+
+            min-height: 100vh;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           BOTANICAL BACKGROUND
+           ===================================================== */
+
+        .details-leaf {
+
+            position: absolute;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        .details-leaf-right {
+
+            width: 220px;
+            height: 95px;
+
+            right: -78px;
+            top: 142px;
+
+            background:
+                rgba(213,216,199,.34);
+
+            border-radius:
+                100% 0 100% 0;
+
+            transform: rotate(-34deg);
+        }
+
+
+        .details-leaf-right::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 1px;
+            height: 145px;
+
+            left: 110px;
+            top: -26px;
+
+            background:
+                rgba(190,181,145,.22);
+
+            transform: rotate(-20deg);
+        }
+
+
+        .details-leaf-left {
+
+            width: 155px;
+            height: 67px;
+
+            left: -80px;
+            bottom: 100px;
+
+            background:
+                rgba(218,218,203,.23);
+
+            border-radius:
+                100% 0 100% 0;
+
+            transform: rotate(43deg);
+        }
+
+
+        .details-leaf-left::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 1px;
+            height: 108px;
+
+            left: 78px;
+            top: -20px;
+
+            background:
+                rgba(190,181,145,.20);
+
+            transform: rotate(-20deg);
+        }
+
+
+        .details-leaf-small {
+
+            width: 85px;
+            height: 36px;
+
+            right: 115px;
+            bottom: 28px;
+
+            background:
+                rgba(218,218,203,.17);
+
+            border-radius:
+                100% 0 100% 0;
+
+            transform: rotate(28deg);
+        }
+
+
+        /* =====================================================
+           CONTENT
+           ===================================================== */
+
+        .customer-details-content {
+
+            position: relative;
+
+            z-index: 1;
+
+            max-width: 1700px;
+
+            margin: 0 auto;
+
+            padding:
+                34px
+                38px
+                55px;
+        }
+
+
+        /* =====================================================
+           TOP NAVIGATION
+           ===================================================== */
+
+        .details-top {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 18px;
+        }
+
+
+        .back-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            font-weight: 500;
+
+            text-decoration: none;
+
+            transition: .2s ease;
+        }
+
+
+        .back-link:hover {
+
+            color: var(--green);
+
+            transform: translateX(-2px);
+        }
+
+
+        .back-link i {
+
+            font-size: 12px;
+        }
+
+
+        .details-breadcrumb {
+
+            color: #A0A69F;
+
+            font-size: 9px;
+
+            letter-spacing: .3px;
+        }
+
+
+        .details-breadcrumb strong {
+
+            color: var(--green);
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           PAGE HERO
+           ===================================================== */
+
+        .details-hero {
+
+            position: relative;
+
+            margin-bottom: 24px;
+        }
+
+
+        .details-eyebrow {
+
+            margin-bottom: 6px;
+
+            color: var(--gold);
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+
+        .customer-details-heading {
+
+            margin: 0;
+
+            color: var(--green);
+
+            font-size: 29px;
+
+            font-weight: 800;
+
+            letter-spacing: -.6px;
+        }
+
+
+        .customer-details-description {
+
+            margin: 6px 0 0;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            line-height: 1.6;
+        }
+
+
+        .hero-decoration {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            margin-top: 12px;
+        }
+
+
+        .hero-decoration::before {
+
+            content: "";
+
+            width: 30px;
+            height: 2px;
+
+            background: var(--gold);
+
+            border-radius: 5px;
+        }
+
+
+        .hero-decoration span {
+
+            width: 5px;
+            height: 5px;
+
+            background: var(--gold);
+
+            transform: rotate(45deg);
+        }
+
+
+        .hero-decoration::after {
+
+            content: "";
+
+            width: 24px;
+            height: 1px;
+
+            background: #D9CDA9;
+
+            border-radius: 5px;
+        }
+
+
+        /* =====================================================
+           CUSTOMER PROFILE HERO CARD
+           ===================================================== */
+
+        .customer-profile-card {
+
+            position: relative;
+
+            margin-bottom: 18px;
+
+            padding: 25px 27px;
+
+            background:
+                linear-gradient(
+                    115deg,
+                    #FFFDF8 0%,
+                    #F6F1E4 100%
+                );
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 7px 25px rgba(27,82,51,.045);
+        }
+
+
+        .customer-profile-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 0;
+
+            width: 5px;
+            height: 100%;
+
+            background: var(--gold);
+        }
+
+
+        .profile-card-decoration {
+
+            position: absolute;
+
+            width: 155px;
+            height: 65px;
+
+            right: -42px;
+            top: -25px;
+
+            background:
+                rgba(208,211,193,.32);
+
+            border-radius:
+                100% 0 100% 0;
+
+            transform: rotate(-28deg);
+
+            pointer-events: none;
+        }
+
+
+        .profile-card-decoration::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 1px;
+            height: 100px;
+
+            left: 78px;
+            top: -18px;
+
+            background:
+                rgba(188,180,145,.25);
+
+            transform: rotate(-18deg);
+        }
+
+
+        .customer-profile {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 30px;
+        }
+
+
+        .customer-profile-left {
+
+            min-width: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 17px;
+        }
+
+
+        /* =====================================================
+           PROFILE IMAGE
+           ===================================================== */
+
+        .customer-details-image,
+        .customer-image-placeholder {
+
+            width: 70px;
+            height: 70px;
+
+            min-width: 70px;
+
+            flex: 0 0 70px;
+
+            border-radius: 50%;
+
+            border: 2px solid #E4DCCB;
+
+            background: #F1EEE4;
+        }
+
+
+        .customer-details-image {
+
+            object-fit: cover;
+
+            padding: 2px;
+        }
+
+
+        .customer-image-placeholder {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #9CA39B;
+
+            font-size: 25px;
+        }
+
+
+        /* =====================================================
+           PROFILE INFO
+           ===================================================== */
+
+        .customer-profile-info {
+
+            min-width: 0;
+        }
+
+
+        .customer-profile-name {
+
+            display: flex;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-bottom: 5px;
+
+            color: var(--green);
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            line-height: 1.25;
+        }
+
+
+        .customer-id {
+
+            margin-bottom: 9px;
+
+            color: var(--muted);
+
+            font-size: 8.5px;
+
+            letter-spacing: .2px;
+        }
+
+
+        /* =====================================================
+           CONTACT
+           ===================================================== */
+
+        .customer-contact {
+
+            display: flex;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 9px 19px;
+        }
+
+
+        .customer-contact-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            color: #5D6861;
+
+            font-size: 10px;
+        }
+
+
+        .customer-contact-item i {
+
+            color: var(--green);
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           JOINED DATE
+           ===================================================== */
+
+        .customer-joined {
+
+            min-width: 130px;
+
+            flex: 0 0 auto;
+
+            padding-left: 20px;
+
+            border-left: 1px solid #DED7C8;
+
+            text-align: right;
+        }
+
+
+        .customer-joined-label {
+
+            color: var(--muted);
+
+            font-size: 8px;
+
+            font-weight: 600;
+
+            letter-spacing: .7px;
+
+            text-transform: uppercase;
+        }
+
+
+        .customer-joined-label i {
+
+            margin-right: 4px;
+
+            color: var(--gold);
+        }
+
+
+        .customer-joined-date {
+
+            margin-top: 6px;
+
+            color: var(--green);
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           STATUS
+           ===================================================== */
+
+        .status-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 61px;
+
+            height: 22px;
+
+            padding: 0 10px;
+
+            border-radius: 13px;
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            letter-spacing: .5px;
+
+            white-space: nowrap;
+        }
+
+
+        .status-badge.active {
+
+            background: #E2F2E5;
+
+            color: #34744A;
+
+            border: 1px solid #D1E8D6;
+        }
+
+
+        .status-badge.blocked {
+
+            background: #FBE5E5;
+
+            color: #B74A4A;
+
+            border: 1px solid #F0D0D0;
+        }
+
+
+        /* =====================================================
+           VERIFIED
+           ===================================================== */
+
+        .verified-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            color: var(--green);
+
+            font-size: 9px;
+
+            font-weight: 600;
+        }
+
+
+        .verified-badge i {
+
+            color: #4C9A64;
+
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           INFORMATION CARD
+           ===================================================== */
+
+        .customer-information-card {
+
+            position: relative;
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 7px 25px rgba(27,82,51,.04);
+        }
+
+
+        /* =====================================================
+           INFORMATION HEADER
+           ===================================================== */
+
+        .information-card-header {
+
+            min-height: 70px;
+
+            padding: 15px 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border-bottom: 1px solid #EEE9DF;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #FFFDF8,
+                    #FBF9F3
+                );
+        }
+
+
+        .section-heading {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .section-icon {
+
+            width: 35px;
+            height: 35px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background: var(--green-soft);
+
+            color: var(--green);
+
+            font-size: 15px;
+        }
+
+
+        .section-heading-text {
+
+            color: var(--green);
+
+            font-size: 15px;
+
+            font-weight: 800;
+        }
+
+
+        .section-heading-subtitle {
+
+            margin-top: 2px;
+
+            color: var(--muted);
+
+            font-size: 8.5px;
+        }
+
+
+        .information-decoration {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+        }
+
+
+        .information-decoration::before {
+
+            content: "";
+
+            width: 28px;
+            height: 2px;
+
+            background: var(--gold);
+
+            border-radius: 5px;
+        }
+
+
+        .information-decoration span {
+
+            width: 4px;
+            height: 4px;
+
+            background: var(--gold);
+
+            transform: rotate(45deg);
+        }
+
+
+        /* =====================================================
+           INFORMATION GRID
+           ===================================================== */
+
+        .information-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 0;
+
+            padding: 24px 24px 28px;
+        }
+
+
+        .information-column {
+
+            min-width: 0;
+
+            padding: 0 26px;
+        }
+
+
+        .information-column:first-child {
+
+            padding-left: 0;
+
+            padding-right: 32px;
+
+            border-right: 1px solid #ECE7DC;
+        }
+
+
+        .information-column:last-child {
+
+            padding-right: 0;
+
+            padding-left: 32px;
+        }
+
+
+        /* =====================================================
+           COLUMN TITLE
+           ===================================================== */
+
+        .column-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 10px;
+
+            color: var(--green);
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        .column-title::before {
+
+            content: "";
+
+            width: 18px;
+            height: 2px;
+
+            background: var(--gold);
+
+            border-radius: 4px;
+        }
+
+
+        /* =====================================================
+           INFORMATION ROW
+           ===================================================== */
+
+        .information-row {
+
+            min-height: 49px;
+
+            padding: 12px 0;
+
+            border-bottom: 1px solid #EEE9E0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 25px;
+        }
+
+
+        .information-row:last-child {
+
+            border-bottom: 0;
+        }
+
+
+        .information-label {
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            white-space: nowrap;
+        }
+
+
+        .information-value {
+
+            max-width: 65%;
+
+            color: var(--text);
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            text-align: right;
+
+            word-break: break-word;
+        }
+
+
+        .information-value.muted {
+
+            color: #A1A6A1;
+
+            font-weight: 400;
+        }
+
+
+        .information-value.green {
+
+            color: var(--green);
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           SPECIAL VALUE
+           ===================================================== */
+
+        .referral-code {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            min-height: 25px;
+
+            padding: 0 9px;
+
+            border-radius: 6px;
+
+            background: var(--green-soft);
+
+            color: var(--green);
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: .4px;
+        }
+
+
+        /* =====================================================
+           ACCOUNT STATUS INLINE
+           ===================================================== */
+
+        .account-status {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+        }
+
+
+        .account-status-dot {
+
+            width: 5px;
+            height: 5px;
+
+            border-radius: 50%;
+
+            background: #4B9A61;
+        }
+
+
+        .account-status-dot.blocked {
+
+            background: var(--danger);
+        }
+
+
+        /* =====================================================
+           BOTTOM SUMMARY
+           ===================================================== */
+
+        .customer-summary-strip {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin-top: 17px;
+        }
+
+
+        .summary-item {
+
+            min-height: 72px;
+
+            padding: 14px 16px;
+
+            background: rgba(255,253,248,.8);
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+        }
+
+
+        .summary-label {
+
+            color: var(--muted);
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            letter-spacing: .8px;
+
+            text-transform: uppercase;
+        }
+
+
+        .summary-value {
+
+            margin-top: 5px;
+
+            color: var(--green);
+
+            font-size: 14px;
+
+            font-weight: 800;
+        }
+
+
+        .summary-value.gold {
+
+            color: var(--gold);
+        }
+
+
+        .summary-value.red {
+
+            color: var(--danger);
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 1200px) {
+
+            .customer-details-content {
+
+                padding-left: 26px;
+
+                padding-right: 26px;
+            }
+
+
+            .information-column:first-child {
+
+                padding-right: 25px;
+            }
+
+
+            .information-column:last-child {
+
+                padding-left: 25px;
+            }
+
+        }
+
+
+        @media (max-width: 900px) {
+
+            .admin-main {
+
+                margin-left: 78px;
+
+                width:
+                    calc(100% - 78px);
+            }
+
+
+            .customer-details-content {
+
+                padding:
+                    27px
+                    20px
+                    40px;
+            }
+
+
+            .customer-profile {
+
+                align-items: flex-start;
+            }
+
+
+            .customer-profile-left {
+
+                align-items: flex-start;
+            }
+
+
+            .customer-joined {
+
+                min-width: 115px;
+            }
+
+
+            .information-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .information-column:first-child {
+
+                padding-right: 0;
+
+                padding-bottom: 22px;
+
+                border-right: 0;
+
+                border-bottom: 1px solid #ECE7DC;
+            }
+
+
+            .information-column:last-child {
+
+                padding-left: 0;
+
+                padding-top: 22px;
+            }
+
+
+            .customer-summary-strip {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .admin-main {
+
+                margin-left: 65px;
+
+                width:
+                    calc(100% - 65px);
+            }
+
+
+            .customer-details-content {
+
+                padding:
+                    20px
+                    12px
+                    30px;
+            }
+
+
+            .details-top {
+
+                margin-bottom: 14px;
+            }
+
+
+            .details-breadcrumb {
+
+                display: none;
+            }
+
+
+            .customer-details-heading {
+
+                font-size: 25px;
+            }
+
+
+            .customer-details-description {
+
+                font-size: 10px;
+            }
+
+
+            .customer-profile-card {
+
+                padding:
+                    21px 18px;
+            }
+
+
+            .customer-profile {
+
+                flex-direction: column;
+
+                gap: 19px;
+            }
+
+
+            .customer-profile-left {
+
+                width: 100%;
+            }
+
+
+            .customer-joined {
+
+                width: 100%;
+
+                min-width: 0;
+
+                padding-left: 87px;
+
+                border-left: 0;
+
+                text-align: left;
+            }
+
+
+            .customer-profile-name {
+
+                font-size: 18px;
+            }
+
+
+            .customer-contact {
+
+                gap: 8px 14px;
+            }
+
+
+            .customer-contact-item {
+
+                font-size: 9px;
+            }
+
+
+            .information-card-header {
+
+                padding:
+                    14px 17px;
+            }
+
+
+            .information-decoration {
+
+                display: none;
+            }
+
+
+            .information-grid {
+
+                padding:
+                    20px 17px
+                    23px;
+            }
+
+
+            .information-column:first-child {
+
+                padding-bottom: 18px;
+            }
+
+
+            .information-column:last-child {
+
+                padding-top: 18px;
+            }
+
+
+            .information-row {
+
+                min-height: 45px;
+
+                gap: 15px;
+            }
+
+
+            .information-label,
+            .information-value {
+
+                font-size: 9px;
+            }
+
+
+            .information-value {
+
+                max-width: 58%;
+            }
+
+
+            .customer-summary-strip {
+
+                grid-template-columns: 1fr;
+
+                gap: 8px;
+            }
+
+
+            .summary-item {
+
+                min-height: 64px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <%- include("partials/sidebar", {
+        activePage: "customers"
+    }) %>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="admin-main">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <%- include("partials/header", {
+            pageTitle: "Customers",
+            showSearch: false,
+            admin: admin
+        }) %>
+
+
+        <!-- =================================================
+             BOTANICAL DECORATIONS
+             ================================================= -->
+
+        <div class="details-leaf details-leaf-right"></div>
+
+        <div class="details-leaf details-leaf-left"></div>
+
+        <div class="details-leaf details-leaf-small"></div>
+
+
+        <!-- =================================================
+             CONTENT
+             ================================================= -->
+
+        <section class="customer-details-content">
+
+
+            <!-- =================================================
+                 TOP NAVIGATION
+                 ================================================= -->
+
+            <div class="details-top">
+
+
+                <a
+                    href="/admin/customers"
+                    class="back-link"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Back to Customers
+
+                </a>
+
+
+                <div class="details-breadcrumb">
+
+                    Customers
+                    <span class="mx-1">/</span>
+                    <strong>Customer Details</strong>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 HERO
+                 ================================================= -->
+
+            <div class="details-hero">
+
+
+                <div class="details-eyebrow">
+                    Customer Management
+                </div>
+
+
+                <h2 class="customer-details-heading">
+                    Customer Details
+                </h2>
+
+
+                <p class="customer-details-description">
+                    View customer profile and account information.
+                </p>
+
+
+                <div class="hero-decoration">
+
+                    <span></span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 CUSTOMER PROFILE
+                 ================================================= -->
+
+            <section class="customer-profile-card">
+
+
+                <!-- DECORATION -->
+
+                <div class="profile-card-decoration"></div>
+
+
+                <div class="customer-profile">
+
+
+                    <!-- =================================================
+                         PROFILE LEFT
+                         ================================================= -->
+
+                    <div class="customer-profile-left">
+
+
+                        <!-- PROFILE IMAGE -->
+
+                        <% if (
+                            customer.profileImage &&
+                            customer.profileImage !== "default-profile.png"
+                        ) { %>
+
+
+                            <img
+                                class="customer-details-image"
+                                src="<%= customer.profileImage %>"
+                                alt="Customer"
+                                onerror="this.style.display='none'"
+                            >
+
+
+                        <% } else { %>
+
+
+                            <div class="customer-image-placeholder">
+
+                                <i class="bi bi-person"></i>
+
+                            </div>
+
+
+                        <% } %>
+
+
+                        <!-- PROFILE INFORMATION -->
+
+                        <div class="customer-profile-info">
+
+
+                            <div class="customer-profile-name">
+
+
+                                <%= customer.name %>
+
+
+                                <!-- STATUS -->
+
+                                <% if (customer.isBlocked) { %>
+
+
+                                    <span class="status-badge blocked">
+
+                                        BLOCKED
+
+                                    </span>
+
+
+                                <% } else { %>
+
+
+                                    <span class="status-badge active">
+
+                                        ACTIVE
+
+                                    </span>
+
+
+                                <% } %>
+
+
+                                <!-- VERIFIED -->
+
+                                <% if (customer.isVerified) { %>
+
+
+                                    <span class="verified-badge">
+
+                                        <i class="bi bi-patch-check-fill"></i>
+
+                                        Verified Email
+
+                                    </span>
+
+
+                                <% } %>
+
+
+                            </div>
+
+
+                            <!-- CUSTOMER ID -->
+
+                            <div class="customer-id">
+
+                                Customer ID:
+                                NB-<%= customer._id.toString().slice(-4).toUpperCase() %>
+
+                            </div>
+
+
+                            <!-- CONTACT -->
+
+                            <div class="customer-contact">
+
+
+                                <span class="customer-contact-item">
+
+                                    <i class="bi bi-envelope"></i>
+
+                                    <%= customer.email %>
+
+                                </span>
+
+
+                                <span class="customer-contact-item">
+
+                                    <i class="bi bi-telephone"></i>
+
+                                    <%= customer.phone || "No phone number" %>
+
+                                </span>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =================================================
+                         JOINED DATE
+                         ================================================= -->
+
+                    <div class="customer-joined">
+
+
+                        <div class="customer-joined-label">
+
+                            <i class="bi bi-calendar3"></i>
+
+                            Joined Date
+
+                        </div>
+
+
+                        <div class="customer-joined-date">
+
+                            <%= new Date(customer.createdAt).toLocaleDateString(
+                                "en-IN",
+                                {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric"
+                                }
+                            ) %>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================================
+                 CUSTOMER INFORMATION
+                 ================================================= -->
+
+            <section class="customer-information-card">
+
+
+                <!-- =================================================
+                     INFORMATION HEADER
+                     ================================================= -->
+
+                <div class="information-card-header">
+
+
+                    <div class="section-heading">
+
+
+                        <div class="section-icon">
+
+                            <i class="bi bi-person-vcard"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="section-heading-text">
+
+                                Customer Information
+
+                            </div>
+
+
+                            <div class="section-heading-subtitle">
+
+                                Personal and account details
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="information-decoration">
+
+                        <span></span>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     INFORMATION GRID
+                     ================================================= -->
+
+                <div class="information-grid">
+
+
+                    <!-- =================================================
+                         PERSONAL INFORMATION
+                         ================================================= -->
+
+                    <div class="information-column">
+
+
+                        <div class="column-title">
+
+                            Personal Information
+
+                        </div>
+
+
+                        <!-- FULL NAME -->
+
+                        <div class="information-row">
+
+
+                            <span class="information-label">
+                                Full Name
+                            </span>
+
+
+                            <span class="information-value">
+
+                                <%= customer.name %>
+
+                            </span>
+
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="information-row">
+
+
+                            <span class="information-label">
+                                Email Address
+                            </span>
+
+
+                            <span class="information-value">
+
+                                <%= customer.email %>
+
+                            </span>
+
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="information-row">
+
+
+                            <span class="information-label">
+                                Phone Number
+                            </span>
+
+
+                            <span
+                                class="information-value <%= customer.phone ? '' : 'muted' %>"
+                            >
+
+                                <%= customer.phone || "Not provided" %>
+
+                            </span>
+
+
+                        </div>
+
+
+                        <!-- GENDER -->
+
+                        <div class="information-row">
+
+
+                            <span class="information-label">
+                                Gender
+                            </span>
+
+
+                            <span
+                                class="information-value <%= customer.gender ? '' : 'muted' %>"
+                            >
+
+                                <%= customer.gender || "Not provided" %>
+
+                            </span>
+
+
+                        </div>
+
+
+                        <!-- DATE OF BIRTH -->
+
+                        <div class="information-row">
+
+
+                            <span class="information-label">
+                                Date of Birth
+                            </span>
+
+
+                            <span
+                                class="information-value <%= customer.dateOfBirth ? '' : 'muted' %>"
+                            >
+
+                                <%= customer.dateOfBirth
+                                    ? new Date(customer.dateOfBirth).toLocaleDateString(
+                                        "en-IN",
+                                        {
+                                            day: "2-digit",
+                                            month: "long",
+                                            year: "numeric"
+                                        }
+                                    )
+                                    : "Not provided"
+                                %>
+
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =================================================
+                         ACCOUNT INFORMATION
+                         ================================================= -->
+
+                    <div class="information-column">
+
+
+                        <div class="column-title">
+
+                            Account Information
+
+                        </div>
+
+
+                        <!-- ACCOUNT STATUS -->
+
+                        <div class="information-row">
+
+
+                            <span class="information-label">
+                                Account Status
+                            </span>
+
+
+                            <span class="information-value">
+
+
+                                <% if (customer.isBlocked) { %>
+
+
+                                    <span class="account-status">
+
+                                        <span class="account-status-dot blocked"></span>
+
+                                        <span class="status-badge blocked">
+
+                                            BLOCKED
+
+                                        </span>
+
+                                    </span>
+
+
+                                <% } else { %>
+
+
+                                    <span class="account-status">
+
+                                        <span class="account-status-dot"></span>
+
+                                        <span class="status-badge active">
+
+                                            ACTIVE
+
+                                        </span>
+
+                                    </span>
+
+
+                                <% } %>
+
+
+                            </span>
+
+
+                        </div>
+
+
+                        <!-- EMAIL VERIFICATION -->
+
+                        <div class="information-row">
+
+
+                            <span class="information-label">
+                                Email Verification
+                            </span>
+
+
+                            <span
+                                class="information-value <%= customer.isVerified ? 'green' : 'muted' %>"
+                            >
+
+                                <%= customer.isVerified
+                                    ? "Verified"
+                                    : "Not Verified"
+                                %>
+
+                            </span>
+
+
+                        </div>
+
+
+                        <!-- JOINED DATE -->
+
+                        <div class="information-row">
+
+
+                            <span class="information-label">
+                                Joined Date
+                            </span>
+
+
+                            <span class="information-value">
+
+                                <%= new Date(customer.createdAt).toLocaleDateString(
+                                    "en-IN",
+                                    {
+                                        day: "2-digit",
+                                        month: "long",
+                                        year: "numeric"
+                                    }
+                                ) %>
+
+                            </span>
+
+
+                        </div>
+
+
+                        <!-- REFERRAL CODE -->
+
+                        <div class="information-row">
+
+
+                            <span class="information-label">
+                                Referral Code
+                            </span>
+
+
+                            <span
+                                class="information-value <%= customer.referralCode ? 'green' : 'muted' %>"
+                            >
+
+
+                                <% if (customer.referralCode) { %>
+
+
+                                    <span class="referral-code">
+
+                                        <%= customer.referralCode %>
+
+                                    </span>
+
+
+                                <% } else { %>
+
+
+                                    Not available
+
+
+                                <% } %>
+
+
+                            </span>
+
+
+                        </div>
+
+
+                        <!-- REFERRED BY -->
+
+                        <div class="information-row">
+
+
+                            <span class="information-label">
+                                Referred By
+                            </span>
+
+
+                            <span
+                                class="information-value <%= customer.referredBy ? '' : 'muted' %>"
+                            >
+
+                                <%= customer.referredBy?.name || "Not available" %>
+
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================================
+                 CUSTOMER SUMMARY
+                 ================================================= -->
+
+            <div class="customer-summary-strip">
+
+
+                <!-- ACCOUNT -->
+
+                <div class="summary-item">
+
+
+                    <div class="summary-label">
+                        Account
+                    </div>
+
+
+                    <div
+                        class="summary-value <%= customer.isBlocked ? 'red' : '' %>"
+                    >
+
+                        <%= customer.isBlocked
+                            ? "Blocked"
+                            : "Active"
+                        %>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- VERIFICATION -->
+
+                <div class="summary-item">
+
+
+                    <div class="summary-label">
+                        Email Status
+                    </div>
+
+
+                    <div
+                        class="summary-value <%= customer.isVerified ? '' : 'gold' %>"
+                    >
+
+                        <%= customer.isVerified
+                            ? "Verified"
+                            : "Not Verified"
+                        %>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- REFERRAL -->
+
+                <div class="summary-item">
+
+
+                    <div class="summary-label">
+                        Referral
+                    </div>
+
+
+                    <div class="summary-value">
+
+                        <%= customer.referralCode
+                            ? "Available"
+                            : "Not Available"
+                        %>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

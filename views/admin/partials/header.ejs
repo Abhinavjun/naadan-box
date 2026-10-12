@@ -1,0 +1,713 @@
+<!-- =========================================================
+     NAADAN BOX ADMIN HEADER
+     User-side inspired design
+     ========================================================= -->
+
+<style>
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+
+    .admin-header {
+        position: sticky;
+
+        top: 0;
+
+        z-index: 900;
+
+        min-height: 76px;
+
+        padding: 0 34px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        background: #f8f5ed;
+
+        border-bottom: 1px solid #e6dfd2;
+
+        box-sizing: border-box;
+
+        overflow: hidden;
+    }
+
+
+    /* =========================================================
+       SUBTLE BOTANICAL DECORATIONS
+       ========================================================= */
+
+    .header-decoration {
+        position: absolute;
+
+        pointer-events: none;
+
+        z-index: 0;
+    }
+
+
+    /*
+       Large soft leaf on right
+    */
+
+    .header-leaf-large {
+        width: 145px;
+        height: 62px;
+
+        right: -42px;
+        top: -24px;
+
+        background: rgba(215, 217, 201, .32);
+
+        border-radius: 100% 0 100% 0;
+
+        transform: rotate(-22deg);
+    }
+
+
+    .header-leaf-large::after {
+        content: "";
+
+        position: absolute;
+
+        width: 1px;
+        height: 105px;
+
+        left: 72px;
+        top: -22px;
+
+        background: rgba(193, 181, 143, .25);
+
+        transform: rotate(-20deg);
+    }
+
+
+    /*
+       Small lower leaf
+    */
+
+    .header-leaf-small {
+        width: 75px;
+        height: 32px;
+
+        right: 145px;
+        bottom: -17px;
+
+        background: rgba(218, 218, 203, .20);
+
+        border-radius: 100% 0 100% 0;
+
+        transform: rotate(25deg);
+    }
+
+
+    /* =========================================================
+       HEADER LEFT
+       ========================================================= */
+
+    .admin-header-left {
+        position: relative;
+
+        z-index: 2;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 13px;
+    }
+
+
+    /* =========================================================
+       PAGE TITLE BOTANICAL ACCENT
+       ========================================================= */
+
+    .page-title-leaf-wrapper {
+        position: relative;
+
+        width: 26px;
+        height: 26px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+    }
+
+
+    .page-title-leaf {
+        width: 9px;
+        height: 18px;
+
+        border: 1.5px solid #c99b25;
+
+        border-radius: 100% 0 100% 0;
+
+        transform: rotate(35deg);
+    }
+
+
+    .page-title-leaf-wrapper::after {
+        content: "";
+
+        position: absolute;
+
+        width: 25px;
+        height: 1px;
+
+        left: 5px;
+        bottom: 3px;
+
+        background: rgba(201,155,37,.45);
+
+        transform: rotate(-28deg);
+    }
+
+
+    /* =========================================================
+       PAGE TITLE
+       ========================================================= */
+
+    .page-title {
+        position: relative;
+
+        margin: 0;
+
+        color: #1b5233;
+
+        font-size: 24px;
+
+        font-weight: 800;
+
+        letter-spacing: -.3px;
+
+        line-height: 1.2;
+    }
+
+
+    /* =========================================================
+       SMALL GOLD UNDERLINE
+       ========================================================= */
+
+    .page-title-accent {
+        position: absolute;
+
+        left: 0;
+
+        bottom: -8px;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 5px;
+
+        pointer-events: none;
+    }
+
+
+    .page-title-accent::before {
+        content: "";
+
+        width: 27px;
+        height: 2px;
+
+        background: #c99b25;
+
+        border-radius: 5px;
+    }
+
+
+    .page-title-accent span {
+        width: 4px;
+        height: 4px;
+
+        background: #c99b25;
+
+        transform: rotate(45deg);
+    }
+
+
+    .page-title-accent::after {
+        content: "";
+
+        width: 17px;
+        height: 1px;
+
+        background: #d9cda9;
+
+        border-radius: 5px;
+    }
+
+
+    /* =========================================================
+       HEADER RIGHT
+       ========================================================= */
+
+    .header-right {
+        position: relative;
+
+        z-index: 2;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 14px;
+    }
+
+
+    /* =========================================================
+       SEARCH SLOT
+       ========================================================= */
+
+    .header-search-slot {
+        width: 280px;
+
+        height: 40px;
+
+        flex-shrink: 0;
+    }
+
+
+    /* =========================================================
+       SEARCH
+       ========================================================= */
+
+    .header-search {
+        position: relative;
+
+        width: 280px;
+
+        height: 40px;
+    }
+
+
+    .header-search i {
+        position: absolute;
+
+        left: 14px;
+
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        color: #7d877f;
+
+        font-size: 14px;
+
+        pointer-events: none;
+    }
+
+
+    .header-search input {
+        width: 100%;
+
+        height: 40px;
+
+        box-sizing: border-box;
+
+        padding: 0 14px 0 38px;
+
+        border: 1px solid #e4ddd0;
+
+        border-radius: 9px;
+
+        outline: none;
+
+        background: #fffdf8;
+
+        color: #26372c;
+
+        font-size: 12px;
+
+        transition:
+            border-color .2s ease,
+            box-shadow .2s ease,
+            background .2s ease;
+    }
+
+
+    .header-search input:hover {
+        border-color: #d8cfbd;
+    }
+
+
+    .header-search input:focus {
+        border-color: #cbb56e;
+
+        background: #ffffff;
+
+        box-shadow:
+            0 0 0 3px rgba(201,155,37,.09);
+    }
+
+
+    .header-search input::placeholder {
+        color: #8a908b;
+    }
+
+
+    /* =========================================================
+       NOTIFICATION
+       ========================================================= */
+
+    .notification-button {
+        position: relative;
+
+        width: 40px;
+
+        height: 40px;
+
+        border: 1px solid transparent;
+
+        border-radius: 9px;
+
+        background: transparent;
+
+        color: #304238;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 17px;
+
+        cursor: pointer;
+
+        transition:
+            background .2s ease,
+            border-color .2s ease,
+            color .2s ease;
+    }
+
+
+    .notification-button:hover {
+        background: #efebe2;
+
+        border-color: #e3dccf;
+
+        color: #1b5233;
+    }
+
+
+    /*
+       Notification dot
+    */
+
+    .notification-button::after {
+        content: "";
+
+        position: absolute;
+
+        top: 7px;
+        right: 7px;
+
+        width: 6px;
+        height: 6px;
+
+        background: #c99b25;
+
+        border: 2px solid #f8f5ed;
+
+        border-radius: 50%;
+    }
+
+
+    /* =========================================================
+       ADMIN PROFILE
+       ========================================================= */
+
+    .admin-profile {
+        min-height: 44px;
+
+        padding-left: 17px;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 9px;
+
+        border-left: 1px solid #e3ddd1;
+    }
+
+
+    /* =========================================================
+       ADMIN INFO
+       ========================================================= */
+
+    .admin-info {
+        line-height: 1.15;
+
+        text-align: right;
+    }
+
+
+    .admin-name {
+        color: #20392b;
+
+        font-size: 12.5px;
+
+        font-weight: 700;
+
+        white-space: nowrap;
+    }
+
+
+    .admin-role {
+        display: block;
+
+        margin-top: 4px;
+
+        color: #818981;
+
+        font-size: 8px;
+
+        font-weight: 600;
+
+        letter-spacing: 1.2px;
+
+        text-transform: uppercase;
+    }
+
+
+    /* =========================================================
+       PROFILE ARROW
+       ========================================================= */
+
+    .profile-arrow {
+        color: #7c857e;
+
+        font-size: 10px;
+
+        transition: transform .2s ease;
+    }
+
+
+    .admin-profile:hover .profile-arrow {
+        color: #1b5233;
+
+        transform: translateY(1px);
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 1100px) {
+
+        .admin-header {
+            padding: 0 27px;
+        }
+
+
+        .header-search-slot,
+        .header-search {
+            width: 220px;
+        }
+
+    }
+
+
+    @media (max-width: 900px) {
+
+        .admin-header {
+            padding: 0 22px;
+        }
+
+
+        .header-search-slot {
+            display: none;
+        }
+
+
+        .page-title {
+            font-size: 22px;
+        }
+
+    }
+
+
+    @media (max-width: 650px) {
+
+        .admin-header {
+            min-height: 68px;
+
+            padding: 0 16px;
+        }
+
+
+        .header-right {
+            gap: 5px;
+        }
+
+
+        .admin-profile {
+            padding-left: 7px;
+        }
+
+
+        .admin-info,
+        .profile-arrow {
+            display: none;
+        }
+
+
+        .page-title {
+            font-size: 20px;
+        }
+
+
+        .page-title-leaf-wrapper {
+            display: none;
+        }
+
+
+        .header-leaf-large {
+            opacity: .5;
+        }
+
+    }
+
+</style>
+
+
+<!-- =========================================================
+     DECORATIVE ELEMENTS
+     ========================================================= -->
+
+<div class="header-decoration header-leaf-large"></div>
+
+<div class="header-decoration header-leaf-small"></div>
+
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+
+<header class="admin-header">
+
+
+    <!-- =====================================================
+         HEADER LEFT
+         ===================================================== -->
+
+    <div class="admin-header-left">
+
+
+        <!-- Botanical title accent -->
+
+        <div class="page-title-leaf-wrapper">
+
+            <span class="page-title-leaf"></span>
+
+        </div>
+
+
+        <!-- Page title -->
+
+        <h1 class="page-title">
+
+            <%= pageTitle || "Admin Panel" %>
+
+
+            <!-- Gold decorative line -->
+
+            <span class="page-title-accent">
+
+                <span></span>
+
+            </span>
+
+        </h1>
+
+    </div>
+
+
+    <!-- =====================================================
+         HEADER RIGHT
+         ===================================================== -->
+
+    <div class="header-right">
+
+
+        <!-- =================================================
+             SEARCH
+             ================================================= -->
+
+        <div class="header-search-slot">
+
+            <% if (showSearch) { %>
+
+                <div class="header-search">
+
+                    <i class="bi bi-search"></i>
+
+                    <input
+                        type="text"
+                        placeholder="Search your store..."
+                        maxlength="100"
+                    >
+
+                </div>
+
+            <% } %>
+
+        </div>
+
+
+        <!-- =================================================
+             NOTIFICATION
+             ================================================= -->
+
+        <button
+            class="notification-button"
+            type="button"
+            aria-label="Notifications"
+        >
+
+            <i class="bi bi-bell"></i>
+
+        </button>
+
+
+        <!-- =================================================
+             ADMIN PROFILE
+             ================================================= -->
+
+        <div class="admin-profile">
+
+
+            <div class="admin-info">
+
+                <div class="admin-name">
+
+                    <%= admin?.name || "Naadan Box Admin" %>
+
+                </div>
+
+
+                <span class="admin-role">
+
+                    SUPER ADMIN
+
+                </span>
+
+            </div>
+
+
+            <i class="bi bi-chevron-down profile-arrow"></i>
+
+        </div>
+
+    </div>
+
+</header>

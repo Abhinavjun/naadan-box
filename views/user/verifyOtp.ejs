@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Email Verification - Naadan Box</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    >
+
+    <style>
+        :root {
+            --brand-primary-green: #1B4D2E;
+            --brand-hover-green: #133821;
+            --brand-gold: #C89B3C;
+            --background-cream: #FBF7EE;
+            --card-background: #F8F3E6;
+            --primary-text-dark: #1F2D26;
+            --muted-text: #718078;
+            --border-divider-neutral: #E3DED3;
+            --input-bg-subtle: #FAF7F0;
+            --danger-validation-red: #DC3545;
+            --success-green: #198754;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--background-cream);
+            color: var(--primary-text-dark);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+            overflow: hidden;
+        }
+
+        /* ================================
+           HEADER
+        ================================= */
+
+        .auth-header {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+            background: var(--background-cream);
+            border-bottom: 1px solid var(--border-divider-neutral);
+            position: relative;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .auth-brand {
+            color: var(--brand-primary-green);
+            text-decoration: none;
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: .6px;
+        }
+
+        .auth-brand:hover {
+            color: var(--brand-primary-green);
+        }
+
+        /* ================================
+           MAIN
+        ================================= */
+
+        .verify-main {
+            height: calc(100vh - 72px - 58px);
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 6%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ================================
+           LEAF DECORATIONS
+        ================================= */
+
+        .leaf {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(27, 77, 46, .07),
+                    rgba(200, 155, 60, .04)
+                );
+        }
+
+        .leaf-one {
+            width: 190px;
+            height: 190px;
+            left: -75px;
+            bottom: -75px;
+            border-radius: 0 80% 0 80%;
+            transform: rotate(25deg);
+            opacity: .6;
+        }
+
+        .leaf-one::after {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 155px;
+            background: rgba(200, 155, 60, .10);
+            left: 49%;
+            top: 15px;
+            transform: rotate(-35deg);
+        }
+
+        .leaf-two {
+            width: 210px;
+            height: 210px;
+            right: -75px;
+            top: -75px;
+            border-radius: 80% 0 80% 0;
+            transform: rotate(25deg);
+            opacity: .6;
+        }
+
+        .leaf-two::after {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 175px;
+            background: rgba(200, 155, 60, .10);
+            left: 49%;
+            top: 12px;
+            transform: rotate(35deg);
+        }
+
+        .leaf-three {
+            width: 115px;
+            height: 115px;
+            right: 8%;
+            bottom: -75px;
+            border-radius: 80% 0 80% 0;
+            transform: rotate(65deg);
+            opacity: .25;
+        }
+
+        /* ================================
+           VERIFICATION CARD
+        ================================= */
+
+        .verification-card {
+            width: 100%;
+            max-width: 520px;
+            background: #FFFFFF;
+            border: 1px solid var(--border-divider-neutral);
+            border-radius: 18px;
+            box-shadow: 0 14px 38px rgba(27, 77, 46, .07);
+            padding: 2.5rem 2.75rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ================================
+           ICON
+        ================================= */
+
+        .verification-icon {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background: #EAF3EC;
+            color: var(--brand-primary-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.45rem;
+            border: 1px solid rgba(27, 77, 46, .08);
+        }
+
+        .verification-icon i {
+            transform: translateY(1px);
+        }
+
+        /* ================================
+           HEADING
+        ================================= */
+
+        .verification-heading {
+            text-align: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .verification-heading h1 {
+            color: var(--brand-primary-green);
+            font-size: 1.65rem;
+            font-weight: 800;
+            margin: 0 0 .4rem;
+            letter-spacing: -.3px;
+        }
+
+        .verification-heading p {
+            color: var(--muted-text);
+            font-size: .8rem;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        .verification-email {
+            color: var(--brand-primary-green);
+            font-size: .82rem;
+            font-weight: 700;
+            word-break: break-word;
+            margin-top: .2rem;
+        }
+
+        .heading-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .35rem;
+            margin-top: .8rem;
+        }
+
+        .heading-decoration span:nth-child(1),
+        .heading-decoration span:nth-child(3) {
+            width: 32px;
+            height: 2px;
+            background: var(--brand-gold);
+        }
+
+        .heading-decoration span:nth-child(2) {
+            width: 5px;
+            height: 5px;
+            background: var(--brand-gold);
+            transform: rotate(45deg);
+        }
+
+        /* ================================
+           ALERTS
+        ================================= */
+
+        .otp-alert {
+            border-radius: 8px;
+            font-size: .72rem;
+            padding: .65rem .75rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .otp-alert-danger {
+            color: var(--danger-validation-red);
+            background: #FDF2F2;
+            border: 1px solid rgba(220, 53, 69, .2);
+        }
+
+        .otp-alert-success {
+            color: var(--success-green);
+            background: #F0F8F2;
+            border: 1px solid rgba(25, 135, 84, .2);
+        }
+
+        /* ================================
+           OTP
+        ================================= */
+
+        .otp-label {
+            color: var(--primary-text-dark);
+            font-size: .75rem;
+            font-weight: 700;
+            margin-bottom: .65rem;
+            text-align: center;
+        }
+
+        .otp-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: .55rem;
+            margin: .7rem 0 1.25rem;
+        }
+
+        .otp-input {
+            width: 48px;
+            height: 52px;
+            padding: 0;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--brand-primary-green);
+            background: var(--input-bg-subtle);
+            border: 1px solid var(--border-divider-neutral);
+            border-radius: 9px;
+            outline: none;
+            transition: all .2s ease;
+        }
+
+        .otp-input::selection {
+            background: rgba(27, 77, 46, .15);
+        }
+
+        .otp-input:focus {
+            background: #FFFFFF;
+            border-color: var(--brand-primary-green);
+            box-shadow: 0 0 0 3px rgba(27, 77, 46, .08);
+        }
+
+        /* ================================
+           VERIFY BUTTON
+        ================================= */
+
+        .btn-brand {
+            width: 100%;
+            height: 44px;
+            background: var(--brand-primary-green);
+            border: 1px solid var(--brand-primary-green);
+            border-radius: 8px;
+            color: #FFFFFF;
+            font-size: .8rem;
+            font-weight: 700;
+            transition: all .2s ease;
+        }
+
+        .btn-brand:hover {
+            background: var(--brand-hover-green);
+            border-color: var(--brand-hover-green);
+            color: #FFFFFF;
+            transform: translateY(-1px);
+        }
+
+        .btn-brand:disabled {
+            opacity: .7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ================================
+           RESEND
+        ================================= */
+
+        .resend-section {
+            text-align: center;
+            margin-top: 1.1rem;
+        }
+
+        .resend-text {
+            color: var(--muted-text);
+            font-size: .72rem;
+            margin: 0;
+        }
+
+        .btn-resend {
+            background: none;
+            border: none;
+            color: var(--brand-gold);
+            font-size: .72rem;
+            font-weight: 700;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .btn-resend:hover:not(:disabled) {
+            color: #A67D24;
+        }
+
+        .btn-resend:disabled {
+            color: #CDBB91;
+            cursor: not-allowed;
+        }
+
+        .timer-display {
+            color: var(--muted-text);
+            font-size: .68rem;
+            font-weight: 700;
+            margin-top: .35rem;
+            min-height: 17px;
+        }
+
+        /* ================================
+           DIVIDER
+        ================================= */
+
+        .verification-divider {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            margin: 1.15rem 0;
+        }
+
+        .verification-divider::before,
+        .verification-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border-divider-neutral);
+        }
+
+        /* ================================
+           EXPIRY NOTE
+        ================================= */
+
+        .expiry-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .4rem;
+            color: var(--muted-text);
+            font-size: .67rem;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .expiry-note i {
+            color: var(--brand-gold);
+            font-size: .78rem;
+        }
+
+        /* ================================
+           FOOTER
+        ================================= */
+
+        .auth-footer {
+            height: 58px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4%;
+            background: var(--background-cream);
+            border-top: 1px solid var(--border-divider-neutral);
+            position: relative;
+            z-index: 5;
+        }
+
+        .footer-inner {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .footer-brand {
+            color: var(--brand-primary-green);
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: .4px;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .footer-links a {
+            color: var(--muted-text);
+            font-size: .65rem;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-primary-green);
+        }
+
+        .footer-copy {
+            color: var(--muted-text);
+            font-size: .65rem;
+        }
+
+        /* ================================
+           SHORT DESKTOP HEIGHT
+        ================================= */
+
+        @media (max-height: 700px) and (min-width: 992px) {
+
+            .verify-main {
+                padding-top: .5rem;
+                padding-bottom: .5rem;
+            }
+
+            .verification-card {
+                padding: 1.7rem 2.25rem;
+            }
+
+            .verification-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.25rem;
+                margin-bottom: .7rem;
+            }
+
+            .verification-heading {
+                margin-bottom: .9rem;
+            }
+
+            .verification-heading h1 {
+                font-size: 1.45rem;
+            }
+
+            .otp-input {
+                height: 48px;
+            }
+
+            .otp-container {
+                margin-top: .5rem;
+                margin-bottom: .9rem;
+            }
+
+            .verification-divider {
+                margin: .8rem 0;
+            }
+        }
+
+        /* ================================
+           TABLET
+        ================================= */
+
+        @media (max-width: 991px) {
+
+            body {
+                overflow: auto;
+            }
+
+            .auth-header {
+                height: 64px;
+                padding: 0 1.5rem;
+            }
+
+            .auth-brand {
+                font-size: 1.45rem;
+            }
+
+            .verify-main {
+                height: auto;
+                min-height: calc(100vh - 64px);
+                padding: 2rem 1.25rem;
+                overflow: visible;
+            }
+
+            .verification-card {
+                max-width: 520px;
+            }
+
+            .auth-footer {
+                height: auto;
+                padding: .9rem 1.25rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .leaf-three {
+                display: none;
+            }
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 575px) {
+
+            .auth-header {
+                height: 60px;
+                padding: 0 1rem;
+            }
+
+            .auth-brand {
+                font-size: 1.25rem;
+            }
+
+            .verify-main {
+                padding: 1.25rem .75rem;
+            }
+
+            .verification-card {
+                padding: 2rem 1rem;
+                border-radius: 14px;
+            }
+
+            .verification-icon {
+                width: 54px;
+                height: 54px;
+                font-size: 1.3rem;
+            }
+
+            .verification-heading h1 {
+                font-size: 1.4rem;
+            }
+
+            .verification-heading p {
+                font-size: .75rem;
+            }
+
+            .verification-email {
+                font-size: .78rem;
+            }
+
+            .otp-container {
+                gap: .4rem;
+            }
+
+            .otp-input {
+                width: 42px;
+                height: 48px;
+                font-size: 1.05rem;
+            }
+
+            .leaf-one {
+                width: 130px;
+                height: 130px;
+                left: -60px;
+                bottom: -55px;
+            }
+
+            .leaf-two {
+                width: 140px;
+                height: 140px;
+                right: -55px;
+                top: -55px;
+            }
+
+            .footer-links {
+                gap: .75rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .footer-copy {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 380px) {
+
+            .verification-card {
+                padding: 1.75rem .8rem;
+            }
+
+            .otp-container {
+                gap: .3rem;
+            }
+
+            .otp-input {
+                width: 38px;
+                height: 45px;
+                font-size: 1rem;
+                border-radius: 7px;
+            }
+
+            .verification-heading h1 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="auth-header">
+
+        <a
+            href="/"
+            class="auth-brand"
+        >
+            NAADAN BOX
+        </a>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="verify-main">
+
+        <!-- LEAF DECORATIONS -->
+
+        <div class="leaf leaf-one"></div>
+        <div class="leaf leaf-two"></div>
+        <div class="leaf leaf-three"></div>
+
+
+        <!-- VERIFICATION CARD -->
+
+        <div class="verification-card text-center">
+
+            <!-- ICON -->
+
+            <div class="verification-icon">
+                <i class="bi bi-envelope-check"></i>
+            </div>
+
+
+            <!-- HEADING -->
+
+            <div class="verification-heading">
+
+                <h1>
+                    Verify Your Email
+                </h1>
+
+                <p>
+                    We've sent a 6-digit verification code to
+                </p>
+
+                <div class="verification-email">
+                    <%= typeof email !== 'undefined' && email ? email : 'your email address' %>
+                </div>
+
+                <div class="heading-decoration">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </div>
+
+
+            <!-- ERROR -->
+
+            <% if (typeof otpError !== 'undefined' && otpError) { %>
+
+                <div
+                    class="otp-alert otp-alert-danger"
+                    role="alert"
+                >
+
+                    <i class="bi bi-exclamation-triangle-fill me-1"></i>
+
+                    <%= otpError %>
+
+                </div>
+
+            <% } %>
+
+
+            <!-- SUCCESS -->
+
+            <% if (typeof otpSuccess !== 'undefined' && otpSuccess) { %>
+
+                <div
+                    class="otp-alert otp-alert-success"
+                    role="alert"
+                >
+
+                    <i class="bi bi-check-circle-fill me-1"></i>
+
+                    <%= otpSuccess %>
+
+                </div>
+
+            <% } %>
+
+
+            <!-- OTP FORM -->
+
+            <form
+                action="/verify-otp"
+                method="POST"
+                id="otpForm"
+            >
+
+                <input
+                    type="hidden"
+                    name="otp"
+                    id="fullOtpInput"
+                >
+
+
+                <div class="otp-label">
+                    Enter your verification code
+                </div>
+
+
+                <div class="otp-container">
+
+                    <input
+                        type="text"
+                        class="otp-input"
+                        id="otp1"
+                        maxlength="1"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        autocomplete="off"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        class="otp-input"
+                        id="otp2"
+                        maxlength="1"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        autocomplete="off"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        class="otp-input"
+                        id="otp3"
+                        maxlength="1"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        autocomplete="off"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        class="otp-input"
+                        id="otp4"
+                        maxlength="1"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        autocomplete="off"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        class="otp-input"
+                        id="otp5"
+                        maxlength="1"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        autocomplete="off"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        class="otp-input"
+                        id="otp6"
+                        maxlength="1"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        autocomplete="off"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- VERIFY BUTTON -->
+
+                <button
+                    type="submit"
+                    class="btn btn-brand"
+                    id="submitBtn"
+                >
+                    Verify OTP
+                </button>
+
+            </form>
+
+
+            <!-- RESEND -->
+
+            <div class="resend-section">
+
+                <p class="resend-text">
+
+                    Didn't receive the code?
+
+                    <button
+                        type="button"
+                        class="btn-resend"
+                        id="resendBtn"
+                        disabled
+                    >
+                        Resend OTP
+                    </button>
+
+                </p>
+
+
+                <div
+                    class="timer-display"
+                    id="timerDisplay"
+                    data-remaining="<%= resendRemaining || 0 %>"
+                >
+                    <%= resendRemaining > 0
+                        ? `00:${String(resendRemaining).padStart(2, '0')}`
+                        : ''
+                    %>
+                </div>
+
+            </div>
+
+
+            <!-- DIVIDER -->
+
+            <div class="verification-divider"></div>
+
+
+            <!-- EXPIRY -->
+
+            <div class="expiry-note">
+
+                <i class="bi bi-clock"></i>
+
+                <span>
+                    Your verification code will expire in 5 minutes.
+                </span>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="auth-footer">
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+                NAADAN BOX
+            </div>
+
+            <div class="footer-links">
+
+                <a href="#">
+                    Privacy Policy
+                </a>
+
+                <a href="#">
+                    Terms of Service
+                </a>
+
+                <a href="#">
+                    Shipping Policy
+                </a>
+
+                <a href="#">
+                    Refund Policy
+                </a>
+
+            </div>
+
+            <div class="footer-copy">
+                © 2024 NAADAN BOX
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Bootstrap JS -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+
+    <!-- Existing OTP JS -->
+
+    <script src="/js/verifyOtp.js"></script>
+
+
+    <!-- Prevent OTP page from restoring after verification -->
+
+    <script>
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted) {
+                window.location.replace("/verify-otp");
+            }
+        });
+    </script>
+
+</body>
+</html>

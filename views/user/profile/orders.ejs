@@ -1,0 +1,1237 @@
+<!-- ORDERS SECTION -->
+
+<style>
+    /* =========================================
+       NAADAN BOX - ORDERS
+       ========================================= */
+
+    .orders-section {
+        position:relative;
+    }
+
+    .orders-section::before {
+        content:"";
+        position:absolute;
+        width:150px;
+        height:100px;
+        right:-70px;
+        top:-35px;
+        background:rgba(27,77,46,.025);
+        border-radius:70% 30% 70% 30%;
+        transform:rotate(-20deg);
+        pointer-events:none;
+    }
+
+    .orders-section-header {
+        position:relative;
+        margin-bottom:1.1rem;
+    }
+
+    .orders-section-title {
+        margin:0;
+        color:var(--brand-primary-green);
+        font-size:1.25rem;
+        font-weight:800;
+        line-height:1.25;
+    }
+
+    .orders-section-subtext {
+        margin:.25rem 0 0;
+        color:var(--muted-text);
+        font-size:.8rem;
+        line-height:1.4;
+    }
+
+    .orders-heading-line {
+        display:flex;
+        align-items:center;
+        gap:.35rem;
+        margin-top:.45rem;
+    }
+
+    .orders-heading-line span {
+        display:block;
+        width:25px;
+        height:2px;
+        background:var(--brand-gold);
+        border-radius:2px;
+    }
+
+    .orders-heading-line span:nth-child(2) {
+        width:4px;
+        height:4px;
+        border-radius:50%;
+    }
+
+    /* =========================================
+       TOOLBAR
+       ========================================= */
+
+    .orders-toolbar {
+        position:relative;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:.8rem;
+        margin-bottom:.9rem;
+    }
+
+    .orders-search {
+        position:relative;
+        flex:1;
+        max-width:430px;
+    }
+
+    .orders-search i {
+        position:absolute;
+        left:.75rem;
+        top:50%;
+        transform:translateY(-50%);
+        color:#7A8780;
+        font-size:.8rem;
+        pointer-events:none;
+    }
+
+    .orders-search input {
+        width:100%;
+        height:38px;
+        padding:.45rem .7rem .45rem 2.05rem;
+        color:var(--primary-text-dark);
+        background:#fff;
+        border:1px solid rgba(27,77,46,.10);
+        border-radius:8px;
+        font-size:.75rem;
+        outline:none;
+        transition:all .2s ease;
+    }
+
+    .orders-search input::placeholder {
+        color:#9AA39E;
+    }
+
+    .orders-search input:focus {
+        border-color:rgba(27,77,46,.35);
+        box-shadow:0 0 0 .14rem rgba(27,77,46,.055);
+    }
+
+    .orders-filters {
+        display:flex;
+        align-items:center;
+        gap:.45rem;
+    }
+
+    .orders-filter {
+        height:38px;
+        min-width:112px;
+        padding:.45rem .7rem;
+        color:var(--primary-text-dark);
+        background:#fff;
+        border:1px solid rgba(27,77,46,.10);
+        border-radius:8px;
+        font-size:.7rem;
+        cursor:pointer;
+        outline:none;
+        transition:all .2s ease;
+    }
+
+    .orders-filter:last-child {
+        min-width:138px;
+    }
+
+    .orders-filter:focus {
+        border-color:rgba(27,77,46,.35);
+        box-shadow:0 0 0 .14rem rgba(27,77,46,.055);
+    }
+
+    /* =========================================
+       ORDER LIST
+       ========================================= */
+
+    #ordersList {
+        position:relative;
+        z-index:1;
+    }
+
+    /* =========================================
+       ORDER CARD
+       ========================================= */
+
+    .order-card {
+        position:relative;
+        display:flex;
+        align-items:center;
+        gap:1rem;
+        min-height:150px;
+        padding:1rem;
+        margin-bottom:.75rem;
+        overflow:hidden;
+        background:#fff;
+        border:1px solid rgba(27,77,46,.09);
+        border-radius:11px;
+        box-shadow:0 4px 14px rgba(27,77,46,.035);
+        transition:
+            transform .2s ease,
+            box-shadow .2s ease,
+            border-color .2s ease;
+    }
+
+    .order-card::before {
+        content:"";
+        position:absolute;
+        left:0;
+        top:18px;
+        bottom:18px;
+        width:2px;
+        background:var(--brand-gold);
+        border-radius:0 2px 2px 0;
+        opacity:.7;
+    }
+
+    .order-card:hover {
+        transform:translateY(-2px);
+        border-color:rgba(27,77,46,.15);
+        box-shadow:0 8px 22px rgba(27,77,46,.06);
+    }
+
+    .order-card:last-child {
+        margin-bottom:0;
+    }
+
+    /* =========================================
+       PRODUCT IMAGE
+       ========================================= */
+
+    .order-image {
+        width:118px;
+        height:118px;
+        flex-shrink:0;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        overflow:hidden;
+        background:#F8F1E6;
+        border:1px solid rgba(200,155,60,.12);
+        border-radius:8px;
+    }
+
+    .order-image img {
+        width:100%;
+        height:100%;
+        object-fit:contain;
+        padding:.35rem;
+        display:block;
+    }
+
+    .order-image-placeholder {
+        width:100%;
+        height:100%;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:.25rem;
+        color:#B9B7A9;
+        background:
+            radial-gradient(
+                circle at center,
+                rgba(255,255,255,.75),
+                rgba(248,241,230,.9)
+            );
+    }
+
+    .order-image-placeholder i {
+        font-size:1.65rem;
+        color:rgba(27,77,46,.22);
+    }
+
+    .order-image-placeholder span {
+        color:#9A9E96;
+        font-size:.55rem;
+        font-weight:700;
+        letter-spacing:.3px;
+        text-transform:uppercase;
+    }
+
+    /* =========================================
+       ORDER DETAILS
+       ========================================= */
+
+    .order-details {
+        flex:1;
+        min-width:0;
+    }
+
+    .order-top {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:1rem;
+        margin-bottom:.25rem;
+    }
+
+    .order-name {
+        margin:0;
+        color:var(--primary-text-dark);
+        font-size:1rem;
+        font-weight:800;
+        line-height:1.3;
+    }
+
+    .order-status {
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:.3rem;
+        flex-shrink:0;
+        padding:.28rem .6rem;
+        border-radius:20px;
+        font-size:.6rem;
+        font-weight:700;
+        white-space:nowrap;
+    }
+
+    .order-status i {
+        font-size:.58rem;
+    }
+
+    .order-status-delivered {
+        background:#EAF4ED;
+        color:var(--brand-primary-green);
+    }
+
+    .order-status-shipped {
+        background:#EAF0FF;
+        color:#3568D4;
+    }
+
+    .order-status-processing {
+        background:#FFF4DB;
+        color:#A66A00;
+    }
+
+    .order-status-cancelled {
+        background:#FDEAEA;
+        color:#C53030;
+    }
+
+    .order-id {
+        margin-bottom:.75rem;
+        color:var(--muted-text);
+        font-size:.65rem;
+        font-weight:600;
+        letter-spacing:.2px;
+    }
+
+    .order-info {
+        display:flex;
+        align-items:flex-start;
+        gap:2.5rem;
+        margin-bottom:.8rem;
+    }
+
+    .order-info-item {
+        min-width:90px;
+    }
+
+    .order-info-label {
+        margin-bottom:.18rem;
+        color:#7B8881;
+        font-size:.57rem;
+        font-weight:800;
+        letter-spacing:.55px;
+        text-transform:uppercase;
+    }
+
+    .order-info-value {
+        color:var(--primary-text-dark);
+        font-size:.74rem;
+        line-height:1.35;
+    }
+
+    .order-total {
+        color:var(--brand-primary-green);
+        font-weight:800;
+    }
+
+    /* =========================================
+       ORDER ACTIONS
+       ========================================= */
+
+    .order-actions {
+        display:flex;
+        align-items:center;
+        flex-wrap:wrap;
+        gap:.4rem;
+    }
+
+    .order-action-button {
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:.2rem;
+        min-height:32px;
+        padding:.38rem .7rem;
+        background:#fff;
+        border:1px solid rgba(27,77,46,.45);
+        border-radius:7px;
+        color:var(--brand-primary-green);
+        font-size:.64rem;
+        font-weight:700;
+        cursor:pointer;
+        transition:all .2s ease;
+    }
+
+    .order-action-button:hover {
+        background:var(--brand-primary-green);
+        border-color:var(--brand-primary-green);
+        color:#fff;
+        transform:translateY(-1px);
+    }
+
+    .order-action-button.primary {
+        background:var(--brand-primary-green);
+        border-color:var(--brand-primary-green);
+        color:#fff;
+    }
+
+    .order-action-button.primary:hover {
+        background:var(--brand-hover-green);
+        border-color:var(--brand-hover-green);
+    }
+
+    .order-action-button i {
+        font-size:.62rem;
+    }
+
+    /* =========================================
+       EMPTY ORDERS
+       ========================================= */
+
+    .orders-empty {
+        display:none;
+        position:relative;
+        padding:2.5rem 1rem;
+        overflow:hidden;
+        background:#fff;
+        border:1px solid rgba(27,77,46,.09);
+        border-radius:11px;
+        text-align:center;
+    }
+
+    .orders-empty::before {
+        content:"";
+        position:absolute;
+        width:100px;
+        height:65px;
+        left:-35px;
+        bottom:-20px;
+        background:rgba(27,77,46,.035);
+        border-radius:70% 30% 70% 30%;
+        transform:rotate(-20deg);
+    }
+
+    .orders-empty::after {
+        content:"";
+        position:absolute;
+        width:80px;
+        height:55px;
+        right:-30px;
+        top:-20px;
+        background:rgba(200,155,60,.035);
+        border-radius:30% 70% 30% 70%;
+        transform:rotate(20deg);
+    }
+
+    .orders-empty i,
+    .orders-empty h5,
+    .orders-empty p {
+        position:relative;
+        z-index:1;
+    }
+
+    .orders-empty i {
+        font-size:2rem;
+        color:var(--brand-primary-green);
+    }
+
+    .orders-empty h5 {
+        margin:.7rem 0 .25rem;
+        color:var(--primary-text-dark);
+        font-size:.95rem;
+        font-weight:800;
+    }
+
+    .orders-empty p {
+        margin:0;
+        color:var(--muted-text);
+        font-size:.75rem;
+    }
+
+    /* =========================================
+       RESPONSIVE
+       ========================================= */
+
+    @media (max-width:991px) {
+
+        .orders-info {
+            gap:1.5rem;
+        }
+
+        .order-info {
+            gap:1.5rem;
+        }
+    }
+
+    @media (max-width:767px) {
+
+        .orders-section-title {
+            font-size:1.15rem;
+        }
+
+        .orders-toolbar {
+            align-items:stretch;
+            flex-direction:column;
+        }
+
+        .orders-search {
+            max-width:none;
+        }
+
+        .orders-filters {
+            width:100%;
+        }
+
+        .orders-filter {
+            flex:1;
+        }
+
+        .order-card {
+            align-items:flex-start;
+            flex-direction:column;
+            padding:.9rem;
+        }
+
+        .order-image {
+            width:100%;
+            height:170px;
+        }
+
+        .order-details {
+            width:100%;
+        }
+
+        .order-top {
+            align-items:flex-start;
+            flex-direction:column;
+            gap:.55rem;
+        }
+
+        .order-status {
+            align-self:flex-start;
+        }
+
+        .order-info {
+            gap:1.2rem;
+            flex-wrap:wrap;
+        }
+
+        .order-actions {
+            width:100%;
+        }
+
+        .order-action-button {
+            flex:0 0 auto;
+        }
+    }
+
+    @media (max-width:575px) {
+
+        .orders-section-title {
+            font-size:1.1rem;
+        }
+
+        .orders-section-subtext {
+            font-size:.75rem;
+        }
+
+        .orders-filters {
+            flex-direction:column;
+        }
+
+        .orders-filter,
+        .orders-filter:last-child {
+            width:100%;
+            min-width:0;
+        }
+
+        .order-image {
+            height:150px;
+        }
+
+        .order-info {
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:.75rem;
+        }
+
+        .order-info-item {
+            min-width:0;
+        }
+
+        .order-actions {
+            display:grid;
+            grid-template-columns:1fr;
+            width:100%;
+        }
+
+        .order-action-button {
+            width:100%;
+        }
+    }
+</style>
+
+
+<div class="profile-section d-none orders-section" data-section="orders">
+
+    <!-- ORDERS HEADER -->
+
+    <div class="orders-section-header">
+
+        <h3 class="orders-section-title">
+            My Orders
+        </h3>
+
+        <p class="orders-section-subtext">
+            Track, manage and review all your orders.
+        </p>
+
+        <div class="orders-heading-line">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </div>
+
+
+    <!-- ORDERS TOOLBAR -->
+
+    <div class="orders-toolbar">
+
+        <div class="orders-search">
+
+            <i class="bi bi-search"></i>
+
+            <input
+                type="text"
+                id="orderSearch"
+                placeholder="Search for Order ID or Item name"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <div class="orders-filters">
+
+            <select
+                class="orders-filter"
+                id="orderStatusFilter"
+            >
+
+                <option value="all">
+                    All Orders
+                </option>
+
+                <option value="delivered">
+                    Delivered
+                </option>
+
+                <option value="shipped">
+                    Shipped
+                </option>
+
+                <option value="processing">
+                    Processing
+                </option>
+
+                <option value="cancelled">
+                    Cancelled
+                </option>
+
+            </select>
+
+
+            <select
+                class="orders-filter"
+                id="orderSort"
+            >
+
+                <option value="newest">
+                    Sort: Newest First
+                </option>
+
+                <option value="oldest">
+                    Sort: Oldest First
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- ORDERS LIST -->
+
+    <div id="ordersList">
+
+
+        <!-- ORDER 1 -->
+
+        <div
+            class="order-card"
+            data-status="delivered"
+            data-search="NB-82736 Chicken Curry Kit"
+            data-date="2024-10-20"
+        >
+
+            <div class="order-image">
+
+                <div class="order-image-placeholder">
+
+                    <i class="bi bi-bag-heart"></i>
+
+                    <span>Naadan Box</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="order-details">
+
+                <div class="order-top">
+
+                    <h4 class="order-name">
+                        Chicken Curry Kit
+                    </h4>
+
+                    <span class="order-status order-status-delivered">
+
+                        <i class="bi bi-check-circle"></i>
+
+                        Delivered
+
+                    </span>
+
+                </div>
+
+
+                <div class="order-id">
+                    Order ID: #NB-82736
+                </div>
+
+
+                <div class="order-info">
+
+                    <div class="order-info-item">
+
+                        <div class="order-info-label">
+                            Date
+                        </div>
+
+                        <div class="order-info-value">
+                            Oct 20, 2024
+                        </div>
+
+                    </div>
+
+
+                    <div class="order-info-item">
+
+                        <div class="order-info-label">
+                            Payment
+                        </div>
+
+                        <div class="order-info-value">
+                            Razorpay (UPI)
+                        </div>
+
+                    </div>
+
+
+                    <div class="order-info-item">
+
+                        <div class="order-info-label">
+                            Total
+                        </div>
+
+                        <div class="order-info-value order-total">
+                            ₹1,382.50
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-actions">
+
+                    <button
+                        type="button"
+                        class="order-action-button"
+                    >
+                        View Details
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="order-action-button"
+                    >
+                        Track Order
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="order-action-button primary"
+                    >
+                        <i class="bi bi-pencil-square"></i>
+                        Write Review
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ORDER 2 -->
+
+        <div
+            class="order-card"
+            data-status="shipped"
+            data-search="NB-82910 Beef Curry Kit"
+            data-date="2024-10-22"
+        >
+
+            <div class="order-image">
+
+                <div class="order-image-placeholder">
+
+                    <i class="bi bi-bag-heart"></i>
+
+                    <span>Naadan Box</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="order-details">
+
+                <div class="order-top">
+
+                    <h4 class="order-name">
+                        Beef Curry Kit
+                    </h4>
+
+                    <span class="order-status order-status-shipped">
+
+                        <i class="bi bi-truck"></i>
+
+                        Shipped
+
+                    </span>
+
+                </div>
+
+
+                <div class="order-id">
+                    Order ID: #NB-82910
+                </div>
+
+
+                <div class="order-info">
+
+                    <div class="order-info-item">
+
+                        <div class="order-info-label">
+                            Date
+                        </div>
+
+                        <div class="order-info-value">
+                            Oct 22, 2024
+                        </div>
+
+                    </div>
+
+
+                    <div class="order-info-item">
+
+                        <div class="order-info-label">
+                            Payment
+                        </div>
+
+                        <div class="order-info-value">
+                            Net Banking
+                        </div>
+
+                    </div>
+
+
+                    <div class="order-info-item">
+
+                        <div class="order-info-label">
+                            Total
+                        </div>
+
+                        <div class="order-info-value order-total">
+                            ₹2,450.00
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-actions">
+
+                    <button
+                        type="button"
+                        class="order-action-button"
+                    >
+                        View Details
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="order-action-button"
+                    >
+                        Track Order
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ORDER 3 -->
+
+        <div
+            class="order-card"
+            data-status="delivered"
+            data-search="NB-81542 Sambar Kit"
+            data-date="2024-09-15"
+        >
+
+            <div class="order-image">
+
+                <div class="order-image-placeholder">
+
+                    <i class="bi bi-bag-heart"></i>
+
+                    <span>Naadan Box</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="order-details">
+
+                <div class="order-top">
+
+                    <h4 class="order-name">
+                        Sambar Kit
+                    </h4>
+
+                    <span class="order-status order-status-delivered">
+
+                        <i class="bi bi-check-circle"></i>
+
+                        Delivered
+
+                    </span>
+
+                </div>
+
+
+                <div class="order-id">
+                    Order ID: #NB-81542
+                </div>
+
+
+                <div class="order-info">
+
+                    <div class="order-info-item">
+
+                        <div class="order-info-label">
+                            Date
+                        </div>
+
+                        <div class="order-info-value">
+                            Sept 15, 2024
+                        </div>
+
+                    </div>
+
+
+                    <div class="order-info-item">
+
+                        <div class="order-info-label">
+                            Payment
+                        </div>
+
+                        <div class="order-info-value">
+                            Credit Card
+                        </div>
+
+                    </div>
+
+
+                    <div class="order-info-item">
+
+                        <div class="order-info-label">
+                            Total
+                        </div>
+
+                        <div class="order-info-value order-total">
+                            ₹850.00
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-actions">
+
+                    <button
+                        type="button"
+                        class="order-action-button"
+                    >
+                        View Details
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="order-action-button"
+                    >
+                        Re-order
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="order-action-button primary"
+                    >
+                        <i class="bi bi-pencil-square"></i>
+                        Edit Review
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- EMPTY ORDERS -->
+
+    <div
+        class="orders-empty"
+        id="ordersEmpty"
+    >
+
+        <i class="bi bi-box-seam"></i>
+
+        <h5>
+            No orders found
+        </h5>
+
+        <p>
+            Try changing your search or filter.
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const searchInput =
+        document.getElementById("orderSearch");
+
+    const statusFilter =
+        document.getElementById("orderStatusFilter");
+
+    const sortFilter =
+        document.getElementById("orderSort");
+
+    const ordersList =
+        document.getElementById("ordersList");
+
+    const emptyMessage =
+        document.getElementById("ordersEmpty");
+
+
+    function filterOrders() {
+
+        const searchValue =
+            searchInput
+                ? searchInput.value.toLowerCase().trim()
+                : "";
+
+        const statusValue =
+            statusFilter
+                ? statusFilter.value
+                : "all";
+
+        const orders =
+            document.querySelectorAll(".order-card");
+
+        let visibleOrders = 0;
+
+
+        orders.forEach(order => {
+
+            const orderSearch =
+                (order.dataset.search || "").toLowerCase();
+
+            const orderStatus =
+                order.dataset.status || "";
+
+            const matchesSearch =
+                orderSearch.includes(searchValue);
+
+            const matchesStatus =
+                statusValue === "all" ||
+                orderStatus === statusValue;
+
+
+            if(matchesSearch && matchesStatus){
+
+                order.style.display = "flex";
+
+                visibleOrders++;
+
+            }else{
+
+                order.style.display = "none";
+
+            }
+
+        });
+
+
+        if(visibleOrders === 0){
+
+            emptyMessage.style.display = "block";
+
+        }else{
+
+            emptyMessage.style.display = "none";
+
+        }
+
+    }
+
+
+    function sortOrders() {
+
+        if(!ordersList || !sortFilter){
+            return;
+        }
+
+        const orders =
+            Array.from(
+                ordersList.querySelectorAll(".order-card")
+            );
+
+        const sortValue =
+            sortFilter.value;
+
+
+        orders.sort((firstOrder, secondOrder) => {
+
+            const firstDate =
+                new Date(firstOrder.dataset.date);
+
+            const secondDate =
+                new Date(secondOrder.dataset.date);
+
+
+            if(sortValue === "oldest"){
+
+                return firstDate - secondDate;
+
+            }
+
+            return secondDate - firstDate;
+
+        });
+
+
+        orders.forEach(order => {
+
+            ordersList.appendChild(order);
+
+        });
+
+    }
+
+
+    function updateOrders(){
+
+        sortOrders();
+        filterOrders();
+
+    }
+
+
+    if(searchInput){
+
+        searchInput.addEventListener(
+            "input",
+            filterOrders
+        );
+
+    }
+
+
+    if(statusFilter){
+
+        statusFilter.addEventListener(
+            "change",
+            filterOrders
+        );
+
+    }
+
+
+    if(sortFilter){
+
+        sortFilter.addEventListener(
+            "change",
+            updateOrders
+        );
+
+    }
+
+
+    updateOrders();
+
+});
+</script>

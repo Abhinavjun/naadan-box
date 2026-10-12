@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Naadan Box</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    >
+
+    <style>
+        :root {
+            --brand-primary-green: #1B4D2E;
+            --brand-hover-green: #133821;
+            --brand-gold: #C89B3C;
+            --background-cream: #FBF7EE;
+            --card-background: #F8F3E6;
+            --primary-text-dark: #1F2D26;
+            --muted-text: #718078;
+            --border-divider-neutral: #E3DED3;
+            --input-bg-subtle: #FAF7F0;
+            --danger-validation-red: #DC3545;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--background-cream);
+            color: var(--primary-text-dark);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+            overflow: hidden;
+        }
+
+        /* ================================
+           HEADER
+        ================================= */
+
+        .auth-header {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+            background: var(--background-cream);
+            border-bottom: 1px solid var(--border-divider-neutral);
+            position: relative;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .auth-brand {
+            color: var(--brand-primary-green);
+            text-decoration: none;
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: .6px;
+        }
+
+        .auth-brand:hover {
+            color: var(--brand-primary-green);
+        }
+
+        /* ================================
+           MAIN
+        ================================= */
+
+        .signup-main {
+            height: calc(100vh - 72px - 58px);
+            min-height: 0;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            padding: 10px 6%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signup-layout {
+            width: 100%;
+            max-width: 1250px;
+            height: 100%;
+            min-height: 0;
+            display: grid;
+            grid-template-columns: 42% 58%;
+            background: #FFFFFF;
+            border: 1px solid var(--border-divider-neutral);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(27, 77, 46, .055);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ================================
+           LEFT BRANDING
+        ================================= */
+
+        .signup-brand-panel {
+            background: var(--card-background);
+            display: flex;
+            align-items: center;
+            padding: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signup-brand-panel::before {
+            content: "";
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            right: -100px;
+            bottom: -100px;
+            border-radius: 50%;
+            background: rgba(27, 77, 46, .035);
+        }
+
+        .brand-content {
+            max-width: 440px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-kicker {
+            color: var(--brand-gold);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            margin-bottom: .75rem;
+            display: flex;
+            align-items: center;
+            gap: .55rem;
+        }
+
+        .brand-kicker::before {
+            content: "";
+            width: 34px;
+            height: 2px;
+            background: var(--brand-gold);
+            flex-shrink: 0;
+        }
+
+        .brand-title {
+            color: var(--brand-primary-green);
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            margin: 0 0 1.25rem;
+        }
+
+        .brand-description {
+            color: var(--muted-text);
+            font-size: .95rem;
+            line-height: 1.7;
+            max-width: 400px;
+            margin: 0;
+        }
+
+        .brand-decoration {
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            margin-top: 1.5rem;
+        }
+
+        .brand-decoration span:nth-child(1),
+        .brand-decoration span:nth-child(3) {
+            width: 38px;
+            height: 2px;
+            background: var(--brand-gold);
+        }
+
+        .brand-decoration span:nth-child(2) {
+            width: 6px;
+            height: 6px;
+            background: var(--brand-gold);
+            transform: rotate(45deg);
+        }
+
+        /* ================================
+           LEAF DECORATIONS
+        ================================= */
+
+        .leaf {
+            position: absolute;
+            pointer-events: none;
+            opacity: .55;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(27, 77, 46, .07),
+                    rgba(200, 155, 60, .04)
+                );
+            z-index: 1;
+        }
+
+        .leaf-one {
+            width: 170px;
+            height: 170px;
+            left: -70px;
+            bottom: -65px;
+            border-radius: 0 80% 0 80%;
+            transform: rotate(25deg);
+        }
+
+        .leaf-two {
+            width: 180px;
+            height: 180px;
+            right: -65px;
+            top: -55px;
+            border-radius: 80% 0 80% 0;
+            transform: rotate(25deg);
+        }
+
+        .leaf-three {
+            width: 130px;
+            height: 130px;
+            right: 20px;
+            bottom: -80px;
+            border-radius: 80% 0 80% 0;
+            transform: rotate(65deg);
+            opacity: .3;
+        }
+
+        /* ================================
+           RIGHT FORM SIDE
+        ================================= */
+
+        .signup-form-panel {
+            background: #FFFFFF;
+            height: 100%;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(27, 77, 46, .22) transparent;
+        }
+
+        .signup-form-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .signup-form-panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .signup-form-panel::-webkit-scrollbar-thumb {
+            background: rgba(27, 77, 46, .2);
+            border-radius: 10px;
+        }
+
+        .signup-form-wrapper {
+            width: 100%;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 2rem 2.5rem 2.2rem;
+        }
+
+        /* ================================
+           SIGNUP HEADING
+        ================================= */
+
+        .signup-heading {
+            text-align: left;
+            margin-bottom: 1.35rem;
+        }
+
+        .signup-heading h1 {
+            color: var(--brand-primary-green);
+            font-size: 1.55rem;
+            font-weight: 800;
+            margin: 0 0 .35rem;
+        }
+
+        .signup-heading p {
+            color: var(--muted-text);
+            font-size: .78rem;
+            margin: 0;
+        }
+
+        .heading-decoration {
+            display: flex;
+            align-items: center;
+            gap: .35rem;
+            margin-top: .7rem;
+        }
+
+        .heading-decoration span:nth-child(1),
+        .heading-decoration span:nth-child(3) {
+            width: 32px;
+            height: 2px;
+            background: var(--brand-gold);
+        }
+
+        .heading-decoration span:nth-child(2) {
+            width: 5px;
+            height: 5px;
+            background: var(--brand-gold);
+            transform: rotate(45deg);
+        }
+
+        /* ================================
+           FORM SECTIONS
+        ================================= */
+
+        .form-section {
+            margin-bottom: 1rem;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: .55rem;
+            color: var(--brand-primary-green);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            margin-bottom: .75rem;
+        }
+
+        .section-heading::before {
+            content: "";
+            width: 22px;
+            height: 2px;
+            background: var(--brand-gold);
+            flex-shrink: 0;
+        }
+
+        /* ================================
+           FORM GRID
+        ================================= */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .85rem;
+        }
+
+        .form-field {
+            min-width: 0;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--primary-text-dark);
+            font-size: .75rem;
+            font-weight: 700;
+            margin-bottom: .4rem;
+        }
+
+        .form-control {
+            width: 100%;
+            height: 44px;
+            padding: .65rem .85rem;
+            background: var(--input-bg-subtle);
+            border: 1px solid var(--border-divider-neutral);
+            border-radius: 8px;
+            color: var(--primary-text-dark);
+            font-size: .8rem;
+            outline: none;
+            transition: all .2s ease;
+        }
+
+        .form-control::placeholder {
+            color: #9BA39E;
+        }
+
+        .form-control:focus {
+            background: #FFFFFF;
+            border-color: var(--brand-primary-green);
+            box-shadow: 0 0 0 3px rgba(27, 77, 46, .08);
+        }
+
+        .form-control.is-invalid {
+            border-color: var(--danger-validation-red);
+        }
+
+        .invalid-feedback {
+            font-size: .68rem;
+            margin-top: .25rem;
+        }
+
+        /* ================================
+           PASSWORD
+        ================================= */
+
+        .input-group {
+            flex-wrap: nowrap;
+        }
+
+        .input-group .form-control {
+            min-width: 0;
+        }
+
+        .has-toggle .form-control {
+            border-right: none;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .btn-toggle-password {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border-divider-neutral);
+            border-left: none;
+            border-radius: 0 8px 8px 0;
+            background: var(--input-bg-subtle);
+            color: var(--muted-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .btn-toggle-password:hover {
+            background: var(--input-bg-subtle);
+            border-color: var(--border-divider-neutral);
+            color: var(--brand-primary-green);
+        }
+
+        /* ================================
+           PASSWORD REQUIREMENTS
+        ================================= */
+
+        .password-requirements {
+            background: #FBF7EE;
+            border: 1px solid rgba(200, 155, 60, .25);
+            border-radius: 8px;
+            padding: .65rem .75rem;
+            font-size: .65rem;
+        }
+
+        .password-requirements .req-item {
+            color: var(--danger-validation-red);
+            display: flex;
+            align-items: center;
+            gap: .3rem;
+        }
+
+        .password-requirements .req-item i {
+            font-size: .65rem;
+        }
+
+        .password-requirements .progress {
+            background: #E6E1D7;
+        }
+
+        /* ================================
+           REFERRAL
+        ================================= */
+
+        .referral-box {
+            padding: 0;
+            background: transparent;
+            border: none;
+        }
+
+        .referral-title {
+            color: var(--primary-text-dark);
+            font-size: .75rem;
+            font-weight: 700;
+            margin-bottom: .4rem;
+        }
+
+        .referral-description {
+            display: none;
+        }
+
+        .referral-box .form-control {
+            background: var(--input-bg-subtle);
+        }
+
+        /* ================================
+           CREATE ACCOUNT BUTTON
+        ================================= */
+
+        .btn-brand {
+            width: 100%;
+            height: 44px;
+            background: var(--brand-primary-green);
+            border: 1px solid var(--brand-primary-green);
+            border-radius: 8px;
+            color: #FFFFFF;
+            font-size: .8rem;
+            font-weight: 700;
+            transition: all .2s ease;
+        }
+
+        .btn-brand:hover {
+            background: var(--brand-hover-green);
+            border-color: var(--brand-hover-green);
+            color: #FFFFFF;
+            transform: translateY(-1px);
+        }
+
+        /* ================================
+           DIVIDER
+        ================================= */
+
+        .signup-divider {
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+            margin: 1.15rem 0;
+            color: var(--muted-text);
+            font-size: .68rem;
+            font-weight: 600;
+        }
+
+        .signup-divider::before,
+        .signup-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border-divider-neutral);
+        }
+
+        /* ================================
+           GOOGLE
+        ================================= */
+
+        .google-button {
+            width: 100%;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .55rem;
+            background: #FFFFFF;
+            border: 1px solid var(--border-divider-neutral);
+            border-radius: 8px;
+            color: var(--primary-text-dark);
+            font-size: .78rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all .2s ease;
+        }
+
+        .google-button:hover {
+            background: var(--input-bg-subtle);
+            border-color: #CFC8BB;
+            color: var(--primary-text-dark);
+        }
+
+        .google-button svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        /* ================================
+           LOGIN TEXT
+        ================================= */
+
+        .login-text {
+            text-align: center;
+            color: var(--muted-text);
+            font-size: .72rem;
+            margin-top: 1.2rem;
+        }
+
+        .login-link {
+            color: var(--brand-primary-green);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .login-link:hover {
+            color: var(--brand-hover-green);
+        }
+
+        /* ================================
+           TERMS
+        ================================= */
+
+        .terms-text {
+            color: var(--muted-text);
+            font-size: .65rem;
+            line-height: 1.5;
+            text-align: center;
+            margin: .8rem 0 0;
+        }
+
+        .terms-text a {
+            color: var(--muted-text);
+        }
+
+        /* ================================
+           FOOTER
+        ================================= */
+
+        .auth-footer {
+            height: 58px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4%;
+            background: var(--background-cream);
+            border-top: 1px solid var(--border-divider-neutral);
+            position: relative;
+            z-index: 5;
+        }
+
+        .footer-inner {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .footer-brand {
+            color: var(--brand-primary-green);
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: .4px;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .footer-links a {
+            color: var(--muted-text);
+            font-size: .65rem;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-primary-green);
+        }
+
+        .footer-copy {
+            color: var(--muted-text);
+            font-size: .65rem;
+        }
+
+        /* ================================
+           SHORT DESKTOP HEIGHT
+        ================================= */
+
+        @media (max-height: 800px) and (min-width: 992px) {
+
+            .signup-main {
+                padding-top: 7px;
+                padding-bottom: 7px;
+            }
+
+            .signup-form-wrapper {
+                padding-top: 1.35rem;
+                padding-bottom: 1.5rem;
+            }
+
+            .signup-heading {
+                margin-bottom: 1rem;
+            }
+
+            .form-section {
+                margin-bottom: .75rem;
+            }
+
+            .brand-title {
+                font-size: 3.2rem;
+            }
+
+            .brand-description {
+                font-size: .86rem;
+            }
+        }
+
+        /* ================================
+           TABLET
+        ================================= */
+
+        @media (max-width: 991px) {
+
+            body {
+                overflow: auto;
+            }
+
+            .auth-header {
+                height: 64px;
+                padding: 0 1.5rem;
+            }
+
+            .auth-brand {
+                font-size: 1.45rem;
+            }
+
+            .signup-main {
+                height: auto;
+                min-height: calc(100vh - 64px);
+                padding: 1.25rem;
+                overflow: visible;
+            }
+
+            .signup-layout {
+                height: auto;
+                min-height: auto;
+                max-width: 650px;
+                grid-template-columns: 1fr;
+            }
+
+            .signup-brand-panel {
+                min-height: 260px;
+                padding: 2.5rem;
+            }
+
+            .brand-title {
+                font-size: 2.8rem;
+            }
+
+            .signup-form-panel {
+                height: auto;
+                overflow: visible;
+            }
+
+            .signup-form-wrapper {
+                max-width: 600px;
+                padding: 2rem 1.5rem;
+            }
+
+            .auth-footer {
+                height: auto;
+                padding: .9rem 1.25rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 575px) {
+
+            .auth-header {
+                height: 60px;
+                padding: 0 1rem;
+            }
+
+            .auth-brand {
+                font-size: 1.25rem;
+            }
+
+            .signup-main {
+                padding: .75rem;
+            }
+
+            .signup-layout {
+                border-radius: 14px;
+            }
+
+            .signup-brand-panel {
+                padding: 1.5rem;
+                min-height: 210px;
+            }
+
+            .brand-kicker {
+                font-size: .62rem;
+            }
+
+            .brand-title {
+                font-size: 2rem;
+                letter-spacing: -1px;
+                margin-bottom: .8rem;
+            }
+
+            .brand-description {
+                font-size: .78rem;
+                line-height: 1.55;
+            }
+
+            .brand-decoration {
+                margin-top: 1rem;
+            }
+
+            .signup-form-wrapper {
+                padding: 1.5rem 1rem;
+            }
+
+            .signup-heading h1 {
+                font-size: 1.4rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: .8rem;
+            }
+
+            .footer-links {
+                gap: .75rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .footer-copy {
+                text-align: center;
+            }
+
+            .leaf-two {
+                width: 130px;
+                height: 130px;
+            }
+
+            .leaf-one {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="auth-header">
+
+        <a
+            href="/"
+            class="auth-brand"
+        >
+            NAADAN BOX
+        </a>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="signup-main">
+
+        <div class="signup-layout">
+
+            <!-- LEFT BRANDING -->
+
+            <section class="signup-brand-panel">
+
+                <div class="leaf leaf-one"></div>
+                <div class="leaf leaf-two"></div>
+                <div class="leaf leaf-three"></div>
+
+                <div class="brand-content">
+
+                    <div class="brand-kicker">
+                        Welcome to Naadan Box
+                    </div>
+
+                    <h1 class="brand-title">
+                        A TASTE OF<br>
+                        KERALA,<br>
+                        MADE FOR<br>
+                        HOME.
+                    </h1>
+
+                    <p class="brand-description">
+                        Bring authentic Kerala flavours to your kitchen with our
+                        convenient Ready-to-Cook Curry Kits. Simple to prepare,
+                        rich in tradition.
+                    </p>
+
+                    <div class="brand-decoration">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SIGNUP FORM -->
+
+            <section class="signup-form-panel">
+
+                <div class="signup-form-wrapper">
+
+                    <!-- SIGNUP HEADING -->
+
+                    <div class="signup-heading">
+
+                        <h1>
+                            Create Your Account
+                        </h1>
+
+                        <p>
+                            Start your Naadan Box journey.
+                        </p>
+
+                        <div class="heading-decoration">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- SIGNUP FORM -->
+
+                    <form
+                        id="signupForm"
+                        action="/signup"
+                        method="POST"
+                        novalidate
+                        autocomplete="off"
+                    >
+
+                        <!-- PERSONAL DETAILS -->
+
+                        <div class="form-section">
+
+                            <div class="section-heading">
+                                Personal Details
+                            </div>
+
+                            <div class="form-grid">
+
+                                <!-- FULL NAME -->
+
+                                <div class="form-field">
+
+                                    <label
+                                        for="name"
+                                        class="form-label"
+                                    >
+                                        Full Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control <%= typeof nameError !== 'undefined' && nameError ? 'is-invalid' : '' %>"
+                                        id="name"
+                                        name="name"
+                                        value="<%= typeof name !== 'undefined' ? name : '' %>"
+                                        maxlength="50"
+                                        autocomplete="name"
+                                        placeholder="Enter your full name"
+                                        required
+                                    >
+
+                                    <div
+                                        id="nameError"
+                                        class="invalid-feedback <%= typeof nameError !== 'undefined' && nameError ? 'd-block' : '' %>"
+                                    >
+                                        <%= typeof nameError !== 'undefined' ? nameError : "" %>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- EMAIL -->
+
+                                <div class="form-field">
+
+                                    <label
+                                        for="email"
+                                        class="form-label"
+                                    >
+                                        Email Address
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        class="form-control <%= typeof emailError !== 'undefined' && emailError ? 'is-invalid' : '' %>"
+                                        id="email"
+                                        name="email"
+                                        value="<%= typeof email !== 'undefined' ? email : '' %>"
+                                        maxlength="72"
+                                        autocomplete="off"
+                                        placeholder="Enter your email address"
+                                        required
+                                    >
+
+                                    <div
+                                        id="emailError"
+                                        class="invalid-feedback <%= typeof emailError !== 'undefined' && emailError ? 'd-block' : '' %>"
+                                    >
+                                        <%= typeof emailError !== 'undefined' ? emailError : "" %>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- SECURE ACCOUNT -->
+
+                        <div class="form-section">
+
+                            <div class="section-heading">
+                                Secure Your Account
+                            </div>
+
+                            <div class="form-grid">
+
+                                <!-- PASSWORD -->
+
+                                <div class="form-field">
+
+                                    <label
+                                        for="password"
+                                        class="form-label"
+                                    >
+                                        Password
+                                    </label>
+
+                                    <div class="input-group has-toggle">
+
+                                        <input
+                                            type="password"
+                                            class="form-control <%= typeof passwordError !== 'undefined' && passwordError ? 'is-invalid' : '' %>"
+                                            id="password"
+                                            name="password"
+                                            autocomplete="new-password"
+                                            placeholder="Create a strong password"
+                                            required
+                                        >
+
+                                        <button
+                                            class="btn btn-toggle-password"
+                                            type="button"
+                                            id="passwordToggle"
+                                            aria-label="Toggle password visibility"
+                                        >
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+
+                                    </div>
+
+                                    <div
+                                        id="passwordError"
+                                        class="invalid-feedback <%= typeof passwordError !== 'undefined' && passwordError ? 'd-block' : '' %>"
+                                    >
+                                        <%= typeof passwordError !== 'undefined' ? passwordError : "" %>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- CONFIRM PASSWORD -->
+
+                                <div class="form-field">
+
+                                    <label
+                                        for="confirmPassword"
+                                        class="form-label"
+                                    >
+                                        Confirm Password
+                                    </label>
+
+                                    <div class="input-group has-toggle">
+
+                                        <input
+                                            type="password"
+                                            class="form-control"
+                                            id="confirmPassword"
+                                            name="confirmPassword"
+                                            autocomplete="new-password"
+                                            placeholder="Re-enter your password"
+                                            required
+                                        >
+
+                                        <button
+                                            class="btn btn-toggle-password"
+                                            type="button"
+                                            id="confirmPasswordToggle"
+                                            aria-label="Toggle confirm password visibility"
+                                        >
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+
+                                    </div>
+
+                                    <div
+                                        id="confirmPasswordError"
+                                        class="invalid-feedback"
+                                    ></div>
+
+                                    <div
+                                        id="passwordMatchMessage"
+                                        class="small text-danger mt-1 d-none"
+                                    >
+                                        Passwords do not match.
+                                    </div>
+
+                                    <div
+                                        id="passwordMatchSuccess"
+                                        class="small text-success mt-1 d-none"
+                                    >
+                                        Passwords match.
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PASSWORD REQUIREMENTS -->
+
+                        <div
+                            id="passwordRequirements"
+                            class="password-requirements mb-3 d-none"
+                        >
+
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+
+                                <span class="fw-bold">
+                                    Password Strength:
+                                </span>
+
+                                <span
+                                    id="strengthText"
+                                    class="fw-bold text-danger"
+                                ></span>
+
+                            </div>
+
+                            <div
+                                class="progress mb-2"
+                                style="height: 4px;"
+                            >
+
+                                <div
+                                    id="passwordStrengthBar"
+                                    class="progress-bar"
+                                    role="progressbar"
+                                    style="width: 0%"
+                                    aria-valuenow="0"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                ></div>
+
+                            </div>
+
+                            <div class="row g-2">
+
+                                <div
+                                    id="rule-length"
+                                    class="col-6 req-item"
+                                >
+                                    <i class="bi bi-x-circle"></i>
+                                    Minimum 8 characters
+                                </div>
+
+                                <div
+                                    id="rule-uppercase"
+                                    class="col-6 req-item"
+                                >
+                                    <i class="bi bi-x-circle"></i>
+                                    One uppercase
+                                </div>
+
+                                <div
+                                    id="rule-lowercase"
+                                    class="col-6 req-item"
+                                >
+                                    <i class="bi bi-x-circle"></i>
+                                    One lowercase
+                                </div>
+
+                                <div
+                                    id="rule-number"
+                                    class="col-6 req-item"
+                                >
+                                    <i class="bi bi-x-circle"></i>
+                                    One number
+                                </div>
+
+                                <div
+                                    id="rule-special"
+                                    class="col-12 req-item"
+                                >
+                                    <i class="bi bi-x-circle"></i>
+                                    One special char
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- REFERRAL -->
+
+                        <div class="form-section">
+
+                            <div class="section-heading">
+                                Referral Reward
+                            </div>
+
+                            <div class="referral-box">
+
+                                <div class="referral-title">
+                                    Referral Code (Optional)
+                                </div>
+
+                                <input
+                                    type="text"
+                                    class="form-control <%= typeof referralCodeError !== 'undefined' && referralCodeError ? 'is-invalid' : '' %>"
+                                    id="referralCode"
+                                    name="referralCode"
+                                    placeholder="Enter referral code"
+                                    value="<%= typeof referralCode !== 'undefined' ? referralCode : '' %>"
+                                    maxlength="50"
+                                    autocomplete="off"
+                                >
+
+                                <div
+                                    id="referralCodeError"
+                                    class="invalid-feedback <%= typeof referralCodeError !== 'undefined' && referralCodeError ? 'd-block' : '' %>"
+                                >
+                                    <%= typeof referralCodeError !== 'undefined' ? referralCodeError : "" %>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CREATE ACCOUNT -->
+
+                        <button
+                            type="submit"
+                            id="signupButton"
+                            class="btn btn-brand"
+                        >
+                            Create Account
+                        </button>
+
+
+                        <!-- DIVIDER -->
+
+                        <div class="signup-divider">
+                            <span>OR</span>
+                        </div>
+
+
+                        <!-- GOOGLE SIGNUP -->
+
+                        <a
+                            href="/auth/google"
+                            class="google-button"
+                        >
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                            >
+
+                                <path
+                                    fill="#4285F4"
+                                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                                />
+
+                                <path
+                                    fill="#34A853"
+                                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                                />
+
+                                <path
+                                    fill="#FBBC05"
+                                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                                />
+
+                                <path
+                                    fill="#EA4335"
+                                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                                />
+
+                            </svg>
+
+                            Continue with Google
+
+                        </a>
+
+
+                        <!-- LOGIN -->
+
+                        <div class="login-text">
+
+                            Don't have an account?
+
+                            <a
+                                href="/login"
+                                class="login-link"
+                            >
+                                Login
+                            </a>
+
+                        </div>
+
+
+                        <!-- TERMS -->
+
+                        <p class="terms-text">
+
+                            By creating an account, you agree to our
+
+                            <a
+                                href="#"
+                                class="text-decoration-underline"
+                            >
+                                Terms & Conditions
+                            </a>
+
+                            and
+
+                            <a
+                                href="#"
+                                class="text-decoration-underline"
+                            >
+                                Privacy Policy
+                            </a>.
+
+                        </p>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="auth-footer">
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+                NAADAN BOX
+            </div>
+
+            <div class="footer-links">
+
+                <a href="#">
+                    Privacy Policy
+                </a>
+
+                <a href="#">
+                    Terms of Service
+                </a>
+
+                <a href="#">
+                    Shipping Policy
+                </a>
+
+                <a href="#">
+                    Refund Policy
+                </a>
+
+            </div>
+
+            <div class="footer-copy">
+                © 2024 NAADAN BOX
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Bootstrap JS -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+
+    <!-- Signup JS -->
+
+    <script src="/js/signup.js"></script>
+
+</body>
+</html>

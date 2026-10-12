@@ -1,0 +1,3126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Account - Naadan Box</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    >
+
+
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css"
+>
+
+    <style>
+
+        :root {
+            --brand-primary-green:#1B4D2E;
+            --brand-hover-green:#143B23;
+            --brand-gold:#C89B3C;
+            --background-cream:#F8F4EA;
+            --card-background:#FFFDF8;
+            --primary-text-dark:#1F2D26;
+            --muted-text:#718078;
+            --border-divider-neutral:rgba(27,77,46,.10);
+            --danger-validation-red:#DC3545;
+            --input-bg-subtle:#FBF8F0;
+        }
+
+        * {
+            box-sizing:border-box;
+        }
+
+        html {
+            scroll-behavior:smooth;
+        }
+
+        body {
+            margin:0;
+            padding:0;
+            background:var(--background-cream);
+            color:var(--primary-text-dark);
+            font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+        }
+
+        /* =========================================
+           HEADER
+           ========================================= */
+
+        header {
+            background:rgba(248,244,234,.96);
+            border-bottom:1px solid rgba(27,77,46,.08);
+            position:sticky;
+            top:0;
+            z-index:1000;
+            backdrop-filter:blur(12px);
+        }
+
+        .navbar-brand {
+            font-weight:800;
+            color:var(--brand-primary-green)!important;
+            letter-spacing:.7px;
+        }
+
+        .nav-link {
+            color:var(--primary-text-dark)!important;
+            font-weight:500;
+            font-size:.92rem;
+            transition:color .2s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color:var(--brand-primary-green)!important;
+            font-weight:700;
+        }
+
+        .nav-icon-link {
+            position:relative;
+            color:var(--primary-text-dark);
+            font-size:1.08rem;
+            text-decoration:none;
+            transition:all .2s ease;
+        }
+
+        .nav-icon-link:hover,
+        .nav-icon-link.active {
+            color:var(--brand-primary-green);
+            transform:translateY(-1px);
+        }
+
+        .cart-badge {
+            position:absolute;
+            top:-7px;
+            right:-9px;
+            width:16px;
+            height:16px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:var(--brand-gold);
+            color:#fff;
+            border-radius:50%;
+            font-size:.62rem;
+            font-weight:700;
+        }
+
+        /* =========================================
+           PAGE
+           ========================================= */
+
+        .profile-page {
+            position:relative;
+            min-height:calc(100vh - 70px);
+            padding:1.15rem 0 2rem;
+            overflow:visible;
+        }
+
+        .profile-page > .container {
+            position:relative;
+            z-index:2;
+        }
+
+        /* =========================================
+           BANANA LEAF DECORATION
+           ========================================= */
+
+        .account-leaf {
+            position:absolute;
+            pointer-events:none;
+            z-index:0;
+        }
+
+        .account-leaf svg {
+            width:100%;
+            height:100%;
+            display:block;
+        }
+
+        .account-leaf-top {
+            width:220px;
+            height:220px;
+            top:30px;
+            right:-70px;
+            opacity:.055;
+            transform:rotate(-12deg);
+        }
+
+        .account-leaf-small {
+            width:90px;
+            height:90px;
+            top:235px;
+            left:15px;
+            opacity:.035;
+            transform:rotate(-28deg);
+        }
+
+        .account-leaf-bottom {
+            width:190px;
+            height:190px;
+            bottom:-55px;
+            left:-70px;
+            opacity:.045;
+            transform:rotate(25deg) scaleX(-1);
+        }
+
+        /* =========================================
+           BREADCRUMB
+           ========================================= */
+
+        .breadcrumb {
+            margin-bottom:.45rem;
+        }
+
+        .breadcrumb-item,
+        .breadcrumb-item a {
+            color:var(--muted-text);
+            font-size:.74rem;
+            text-decoration:none;
+        }
+
+        .breadcrumb-item a:hover {
+            color:var(--brand-primary-green);
+        }
+
+        .breadcrumb-item.active {
+            color:var(--primary-text-dark);
+            font-weight:600;
+        }
+
+        /* =========================================
+           PAGE HEADING
+           ========================================= */
+
+        .page-heading-wrap {
+            text-align:center;
+            margin-bottom:1.05rem;
+        }
+
+        .page-title {
+            margin:0;
+            color:var(--brand-primary-green);
+            font-size:1.7rem;
+            font-weight:800;
+            letter-spacing:.6px;
+            line-height:1.2;
+        }
+
+        .page-description {
+            margin:.35rem 0 0;
+            color:var(--muted-text);
+            font-size:.77rem;
+        }
+
+        .page-heading-decoration {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:8px;
+            margin-top:.55rem;
+        }
+
+        .page-heading-decoration span:first-child,
+        .page-heading-decoration span:last-child {
+            width:42px;
+            height:2px;
+            background:var(--brand-gold);
+            border-radius:3px;
+        }
+
+        .page-heading-decoration span:nth-child(2) {
+            width:5px;
+            height:5px;
+            background:var(--brand-gold);
+            transform:rotate(45deg);
+        }
+
+        /* =========================================
+           ACCOUNT LAYOUT
+           ========================================= */
+
+        .account-layout {
+            display:grid;
+            grid-template-columns:235px minmax(0,1fr);
+            gap:1rem;
+            align-items:start;
+        }
+
+        /* =========================================
+           SIDEBAR
+           ========================================= */
+
+        .account-sidebar {
+            position:sticky;
+            top:82px;
+            background:rgba(248,244,234,.96);
+            border:1px solid rgba(27,77,46,.10);
+            border-radius:14px;
+            overflow:hidden;
+            box-shadow:0 8px 24px rgba(27,77,46,.055);
+        }
+
+        .user-summary {
+            position:relative;
+            padding:1rem .8rem .85rem;
+            text-align:center;
+            border-bottom:1px solid rgba(27,77,46,.08);
+            overflow:hidden;
+        }
+
+        .user-summary::before {
+            content:"";
+            position:absolute;
+            width:105px;
+            height:105px;
+            top:-55px;
+            right:-40px;
+            background:rgba(27,77,46,.045);
+            border-radius:70% 30% 70% 30%;
+            transform:rotate(25deg);
+        }
+
+        .user-summary::after {
+            content:"";
+            position:absolute;
+            width:65px;
+            height:85px;
+            bottom:-42px;
+            left:-28px;
+            background:rgba(200,155,60,.045);
+            border-radius:30% 70% 30% 70%;
+            transform:rotate(-25deg);
+        }
+
+        .profile-avatar {
+            position:relative;
+            z-index:1;
+            width:66px;
+            height:66px;
+            display:block;
+            margin:0 auto .5rem;
+            object-fit:cover;
+            border-radius:50%;
+            border:2px solid #fff;
+            outline:1px solid rgba(27,77,46,.20);
+            background:#fff;
+            box-shadow:0 5px 15px rgba(27,77,46,.10);
+        }
+
+        .profile-image-wrapper {
+            text-align:center;
+        }
+
+        .profile-image-actions {
+            position:relative;
+            z-index:2;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            gap:.35rem;
+            margin-top:.45rem;
+        }
+
+        .profile-image-btn,
+        .profile-image-delete {
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            gap:.3rem;
+            padding:.32rem .55rem;
+            border-radius:6px;
+            font-size:.64rem;
+            font-weight:600;
+            cursor:pointer;
+            transition:all .2s ease;
+        }
+
+        .profile-image-btn {
+            background:var(--brand-primary-green);
+            color:#fff;
+        }
+
+        .profile-image-btn:hover {
+            background:var(--brand-hover-green);
+            color:#fff;
+        }
+
+        .profile-image-delete {
+            background:transparent;
+            color:var(--danger-validation-red);
+            border:1px solid rgba(220,53,69,.5);
+        }
+
+        .profile-image-delete:hover {
+            background:var(--danger-validation-red);
+            color:#fff;
+        }
+
+        .profile-image-input {
+            display:none;
+        }
+
+
+
+
+
+
+/* PROFILE IMAGE ACTIONS */
+
+.profile-image-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.profile-image-btn,
+.profile-image-delete {
+    height: 38px;
+    border-radius: 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.profile-image-btn {
+    height: 32px;
+    padding: 0 11px;
+    gap: 5px;
+    border-radius: 7px;
+    background: var(--brand-primary-green);
+    color: #fff;
+    border: 1px solid var(--brand-primary-green);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.72rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.profile-image-btn:hover {
+    background: var(--brand-hover-green);
+    border-color: var(--brand-hover-green);
+    transform: translateY(-1px);
+}
+
+.profile-image-btn i {
+    font-size: 0.78rem;
+}
+
+.profile-image-delete {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #8a5148;
+    border: 1px solid rgba(138, 81, 72, 0.18);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.profile-image-delete:hover {
+    background: #fff7f5;
+    border-color: rgba(138, 81, 72, 0.3);
+}
+
+.profile-image-input {
+    display: none;
+}
+
+/* CROP MODAL */
+
+.profile-crop-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.profile-crop-modal.show {
+    display: flex;
+}
+
+.profile-crop-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 35, 27, 0.68);
+    backdrop-filter: blur(5px);
+}
+
+.profile-crop-card {
+    position: relative;
+    z-index: 1;
+    width: min(520px, 100%);
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(20, 35, 27, 0.25);
+}
+
+.profile-crop-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px 22px 16px;
+    background: var(--cream, #f8f4ea);
+    border-bottom: 1px solid rgba(27, 77, 46, 0.08);
+}
+
+.profile-crop-eyebrow {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--brand-gold, #c89b3c);
+    font-size: 0.67rem;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+.profile-crop-header h3 {
+    margin: 0;
+    color: var(--brand-primary-green, #1b4d2e);
+    font-size: 1.15rem;
+    font-weight: 750;
+}
+
+.profile-crop-header p {
+    margin: 5px 0 0;
+    color: #718078;
+    font-size: 0.78rem;
+}
+
+.profile-crop-close {
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(27, 77, 46, 0.1);
+    border-radius: 50%;
+    background: #fff;
+    color: #718078;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.profile-crop-close:hover {
+    color: var(--brand-primary-green, #1b4d2e);
+    border-color: rgba(27, 77, 46, 0.22);
+}
+
+.profile-crop-area {
+    width: 100%;
+    height: 390px;
+    background: #18231d;
+    overflow: hidden;
+}
+
+.profile-crop-area img {
+    display: block;
+    max-width: 100%;
+}
+
+.profile-crop-controls {
+    padding: 15px 22px 5px;
+}
+
+.profile-crop-zoom {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #718078;
+}
+
+.profile-crop-zoom i {
+    font-size: 0.75rem;
+}
+
+.profile-crop-zoom input {
+    flex: 1;
+    accent-color: var(--brand-primary-green, #1b4d2e);
+}
+
+.profile-crop-reset {
+    margin-top: 9px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--brand-primary-green, #1b4d2e);
+    font-size: 0.76rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.profile-crop-reset i {
+    margin-right: 4px;
+}
+
+.profile-crop-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 9px;
+    padding: 16px 22px 20px;
+}
+
+.profile-crop-cancel,
+.profile-crop-save {
+    height: 40px;
+    padding: 0 17px;
+    border-radius: 9px;
+    font-size: 0.8rem;
+    font-weight: 650;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.profile-crop-cancel {
+    background: #fff;
+    color: #66736d;
+    border: 1px solid rgba(27, 77, 46, 0.14);
+}
+
+.profile-crop-cancel:hover {
+    background: #f8f4ea;
+}
+
+.profile-crop-save {
+    border: 1px solid var(--brand-primary-green, #1b4d2e);
+    background: var(--brand-primary-green, #1b4d2e);
+    color: #fff;
+}
+
+.profile-crop-save:hover {
+    background: var(--brand-hover-green, #133821);
+    border-color: var(--brand-hover-green, #133821);
+}
+
+.profile-crop-save:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+body.crop-modal-open {
+    overflow: hidden;
+}
+
+@media (max-width: 576px) {
+    .profile-crop-modal {
+        padding: 12px;
+    }
+
+    .profile-crop-area {
+        height: 320px;
+    }
+
+    .profile-crop-header {
+        padding: 17px;
+    }
+
+    .profile-crop-controls {
+        padding: 13px 17px 4px;
+    }
+
+    .profile-crop-actions {
+        padding: 14px 17px 17px;
+    }
+}
+
+
+
+        .user-name {
+            position:relative;
+            z-index:2;
+            margin:.55rem 0 .12rem;
+            color:var(--brand-primary-green);
+            font-size:.9rem;
+            font-weight:800;
+        }
+
+        .user-email {
+            position:relative;
+            z-index:2;
+            margin-bottom:.15rem;
+            color:var(--muted-text);
+            font-size:.66rem;
+            word-break:break-word;
+        }
+
+        .member-since {
+            position:relative;
+            z-index:2;
+            margin:0;
+            color:var(--muted-text);
+            font-size:.63rem;
+        }
+
+        /* =========================================
+           SIDEBAR MENU
+           ========================================= */
+
+        .sidebar-menu {
+            padding:.5rem;
+        }
+
+        .sidebar-item {
+            position:relative;
+            display:flex;
+            align-items:center;
+            gap:.6rem;
+            width:100%;
+            padding:.58rem .68rem;
+            margin-bottom:.12rem;
+            border:0;
+            border-radius:7px;
+            background:transparent;
+            color:var(--primary-text-dark);
+            font-size:.76rem;
+            font-weight:600;
+            text-decoration:none;
+            cursor:pointer;
+            transition:all .2s ease;
+            text-align:left;
+        }
+
+        .sidebar-item i {
+            width:17px;
+            flex-shrink:0;
+            color:var(--brand-primary-green);
+            text-align:center;
+            font-size:.88rem;
+        }
+
+        .sidebar-item:hover {
+            background:rgba(27,77,46,.055);
+            color:var(--brand-primary-green);
+            transform:translateX(2px);
+        }
+
+        .sidebar-item.active {
+            background:var(--brand-primary-green);
+            color:#fff;
+            box-shadow:0 4px 12px rgba(27,77,46,.12);
+        }
+
+        .sidebar-item.active i {
+            color:#fff;
+        }
+
+        .sidebar-item.active::before {
+            content:"";
+            position:absolute;
+            left:0;
+            top:50%;
+            width:3px;
+            height:19px;
+            background:var(--brand-gold);
+            border-radius:0 3px 3px 0;
+            transform:translateY(-50%);
+        }
+
+        .sidebar-item.logout {
+            margin-top:.45rem;
+            padding-top:.7rem;
+            border-top:1px solid rgba(27,77,46,.08);
+            border-radius:0;
+            color:var(--danger-validation-red);
+        }
+
+        .sidebar-item.logout i {
+            color:var(--danger-validation-red);
+        }
+
+        .sidebar-item.logout:hover {
+            background:rgba(220,53,69,.055);
+            color:var(--danger-validation-red);
+        }
+
+        /* =========================================
+           CONTENT
+           ========================================= */
+
+        .account-content {
+            min-width:0;
+        }
+
+        .profile-section {
+            width:100%;
+        }
+
+        /* =========================================
+           STAT CARDS
+           ========================================= */
+
+        .stats-grid {
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:.6rem;
+            margin-bottom:.8rem;
+        }
+
+        .stat-card {
+            background:rgba(255,253,248,.96);
+            border:1px solid rgba(27,77,46,.08);
+            border-radius:10px;
+            padding:.7rem .55rem;
+            text-align:center;
+            box-shadow:0 5px 15px rgba(27,77,46,.035);
+            transition:all .2s ease;
+        }
+
+        .stat-card:hover {
+            transform:translateY(-2px);
+            box-shadow:0 8px 20px rgba(27,77,46,.065);
+        }
+
+        .stat-icon {
+            margin-bottom:.12rem;
+            color:var(--brand-primary-green);
+            font-size:1rem;
+        }
+
+        .stat-value {
+            color:var(--primary-text-dark);
+            font-size:1.05rem;
+            font-weight:800;
+            line-height:1.2;
+        }
+
+        .stat-label {
+            margin:.1rem 0 0;
+            color:var(--muted-text);
+            font-size:.65rem;
+        }
+
+        /* =========================================
+           CONTENT CARDS
+           ========================================= */
+
+        .content-card {
+            position:relative;
+            background:rgba(255,255,255,.97);
+            border:1px solid rgba(27,77,46,.08);
+            border-radius:13px;
+            padding:1.1rem 1.2rem;
+            margin-bottom:.8rem;
+            box-shadow:0 7px 22px rgba(27,77,46,.035);
+        }
+
+        .content-card::before {
+            content:"";
+            position:absolute;
+            top:0;
+            left:18px;
+            width:30px;
+            height:2px;
+            background:var(--brand-gold);
+            border-radius:0 0 3px 3px;
+        }
+
+        .section-heading {
+            margin-bottom:.15rem;
+            color:var(--brand-primary-green);
+            font-size:1rem;
+            font-weight:800;
+            letter-spacing:.15px;
+        }
+
+        .section-subtext {
+            margin-bottom:.85rem;
+            color:var(--muted-text);
+            font-size:.72rem;
+        }
+
+        /* =========================================
+           PROFILE DETAILS
+           ========================================= */
+
+        .profile-details {
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:.85rem 1.5rem;
+        }
+
+        .field-label,
+        .form-label-custom {
+            margin-bottom:.16rem;
+            color:var(--muted-text);
+            font-size:.62rem;
+            font-weight:700;
+            letter-spacing:.5px;
+            text-transform:uppercase;
+        }
+
+        .field-value {
+            color:var(--primary-text-dark);
+            font-size:.83rem;
+            font-weight:700;
+            word-break:break-word;
+        }
+
+        .profile-actions {
+            display:flex;
+            gap:.4rem;
+        }
+
+        /* =========================================
+           BUTTONS
+           ========================================= */
+
+        .btn-profile-outline,
+        .btn-profile-primary {
+            padding:.38rem .8rem;
+            border-radius:7px;
+            font-size:.73rem;
+            font-weight:700;
+            transition:all .2s ease;
+        }
+
+        .btn-profile-outline {
+            background:transparent;
+            border:1px solid var(--brand-primary-green);
+            color:var(--brand-primary-green);
+        }
+
+        .btn-profile-outline:hover {
+            background:var(--brand-primary-green);
+            color:#fff;
+        }
+
+        .btn-profile-primary {
+            background:var(--brand-primary-green);
+            border:1px solid var(--brand-primary-green);
+            color:#fff;
+        }
+
+        .btn-profile-primary:hover {
+            background:var(--brand-hover-green);
+            border-color:var(--brand-hover-green);
+            color:#fff;
+            transform:translateY(-1px);
+        }
+
+        /* =========================================
+           FORM
+           ========================================= */
+
+        .profile-edit-form {
+            margin-top:.35rem;
+        }
+
+        .profile-input,
+        .profile-select {
+            background:var(--input-bg-subtle);
+            border:1px solid rgba(27,77,46,.10);
+            border-radius:7px;
+            min-height:35px;
+            font-size:.78rem;
+        }
+
+        .profile-input:focus,
+        .profile-select:focus {
+            background:#fff;
+            border-color:var(--brand-primary-green);
+            box-shadow:0 0 0 .13rem rgba(27,77,46,.08);
+        }
+
+        /* =========================================
+           REFERRAL
+           ========================================= */
+
+        .referral-preview {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:1rem;
+            padding:.75rem .9rem;
+            background:var(--background-cream);
+            border:1px dashed rgba(27,77,46,.16);
+            border-radius:9px;
+        }
+
+        .referral-code {
+            color:var(--brand-primary-green);
+            font-size:1rem;
+            font-weight:800;
+            letter-spacing:1px;
+        }
+
+        .referral-link {
+            color:var(--brand-primary-green);
+            font-size:.75rem;
+            font-weight:600;
+            text-decoration:none;
+        }
+
+        .referral-link:hover {
+            color:var(--brand-hover-green);
+        }
+
+        /* =========================================
+           SECURITY
+           ========================================= */
+
+        .security-item {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:1rem;
+            padding:.75rem 0;
+            border-bottom:1px solid rgba(27,77,46,.08);
+        }
+
+        .security-item:last-child {
+            border-bottom:0;
+            padding-bottom:0;
+        }
+
+        .security-icon {
+            width:36px;
+            height:36px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-shrink:0;
+            background:rgba(27,77,46,.055);
+            color:var(--brand-primary-green);
+            border-radius:8px;
+            font-size:.95rem;
+        }
+
+        .security-item-title {
+            color:var(--primary-text-dark);
+            font-size:.82rem;
+            font-weight:700;
+        }
+
+        .security-item-description {
+            margin:.12rem 0 .2rem;
+            color:var(--muted-text);
+            font-size:.7rem;
+        }
+
+        .security-current-value {
+            color:var(--muted-text);
+            font-size:.73rem;
+            font-weight:600;
+        }
+
+        .security-info {
+            display:flex;
+            align-items:flex-start;
+            gap:.65rem;
+            padding:.8rem;
+            background:var(--background-cream);
+            border-radius:9px;
+        }
+
+        .security-info i {
+            color:var(--brand-primary-green);
+            font-size:1rem;
+        }
+
+        .security-info p {
+            margin:0;
+            color:var(--muted-text);
+            font-size:.72rem;
+            line-height:1.55;
+        }
+
+        /* =========================================
+           TOAST
+           ========================================= */
+
+        .toast-container-custom {
+            position:fixed;
+            right:20px;
+            bottom:20px;
+            z-index:1055;
+        }
+
+        .toast-custom {
+            display:none;
+            align-items:center;
+            gap:.5rem;
+            padding:.7rem 1rem;
+            background:var(--brand-primary-green);
+            color:#fff;
+            border-radius:7px;
+            box-shadow:0 8px 25px rgba(27,77,46,.18);
+            font-size:.78rem;
+            font-weight:600;
+        }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+
+        footer {
+            background:#F3EEE2;
+            border-top:1px solid rgba(27,77,46,.08);
+            font-size:.82rem;
+        }
+
+        footer a {
+            color:var(--primary-text-dark);
+            text-decoration:none;
+            transition:color .2s ease;
+        }
+
+        footer a:hover {
+            color:var(--brand-primary-green);
+        }
+
+        .footer-heading {
+            margin-bottom:.65rem;
+            color:var(--brand-primary-green);
+            font-size:.8rem;
+            font-weight:800;
+        }
+
+        /* =========================================
+           LOGOUT POPUPS
+           ========================================= */
+
+        .logout-popup-overlay {
+            position:fixed!important;
+            inset:0!important;
+            width:100vw!important;
+            height:100vh!important;
+            background:rgba(24,35,29,.42)!important;
+            display:none!important;
+            z-index:9999!important;
+        }
+
+        .logout-popup-overlay.show {
+            display:block!important;
+        }
+
+        .logout-popup-card {
+            position:fixed!important;
+            top:50%!important;
+            left:50%!important;
+            width:360px;
+            max-width:calc(100vw - 32px);
+            margin:0!important;
+            padding:1.4rem;
+            background:#fff;
+            border:1px solid rgba(27,77,46,.10);
+            border-radius:13px;
+            text-align:center;
+            box-shadow:0 18px 45px rgba(0,0,0,.16);
+            transform:translate(-50%,-50%)!important;
+        }
+
+        .logout-popup-icon {
+            width:46px;
+            height:46px;
+            margin:0 auto .85rem;
+            border-radius:50%;
+            background:#EAF3ED;
+            color:var(--brand-primary-green);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:1.15rem;
+        }
+
+        .logout-popup-title {
+            color:var(--primary-text-dark);
+            font-weight:800;
+            margin-bottom:.4rem;
+        }
+
+        .logout-popup-text {
+            color:var(--muted-text);
+            font-size:.78rem;
+            margin-bottom:1rem;
+            line-height:1.5;
+        }
+
+        .logout-popup-actions {
+            display:flex;
+            justify-content:center;
+            gap:.6rem;
+        }
+
+        .logout-cancel-btn {
+            background:transparent;
+            color:var(--primary-text-dark);
+            border:1px solid rgba(27,77,46,.15);
+            border-radius:7px;
+            padding:.5rem 1.1rem;
+            font-weight:600;
+        }
+
+        .logout-cancel-btn:hover {
+            border-color:var(--brand-primary-green);
+            color:var(--brand-primary-green);
+        }
+
+        .logout-confirm-btn {
+            background:var(--brand-primary-green);
+            color:#fff;
+            border:none;
+            border-radius:7px;
+            padding:.5rem 1.1rem;
+            font-weight:600;
+        }
+
+        .logout-confirm-btn:hover {
+            background:var(--brand-hover-green);
+        }
+
+        .logout-confirm-btn:disabled,
+        .logout-cancel-btn:disabled {
+            opacity:.7;
+            cursor:not-allowed;
+        }
+
+        /* =========================================
+           DELETE IMAGE POPUP
+           ========================================= */
+
+        .delete-image-popup-overlay {
+            position:fixed!important;
+            inset:0!important;
+            width:100vw!important;
+            height:100vh!important;
+            background:rgba(24,35,29,.42)!important;
+            display:none!important;
+            z-index:9999!important;
+        }
+
+        .delete-image-popup-overlay.show {
+            display:block!important;
+        }
+
+        .delete-image-popup-card {
+            position:fixed!important;
+            top:50%!important;
+            left:50%!important;
+            width:360px;
+            max-width:calc(100vw - 32px);
+            margin:0!important;
+            padding:1.4rem;
+            background:#fff;
+            border:1px solid rgba(27,77,46,.10);
+            border-radius:13px;
+            text-align:center;
+            box-shadow:0 18px 45px rgba(0,0,0,.16);
+            transform:translate(-50%,-50%)!important;
+        }
+
+        .delete-image-popup-icon {
+            width:46px;
+            height:46px;
+            margin:0 auto .85rem;
+            border-radius:50%;
+            background:#FFF0F0;
+            color:var(--danger-validation-red);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:1.15rem;
+        }
+
+        .delete-image-popup-title {
+            color:var(--primary-text-dark);
+            font-weight:800;
+            margin-bottom:.4rem;
+        }
+
+        .delete-image-popup-text {
+            color:var(--muted-text);
+            font-size:.78rem;
+            margin-bottom:1rem;
+            line-height:1.5;
+        }
+
+        .delete-image-popup-actions {
+            display:flex;
+            justify-content:center;
+            gap:.6rem;
+        }
+
+        .delete-image-cancel-btn {
+            background:transparent;
+            color:var(--primary-text-dark);
+            border:1px solid rgba(27,77,46,.15);
+            border-radius:7px;
+            padding:.5rem 1.1rem;
+            font-weight:600;
+        }
+
+        .delete-image-cancel-btn:hover {
+            border-color:var(--brand-primary-green);
+            color:var(--brand-primary-green);
+        }
+
+        .delete-image-confirm-btn {
+            background:var(--danger-validation-red);
+            color:#fff;
+            border:none;
+            border-radius:7px;
+            padding:.5rem 1.1rem;
+            font-weight:600;
+        }
+
+        .delete-image-confirm-btn:hover {
+            background:#BB2D3B;
+        }
+
+        .delete-image-confirm-btn:disabled,
+        .delete-image-cancel-btn:disabled {
+            opacity:.7;
+            cursor:not-allowed;
+        }
+
+        /* =========================================
+           BLOCKED USER POPUP
+           ========================================= */
+
+        .blocked-user-popup-overlay {
+            position:fixed!important;
+            inset:0!important;
+            width:100vw!important;
+            height:100vh!important;
+            background:rgba(24,35,29,.42)!important;
+            display:none!important;
+            align-items:center!important;
+            justify-content:center!important;
+            z-index:99999!important;
+        }
+
+        .blocked-user-popup-overlay.show {
+            display:flex!important;
+        }
+
+        .blocked-user-popup-card {
+            width:360px!important;
+            max-width:calc(100vw - 32px)!important;
+            margin:0!important;
+            padding:1.4rem!important;
+            background:#fff!important;
+            border:1px solid rgba(27,77,46,.10)!important;
+            border-radius:13px!important;
+            text-align:center!important;
+            box-shadow:0 18px 45px rgba(0,0,0,.16)!important;
+        }
+
+        .blocked-user-popup-icon {
+            width:46px;
+            height:46px;
+            margin:0 auto .85rem;
+            border-radius:50%;
+            background:#EAF3ED;
+            color:var(--brand-primary-green);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:1.15rem;
+        }
+
+        .blocked-user-popup-title {
+            color:var(--primary-text-dark);
+            font-weight:800;
+            margin-bottom:.4rem;
+        }
+
+        .blocked-user-popup-text {
+            color:var(--muted-text);
+            font-size:.78rem;
+            margin-bottom:1rem;
+            line-height:1.5;
+        }
+
+        .blocked-user-popup-actions {
+            display:flex;
+            justify-content:center;
+        }
+
+        .blocked-user-confirm-btn {
+            background:var(--brand-primary-green);
+            color:#fff;
+            border:none;
+            border-radius:7px;
+            padding:.5rem 1.2rem;
+            font-weight:600;
+            cursor:pointer;
+        }
+
+        .blocked-user-confirm-btn:hover {
+            background:var(--brand-hover-green);
+        }
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+
+        @media (max-width:991px) {
+
+            .account-layout {
+                grid-template-columns:220px minmax(0,1fr);
+                gap:.85rem;
+            }
+
+            .stats-grid {
+                grid-template-columns:repeat(2,1fr);
+            }
+
+            .profile-details {
+                gap:.8rem 1rem;
+            }
+        }
+
+        @media (max-width:767px) {
+
+            .profile-page {
+                padding:1rem 0 1.5rem;
+                overflow:visible;
+            }
+
+            .page-heading-wrap {
+                margin-bottom:.9rem;
+            }
+
+            .page-title {
+                font-size:1.45rem;
+            }
+
+            .page-description {
+                font-size:.72rem;
+            }
+
+            .account-layout {
+                display:block;
+            }
+
+            .account-sidebar {
+                position:static;
+                margin-bottom:.8rem;
+            }
+
+            .user-summary {
+                display:flex;
+                align-items:center;
+                gap:.75rem;
+                text-align:left;
+            }
+
+            .profile-avatar {
+                width:58px;
+                height:58px;
+                margin:0;
+                flex-shrink:0;
+            }
+
+            .user-name {
+                margin-top:0;
+            }
+
+            .sidebar-menu {
+                display:grid;
+                grid-template-columns:repeat(2,1fr);
+                gap:.18rem;
+            }
+
+            .sidebar-item {
+                margin-bottom:0;
+            }
+
+            .profile-details {
+                grid-template-columns:1fr;
+            }
+
+            .content-card {
+                padding:1rem;
+            }
+
+            .profile-actions {
+                width:100%;
+            }
+
+            .profile-actions button {
+                flex:1;
+            }
+
+            .referral-preview {
+                align-items:flex-start;
+                flex-direction:column;
+            }
+
+            .security-item {
+                align-items:flex-start;
+                flex-direction:column;
+            }
+
+            .security-item .btn {
+                width:100%;
+            }
+
+            .account-leaf-top {
+                width:150px;
+                height:150px;
+                right:-55px;
+            }
+
+            .account-leaf-bottom {
+                width:140px;
+                height:140px;
+                left:-55px;
+            }
+        }
+
+        @media (max-width:575px) {
+
+            .stats-grid {
+                grid-template-columns:repeat(2,1fr);
+                gap:.5rem;
+            }
+
+            .stat-card {
+                padding:.65rem .4rem;
+            }
+
+            .stat-value {
+                font-size:.95rem;
+            }
+
+            .page-title {
+                font-size:1.35rem;
+            }
+
+            .sidebar-menu {
+                grid-template-columns:1fr;
+            }
+
+            .profile-actions {
+                flex-direction:column;
+            }
+
+            .content-card {
+                border-radius:11px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- =========================================
+     HEADER
+     ========================================= -->
+
+<header class="py-3 px-3 px-md-5">
+
+    <div class="container-fluid">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <a
+                href="/"
+                class="navbar-brand fs-4 m-0"
+            >
+                NAADAN BOX
+            </a>
+
+            <nav class="d-none d-lg-flex gap-4 align-items-center">
+
+                <a href="/" class="nav-link">
+                    Home
+                </a>
+
+                <a href="/products" class="nav-link">
+                    Products
+                </a>
+
+                <a href="/veg" class="nav-link">
+                    Veg
+                </a>
+
+                <a href="/non-veg" class="nav-link">
+                    Non-Veg
+                </a>
+
+                <a href="/about" class="nav-link">
+                    About
+                </a>
+
+                <a href="/contact" class="nav-link">
+                    Contact
+                </a>
+
+            </nav>
+
+            <div class="d-flex align-items-center gap-4">
+
+                <a
+                    href="#"
+                    class="nav-icon-link"
+                    aria-label="Search"
+                >
+                    <i class="bi bi-search"></i>
+                </a>
+
+                <a
+                    href="#"
+                    class="nav-icon-link"
+                    aria-label="Wishlist"
+                >
+                    <i class="bi bi-heart"></i>
+                </a>
+
+                <a
+                    href="/cart"
+                    class="nav-icon-link"
+                    aria-label="Cart"
+                >
+                    <i class="bi bi-cart3"></i>
+
+                    <span class="cart-badge">
+                        0
+                    </span>
+
+                </a>
+
+                <a
+                    href="/profile"
+                    class="nav-icon-link active"
+                    aria-label="User Profile"
+                >
+                    <i class="bi bi-person"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- =========================================
+     MAIN ACCOUNT PAGE
+     ========================================= -->
+
+<main class="profile-page">
+
+    <!-- =========================================
+         BANANA LEAF - TOP RIGHT
+         ========================================= -->
+
+    <div class="account-leaf account-leaf-top">
+
+        <svg
+            viewBox="0 0 300 300"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+        >
+
+            <path
+                d="M42 245
+                   C78 180 91 100 225 42
+                   C246 33 263 29 279 27
+                   C276 51 270 78 257 104
+                   C221 174 151 227 42 245Z"
+                fill="#1B4D2E"
+            />
+
+            <path
+                d="M43 244
+                   C112 191 166 128 245 58"
+                fill="none"
+                stroke="#C89B3C"
+                stroke-width="3"
+                stroke-linecap="round"
+            />
+
+            <path
+                d="M93 205 C112 193 126 181 139 167"
+                fill="none"
+                stroke="#C89B3C"
+                stroke-width="1.5"
+                opacity=".65"
+            />
+
+            <path
+                d="M125 174 C143 160 157 146 171 131"
+                fill="none"
+                stroke="#C89B3C"
+                stroke-width="1.5"
+                opacity=".65"
+            />
+
+            <path
+                d="M158 141 C176 126 191 111 205 96"
+                fill="none"
+                stroke="#C89B3C"
+                stroke-width="1.5"
+                opacity=".65"
+            />
+
+        </svg>
+
+    </div>
+
+    <!-- =========================================
+         BANANA LEAF - LEFT
+         ========================================= -->
+
+    <div class="account-leaf account-leaf-small">
+
+        <svg
+            viewBox="0 0 180 180"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+        >
+
+            <path
+                d="M25 150
+                   C47 111 52 66 139 28
+                   C153 22 163 20 170 19
+                   C166 39 160 58 149 76
+                   C123 117 83 141 25 150Z"
+                fill="#1B4D2E"
+            />
+
+            <path
+                d="M27 149 C69 116 104 83 153 40"
+                fill="none"
+                stroke="#C89B3C"
+                stroke-width="2"
+                stroke-linecap="round"
+            />
+
+        </svg>
+
+    </div>
+
+    <!-- =========================================
+         BANANA LEAF - BOTTOM
+         ========================================= -->
+
+    <div class="account-leaf account-leaf-bottom">
+
+        <svg
+            viewBox="0 0 260 260"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+        >
+
+            <path
+                d="M35 218
+                   C70 164 82 91 205 38
+                   C223 30 239 26 251 24
+                   C247 46 241 70 229 94
+                   C196 156 128 202 35 218Z"
+                fill="#1B4D2E"
+            />
+
+            <path
+                d="M37 217 C94 170 143 123 216 56"
+                fill="none"
+                stroke="#C89B3C"
+                stroke-width="2.5"
+                stroke-linecap="round"
+            />
+
+        </svg>
+
+    </div>
+
+    <div class="container">
+
+        <!-- =========================================
+             BREADCRUMB
+             ========================================= -->
+
+        <nav aria-label="breadcrumb">
+
+            <ol class="breadcrumb">
+
+                <li class="breadcrumb-item">
+                    <a href="/">
+                        Home
+                    </a>
+                </li>
+
+                <li
+                    class="breadcrumb-item active"
+                    aria-current="page"
+                >
+                    Account
+                </li>
+
+            </ol>
+
+        </nav>
+
+        <!-- =========================================
+             ACCOUNT PAGE HEADER
+             ========================================= -->
+
+        <div class="page-heading-wrap">
+
+            <h1 class="page-title">
+                MY PROFILE
+            </h1>
+
+            <p class="page-description">
+                Everything you need, in one place.
+            </p>
+
+            <div class="page-heading-decoration">
+
+                <span></span>
+
+                <span></span>
+
+                <span></span>
+
+            </div>
+
+        </div>
+
+        <!-- =========================================
+             ACCOUNT LAYOUT
+             ========================================= -->
+
+        <div class="account-layout">
+
+            <!-- =========================================
+                 SIDEBAR
+                 ========================================= -->
+
+            <aside class="account-sidebar">
+
+                <div class="user-summary">
+
+                    <div class="profile-image-wrapper">
+
+                        <img
+                            id="profileImagePreview"
+                            src="<%= user.profileImage === 'default-profile.png'
+                                ? '/uploads/default-profile.png'
+                                : user.profileImage.startsWith('http')
+                                    ? user.profileImage
+                                    : '/uploads/' + user.profileImage %>"
+                            alt="<%= user.name %>"
+                            class="profile-avatar"
+                        >
+
+                       
+                        <div class="profile-image-actions">
+    <label for="profileImageInput" class="profile-image-btn">
+        <i class="bi bi-camera"></i>
+        <span>
+            <%= user.profileImage === 'default-profile.png'
+                ? 'Add Photo'
+                : 'Change Photo' %>
+        </span>
+    </label>
+
+    <% if (
+        user.profileImage &&
+        user.profileImage !== "default-profile.png" &&
+        !user.profileImage.startsWith("http")
+    ) { %>
+
+        <button
+            type="button"
+            id="deleteProfileImage"
+            class="profile-image-delete"
+            title="Delete profile photo"
+        >
+            <i class="bi bi-trash3"></i>
+        </button>
+
+    <% } %>
+</div>
+
+<input
+    type="file"
+    id="profileImageInput"
+    class="profile-image-input"
+    accept="image/jpeg,image/png,image/webp"
+>
+
+                    </div>
+
+                    <div>
+
+                        <h5
+                            class="user-name"
+                            id="userDisplayName"
+                        >
+                            <%= user.name %>
+                        </h5>
+
+                        <p class="user-email">
+                            <%= user.email %>
+                        </p>
+
+                        <p class="member-since">
+
+                            Member Since:
+
+                            <%= user.createdAt
+                                ? new Date(user.createdAt).toLocaleDateString(
+                                    "en-IN",
+                                    {
+                                        month:"short",
+                                        year:"numeric"
+                                    }
+                                )
+                                : "Not available" %>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- =========================================
+                     SIDEBAR NAVIGATION
+                     ========================================= -->
+
+                <nav class="sidebar-menu">
+
+                    <button
+                        type="button"
+                        class="sidebar-item active"
+                        data-tab="account"
+                    >
+
+                        <i class="bi bi-person"></i>
+
+                        <span>
+                            Profile
+                        </span>
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="sidebar-item"
+                        data-tab="addresses"
+                    >
+
+                        <i class="bi bi-geo-alt"></i>
+
+                        <span>
+                            Addresses
+                        </span>
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="sidebar-item"
+                        data-tab="orders"
+                    >
+
+                        <i class="bi bi-bag"></i>
+
+                        <span>
+                            Orders
+                        </span>
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="sidebar-item"
+                        data-tab="wallet"
+                    >
+
+                        <i class="bi bi-wallet2"></i>
+
+                        <span>
+                            Wallet
+                        </span>
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="sidebar-item"
+                        data-tab="security"
+                    >
+
+                        <i class="bi bi-shield-check"></i>
+
+                        <span>
+                            Security
+                        </span>
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="sidebar-item"
+                        data-tab="referrals"
+                    >
+
+                        <i class="bi bi-gift"></i>
+
+                        <span>
+                            Referrals
+                        </span>
+
+                    </button>
+
+                    <a
+                        href="#"
+                        class="sidebar-item logout"
+                        id="btnLogout"
+                    >
+
+                        <i class="bi bi-box-arrow-right"></i>
+
+                        <span>
+                            Logout
+                        </span>
+
+                    </a>
+
+                </nav>
+
+            </aside>
+
+            <!-- =========================================
+                 ACCOUNT CONTENT
+                 ========================================= -->
+
+            <section class="account-content">
+
+                <!-- =========================================
+                     ACCOUNT SECTION
+                     ========================================= -->
+
+                <div
+                    class="profile-section"
+                    data-section="account"
+                >
+
+                    <!-- =========================================
+                         ACCOUNT STATS
+                         ========================================= -->
+
+                    <div class="stats-grid">
+
+                        <div class="stat-card">
+
+                            <div class="stat-icon">
+                                <i class="bi bi-bag"></i>
+                            </div>
+
+                            <div class="stat-value">
+                                12
+                            </div>
+
+                            <p class="stat-label">
+                                Orders
+                            </p>
+
+                        </div>
+
+                        <div class="stat-card">
+
+                            <div class="stat-icon">
+                                <i class="bi bi-heart"></i>
+                            </div>
+
+                            <div class="stat-value">
+                                5
+                            </div>
+
+                            <p class="stat-label">
+                                Wishlist
+                            </p>
+
+                        </div>
+
+                        <div class="stat-card">
+
+                            <div class="stat-icon">
+                                <i class="bi bi-wallet2"></i>
+                            </div>
+
+                            <div class="stat-value">
+                                ₹1,382
+                            </div>
+
+                            <p class="stat-label">
+                                Wallet
+                            </p>
+
+                        </div>
+
+                        <div class="stat-card">
+
+                            <div class="stat-icon">
+                                <i class="bi bi-geo-alt"></i>
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="addressCount"
+                            >
+                                0
+                            </div>
+
+                            <p class="stat-label">
+                                Addresses
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- =========================================
+                         PROFILE INFORMATION
+                         ========================================= -->
+
+                    <div class="content-card">
+
+                        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-3">
+
+                            <div>
+
+                                <h3 class="section-heading">
+                                    Profile Information
+                                </h3>
+
+                                <p class="section-subtext mb-0">
+                                    Your personal account details
+                                </p>
+
+                            </div>
+
+                            <div class="profile-actions">
+
+                                <button
+                                    type="button"
+                                    class="btn btn-profile-outline"
+                                    id="btnViewDetails"
+                                >
+
+                                    <i class="bi bi-info-circle me-1"></i>
+
+                                    View Details
+
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-profile-primary"
+                                    id="btnEditProfile"
+                                >
+
+                                    <i class="bi bi-pencil me-1"></i>
+
+                                    Edit Profile
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <!-- =========================================
+                             PROFILE READ VIEW
+                             ========================================= -->
+
+                        <div
+                            id="profileReadView"
+                            class="profile-details"
+                        >
+
+                            <div>
+
+                                <div class="field-label">
+                                    Full Name
+                                </div>
+
+                                <div
+                                    class="field-value"
+                                    id="valFullName"
+                                >
+                                    <%= user.name %>
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div class="field-label">
+                                    Email Address
+                                </div>
+
+                                <div
+                                    class="field-value"
+                                    id="valEmail"
+                                >
+                                    <%= user.email %>
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div class="field-label">
+                                    Phone Number
+                                </div>
+
+                                <div
+                                    class="field-value"
+                                    id="valPhone"
+                                >
+                                    <%= user.phone || "Not provided" %>
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div class="field-label">
+                                    Gender
+                                </div>
+
+                                <div
+                                    class="field-value"
+                                    id="valGender"
+                                >
+                                    <%= user.gender || "Not provided" %>
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div class="field-label">
+                                    Date of Birth
+                                </div>
+
+                                <div
+                                    class="field-value"
+                                    id="valDob"
+                                >
+
+                                    <%= user.dateOfBirth
+                                        ? new Date(user.dateOfBirth).toLocaleDateString(
+                                            "en-IN",
+                                            {
+                                                day:"numeric",
+                                                month:"long",
+                                                year:"numeric"
+                                            }
+                                        )
+                                        : "Not provided" %>
+
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div class="field-label">
+                                    Member Since
+                                </div>
+
+                                <div class="field-value">
+
+                                    <%= user.createdAt
+                                        ? new Date(user.createdAt).toLocaleDateString(
+                                            "en-IN",
+                                            {
+                                                month:"long",
+                                                year:"numeric"
+                                            }
+                                        )
+                                        : "Not available" %>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- =========================================
+                             PROFILE EDIT FORM
+                             ========================================= -->
+
+                        <form
+                            id="profileEditForm"
+                            class="profile-edit-form d-none"
+                        >
+
+                            <div class="row g-3">
+
+                                <div class="col-12 col-md-6">
+
+                                    <label
+                                        for="inputFullName"
+                                        class="form-label-custom"
+                                    >
+                                        Full Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="inputFullName"
+                                        class="form-control profile-input"
+                                        value="<%= user.name %>"
+                                        required
+                                    >
+
+                                    <div
+                                        id="nameError"
+                                        class="text-danger small mt-1"
+                                    ></div>
+
+                                </div>
+
+                                <div class="col-12 col-md-6">
+
+                                    <label
+                                        for="inputEmail"
+                                        class="form-label-custom"
+                                    >
+                                        Email Address
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        id="inputEmail"
+                                        class="form-control profile-input"
+                                        value="<%= user.email %>"
+                                        readonly
+                                    >
+
+                                </div>
+
+                                <div class="col-12 col-md-6">
+
+                                    <label
+                                        for="inputPhone"
+                                        class="form-label-custom"
+                                    >
+                                        Phone Number
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        id="inputPhone"
+                                        class="form-control profile-input"
+                                        value="<%= user.phone || '' %>"
+                                        required
+                                    >
+
+                                    <div
+                                        id="phoneError"
+                                        class="text-danger small mt-1"
+                                    ></div>
+
+                                </div>
+
+                                <div class="col-12 col-md-6">
+
+                                    <label
+                                        for="selectGender"
+                                        class="form-label-custom"
+                                    >
+                                        Gender
+                                    </label>
+
+                                    <select
+                                        id="selectGender"
+                                        class="form-select profile-select"
+                                    >
+
+                                        <option
+                                            value=""
+                                            disabled
+                                            <%= !user.gender ? "selected" : "" %>
+                                        >
+                                            Select Gender
+                                        </option>
+
+                                        <option
+                                            value="Male"
+                                            <%= user.gender === "Male" ? "selected" : "" %>
+                                        >
+                                            Male
+                                        </option>
+
+                                        <option
+                                            value="Female"
+                                            <%= user.gender === "Female" ? "selected" : "" %>
+                                        >
+                                            Female
+                                        </option>
+
+                                        <option
+                                            value="Other"
+                                            <%= user.gender === "Other" ? "selected" : "" %>
+                                        >
+                                            Other
+                                        </option>
+
+                                    </select>
+
+                                    <div
+                                        id="genderError"
+                                        class="text-danger small mt-1"
+                                    ></div>
+
+                                </div>
+
+                                <div class="col-12 col-md-6">
+
+                                    <label
+                                        for="inputDob"
+                                        class="form-label-custom"
+                                    >
+                                        Date of Birth
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="inputDob"
+                                        class="form-control profile-input"
+                                        value="<%= user.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split('T')[0] : '' %>"
+                                    >
+
+                                    <div
+                                        id="dobError"
+                                        class="text-danger small mt-1"
+                                    ></div>
+
+                                </div>
+
+                                <div class="col-12">
+
+                                    <div class="d-flex justify-content-end gap-2 mt-2">
+
+                                        <button
+                                            type="button"
+                                            class="btn btn-outline-secondary btn-sm"
+                                            id="btnCancelEdit"
+                                        >
+                                            Cancel
+                                        </button>
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-profile-primary btn-sm"
+                                            id="btnSaveProfile"
+                                        >
+                                            Save Changes
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                    <!-- =========================================
+                         REFERRAL PREVIEW
+                         ========================================= -->
+
+                    <div class="content-card">
+
+                        <h3 class="section-heading">
+                            Referral Program
+                        </h3>
+
+                        <p class="section-subtext">
+                            Invite friends and family and earn rewards.
+                        </p>
+
+                        <div class="referral-preview">
+
+                            <div>
+
+                                <div class="field-label">
+                                    Your Referral Code
+                                </div>
+
+                                <div class="referral-code">
+                                    <%= user.referralCode || "Not available" %>
+                                </div>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="btn btn-profile-primary"
+                                data-tab="referrals"
+                            >
+
+                                <i class="bi bi-gift me-1"></i>
+
+                                View Referrals
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- =========================================
+                     ADDRESS SECTION
+                     ========================================= -->
+
+                <%- include("profile/address") %>
+
+                <!-- =========================================
+                     ORDERS SECTION
+                     ========================================= -->
+
+                <%- include("profile/orders") %>
+
+                <!-- =========================================
+                     WALLET SECTION
+                     ========================================= -->
+
+                <%- include("profile/wallet") %>
+
+                <!-- =========================================
+                     SECURITY SECTION
+                     ========================================= -->
+
+                <%- include("profile/security") %>
+
+                <!-- =========================================
+                     REFERRAL SECTION
+                     ========================================= -->
+
+                <%- include("profile/referrals") %>
+
+            </section>
+
+        </div>
+
+    </div>
+
+</main>
+
+<!-- =========================================
+     TOAST
+     ========================================= -->
+
+<div class="toast-container-custom">
+
+    <div
+        id="toastNotification"
+        class="toast-custom"
+    >
+
+        <i class="bi bi-check-circle-fill"></i>
+
+        <span id="toastMessage">
+            Action completed successfully!
+        </span>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     FOOTER
+     ========================================= -->
+
+<footer class="pt-5 pb-3 px-3 px-md-5">
+
+    <div class="container-fluid">
+
+        <div class="row g-4 mb-4">
+
+            <div class="col-12 col-md-4">
+
+                <div class="navbar-brand fs-4 mb-2">
+                    NAADAN BOX
+                </div>
+
+                <p
+                    class="text-muted small"
+                    style="max-width:300px;"
+                >
+                    Authentic Kerala flavors delivered to your kitchen.
+                    We bring you the taste of tradition in modern, eco-friendly packs.
+                </p>
+
+                <div class="d-flex gap-3">
+
+                    <a
+                        href="#"
+                        aria-label="Instagram"
+                    >
+                        <i class="bi bi-instagram fs-5"></i>
+                    </a>
+
+                    <a
+                        href="#"
+                        aria-label="Facebook"
+                    >
+                        <i class="bi bi-facebook fs-5"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="col-6 col-md-2">
+
+                <div class="footer-heading">
+                    Shop
+                </div>
+
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+
+                    <li>
+                        <a href="/products">
+                            All Products
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/veg">
+                            Vegetarian Kits
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/non-veg">
+                            Non-Vegetarian Kits
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/spices">
+                            Spice Blends
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="col-6 col-md-2">
+
+                <div class="footer-heading">
+                    Support
+                </div>
+
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+
+                    <li>
+                        <a href="/shipping">
+                            Shipping Info
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/refund">
+                            Refund Policy
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/privacy">
+                            Privacy Policy
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/terms">
+                            Terms of Service
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="col-12 col-md-4">
+
+                <div class="footer-heading">
+                    Get In Touch
+                </div>
+
+                <ul class="list-unstyled d-flex flex-column gap-2 text-muted mb-0">
+
+                    <li>
+                        <i class="bi bi-geo-alt me-2"></i>
+                        Kochi, Kerala, India
+                    </li>
+
+                    <li>
+                        <i class="bi bi-envelope me-2"></i>
+                        hello@naadanbox.com
+                    </li>
+
+                    <li>
+                        <i class="bi bi-telephone me-2"></i>
+                        +91 98765 43210
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <hr style="border-color:var(--border-divider-neutral);">
+
+        <div
+            class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 pt-2 text-muted"
+            style="font-size:.75rem;"
+        >
+
+            <div>
+                © 2024 NAADAN BOX. Authentic Kerala Flavors.
+            </div>
+
+            <div class="d-flex gap-3 fs-5">
+
+                <i class="bi bi-credit-card"></i>
+
+                <i class="bi bi-wallet2"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- =========================================
+     BLOCKED USER POPUP
+     ========================================= -->
+
+<div
+    id="customBlockedUserPopup"
+    class="blocked-user-popup-overlay"
+>
+
+    <div class="blocked-user-popup-card">
+
+        <div class="blocked-user-popup-icon">
+            <i class="bi bi-shield-lock"></i>
+        </div>
+
+        <h5 class="blocked-user-popup-title">
+            Account Blocked
+        </h5>
+
+        <p class="blocked-user-popup-text">
+            Your account has been blocked by the administrator.
+            You will be logged out.
+        </p>
+
+        <div class="blocked-user-popup-actions">
+
+            <button
+                type="button"
+                id="customBlockedLogoutButton"
+                class="blocked-user-confirm-btn"
+            >
+                Continue
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     SAVE ADDRESS MODAL
+     ========================================= -->
+
+<div
+    class="modal fade"
+    id="saveAddressModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title fw-bold">
+                    Save Address
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p class="mb-0">
+                    Are you sure you want to save this address?
+                </p>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-profile-outline"
+                    data-bs-dismiss="modal"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-profile-primary"
+                    id="confirmSaveAddress"
+                >
+
+                    <i class="bi bi-check-lg me-1"></i>
+
+                    Save Address
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     DELETE PROFILE IMAGE POPUP
+     ========================================= -->
+
+<div
+    id="deleteImageConfirmModal"
+    class="delete-image-popup-overlay"
+>
+
+    <div class="delete-image-popup-card">
+
+        <div class="delete-image-popup-icon">
+            <i class="bi bi-trash"></i>
+        </div>
+
+        <h5 class="delete-image-popup-title">
+            Delete Profile Image?
+        </h5>
+
+        <p class="delete-image-popup-text">
+            Are you sure you want to delete your profile image?
+        </p>
+
+        <div class="delete-image-popup-actions">
+
+            <button
+                type="button"
+                id="cancelDeleteImage"
+                class="delete-image-cancel-btn"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                id="confirmDeleteImage"
+                class="delete-image-confirm-btn"
+            >
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     LOGOUT CONFIRMATION POPUP
+     ========================================= -->
+
+<div
+    id="logoutConfirmModal"
+    class="logout-popup-overlay"
+>
+
+    <div class="logout-popup-card">
+
+        <div class="logout-popup-icon">
+            <i class="bi bi-box-arrow-right"></i>
+        </div>
+
+        <h5 class="logout-popup-title">
+            Logout?
+        </h5>
+
+        <p class="logout-popup-text">
+            Are you sure you want to logout from your account?
+        </p>
+
+        <div class="logout-popup-actions">
+
+            <button
+                type="button"
+                id="cancelLogout"
+                class="logout-cancel-btn"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                id="confirmLogout"
+                class="logout-confirm-btn"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     LOGOUT SUCCESS POPUP
+     ========================================= -->
+
+<div
+    id="logoutSuccessModal"
+    class="logout-popup-overlay"
+>
+
+    <div class="logout-popup-card">
+
+        <div class="logout-popup-icon">
+            <i class="bi bi-check-circle"></i>
+        </div>
+
+        <h5 class="logout-popup-title">
+            Logged Out
+        </h5>
+
+        <p class="logout-popup-text">
+            You have been logged out successfully.
+        </p>
+
+        <div class="logout-popup-actions">
+
+            <button
+                type="button"
+                id="continueLogout"
+                class="logout-confirm-btn"
+            >
+                Continue
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     DELETE ADDRESS MODAL
+     ========================================= -->
+
+<div
+    class="modal fade"
+    id="deleteAddressModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title fw-bold">
+                    Delete Address
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p class="mb-0">
+                    Are you sure you want to delete this address?
+                </p>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-profile-outline"
+                    data-bs-dismiss="modal"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    id="confirmDeleteAddress"
+                >
+
+                    <i class="bi bi-trash me-1"></i>
+
+                    Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="profileCropModal" class="profile-crop-modal">
+    <div class="profile-crop-overlay"></div>
+
+    <div class="profile-crop-card">
+        <div class="profile-crop-header">
+            <div>
+                <span class="profile-crop-eyebrow">PROFILE PHOTO</span>
+                <h3>Adjust Profile Photo</h3>
+                <p>Position and resize your photo before saving.</p>
+            </div>
+
+            <button
+                type="button"
+                id="closeCropModal"
+                class="profile-crop-close"
+                aria-label="Close"
+            >
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <div class="profile-crop-area">
+            <img id="cropImage" src="" alt="Crop profile photo">
+        </div>
+
+        <div class="profile-crop-controls">
+            <div class="profile-crop-zoom">
+                <i class="bi bi-dash-lg"></i>
+
+                <input
+                    type="range"
+                    id="cropZoom"
+                    min="0"
+                    max="100"
+                    value="0"
+                >
+
+                <i class="bi bi-plus-lg"></i>
+            </div>
+
+            <button
+                type="button"
+                id="resetCrop"
+                class="profile-crop-reset"
+            >
+                <i class="bi bi-arrow-counterclockwise"></i>
+                Reset
+            </button>
+        </div>
+
+        <div class="profile-crop-actions">
+            <button
+                type="button"
+                id="cancelCrop"
+                class="profile-crop-cancel"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                id="saveCroppedImage"
+                class="profile-crop-save"
+            >
+                <i class="bi bi-check2"></i>
+                Crop & Save
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================
+     SCRIPTS
+     ========================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/profile.js"></script>
+<script src="/js/address.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.js"></script>
+<script src="/js/profileImage.js"></script>
+<script src="/js/logout.js"></script>
+
+</body>
+
+</html>

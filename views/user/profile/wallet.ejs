@@ -1,0 +1,486 @@
+<!-- WALLET SECTION -->
+
+<style>
+/* # Wallet */
+
+.wallet-balance-card{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:1rem;
+padding:1.5rem;
+margin-bottom:1.25rem;
+background:var(--brand-primary-green);
+border-radius:14px;
+color:#fff;
+}
+
+.wallet-balance-label{
+font-size:.75rem;
+opacity:.85;
+margin-bottom:.35rem;
+}
+
+.wallet-balance{
+font-size:2rem;
+font-weight:800;
+line-height:1.2;
+}
+
+.wallet-balance-note{
+font-size:.7rem;
+opacity:.8;
+margin-top:.35rem;
+}
+
+.wallet-add-button{
+padding:.65rem 1rem;
+background:#FFC43D;
+border:1px solid #FFC43D;
+border-radius:8px;
+color:#222;
+font-size:.8rem;
+font-weight:600;
+}
+
+.wallet-add-button:hover{
+background:#E9A900;
+border-color:#E9A900;
+color:#222;
+}
+
+/* # Wallet Toolbar */
+
+.wallet-toolbar{
+display:flex;
+align-items:center;
+gap:.75rem;
+margin-bottom:1rem;
+}
+
+.wallet-search{
+position:relative;
+flex:1;
+}
+
+.wallet-search i{
+position:absolute;
+left:.85rem;
+top:50%;
+transform:translateY(-50%);
+color:var(--muted-text);
+font-size:.8rem;
+}
+
+.wallet-search input{
+width:100%;
+padding:.65rem .75rem .65rem 2.2rem;
+background:var(--input-bg-subtle);
+border:1px solid var(--border-divider-neutral);
+border-radius:8px;
+font-size:.8rem;
+outline:none;
+}
+
+.wallet-search input:focus{
+background:#fff;
+border-color:var(--brand-primary-green);
+box-shadow:0 0 0 .15rem rgba(27,77,46,.1);
+}
+
+.wallet-filter{
+min-width:160px;
+padding:.65rem .75rem;
+background:var(--input-bg-subtle);
+border:1px solid var(--border-divider-neutral);
+border-radius:8px;
+font-size:.8rem;
+outline:none;
+}
+
+.wallet-filter:focus{
+border-color:var(--brand-primary-green);
+}
+
+/* # Wallet Transactions */
+
+.wallet-transaction{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:1rem;
+padding:1rem;
+margin-bottom:.65rem;
+background:#fff;
+border:1px solid var(--border-divider-neutral);
+border-radius:10px;
+}
+
+.wallet-transaction:last-child{
+margin-bottom:0;
+}
+
+.wallet-transaction-left{
+display:flex;
+align-items:center;
+gap:.85rem;
+}
+
+.wallet-transaction-icon{
+width:40px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+font-size:.95rem;
+}
+
+.wallet-credit-icon{
+background:#D8F3DF;
+color:var(--brand-primary-green);
+}
+
+.wallet-debit-icon{
+background:#FFE0E0;
+color:#DC3545;
+}
+
+.wallet-transaction-title{
+font-size:.8rem;
+font-weight:600;
+color:var(--primary-text-dark);
+margin-bottom:.2rem;
+}
+
+.wallet-transaction-date{
+font-size:.7rem;
+color:var(--muted-text);
+}
+
+.wallet-transaction-right{
+text-align:right;
+}
+
+.wallet-amount{
+font-size:.85rem;
+font-weight:700;
+margin-bottom:.25rem;
+}
+
+.wallet-credit{
+color:var(--brand-primary-green);
+}
+
+.wallet-debit{
+color:#DC3545;
+}
+
+.wallet-status{
+display:inline-block;
+padding:.2rem .5rem;
+border-radius:20px;
+font-size:.6rem;
+font-weight:600;
+}
+
+.wallet-status-success{
+background:#D8F3DF;
+color:var(--brand-primary-green);
+}
+
+.wallet-status-failed{
+background:#FFE0E0;
+color:#DC3545;
+}
+
+/* # Wallet Responsive */
+
+@media (max-width:767px){
+
+.wallet-balance-card{
+align-items:flex-start;
+flex-direction:column;
+}
+
+.wallet-add-button{
+width:100%;
+}
+
+.wallet-toolbar{
+align-items:stretch;
+flex-direction:column;
+}
+
+.wallet-filter{
+width:100%;
+}
+
+.wallet-transaction{
+align-items:flex-start;
+}
+
+}
+
+@media (max-width:575px){
+
+.wallet-balance-card{
+padding:1.15rem;
+}
+
+.wallet-balance{
+font-size:1.7rem;
+}
+
+.wallet-transaction{
+padding:.85rem;
+}
+
+.wallet-transaction-left{
+gap:.65rem;
+}
+
+.wallet-transaction-icon{
+width:36px;
+height:36px;
+}
+
+}
+</style>
+
+<div class="profile-section d-none" data-section="wallet">
+
+    <!-- WALLET HEADER -->
+
+    <div class="content-card">
+
+        <div class="mb-4">
+
+            <h3 class="section-heading">
+                Wallet
+            </h3>
+
+            <p class="section-subtext mb-0">
+                Manage your wallet balance and transaction history.
+            </p>
+
+        </div>
+
+        <!-- WALLET BALANCE -->
+
+        <div class="wallet-balance-card">
+
+            <div>
+
+                <div class="wallet-balance-label">
+                    Current Wallet Balance
+                </div>
+
+                <div class="wallet-balance">
+                    ₹850
+                </div>
+
+                <div class="wallet-balance-note">
+                    Available to use during checkout.
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                class="btn wallet-add-button"
+            >
+                <i class="bi bi-plus-circle me-1"></i>
+                Add Money
+            </button>
+
+        </div>
+
+        <!-- WALLET TOOLBAR -->
+
+        <div class="wallet-toolbar">
+
+            <div class="wallet-search">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    placeholder="Search Transactions"
+                >
+
+            </div>
+
+            <select class="wallet-filter">
+
+                <option>
+                    All Transactions
+                </option>
+
+                <option>
+                    Credit
+                </option>
+
+                <option>
+                    Debit
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- TRANSACTION 1 -->
+
+        <div class="wallet-transaction">
+
+            <div class="wallet-transaction-left">
+
+                <div class="wallet-transaction-icon wallet-credit-icon">
+                    <i class="bi bi-arrow-down-left"></i>
+                </div>
+
+                <div>
+
+                    <div class="wallet-transaction-title">
+                        Order Refund
+                    </div>
+
+                    <div class="wallet-transaction-date">
+                        10 September 2026
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="wallet-transaction-right">
+
+                <div class="wallet-amount wallet-credit">
+                    +₹250
+                </div>
+
+                <span class="wallet-status wallet-status-success">
+                    Completed
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- TRANSACTION 2 -->
+
+        <div class="wallet-transaction">
+
+            <div class="wallet-transaction-left">
+
+                <div class="wallet-transaction-icon wallet-debit-icon">
+                    <i class="bi bi-arrow-up-right"></i>
+                </div>
+
+                <div>
+
+                    <div class="wallet-transaction-title">
+                        Wallet Payment
+                    </div>
+
+                    <div class="wallet-transaction-date">
+                        08 September 2026
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="wallet-transaction-right">
+
+                <div class="wallet-amount wallet-debit">
+                    -₹400
+                </div>
+
+                <span class="wallet-status wallet-status-success">
+                    Completed
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- TRANSACTION 3 -->
+
+        <div class="wallet-transaction">
+
+            <div class="wallet-transaction-left">
+
+                <div class="wallet-transaction-icon wallet-credit-icon">
+                    <i class="bi bi-gift"></i>
+                </div>
+
+                <div>
+
+                    <div class="wallet-transaction-title">
+                        Coupon Cashback
+                    </div>
+
+                    <div class="wallet-transaction-date">
+                        05 September 2026
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="wallet-transaction-right">
+
+                <div class="wallet-amount wallet-credit">
+                    +₹100
+                </div>
+
+                <span class="wallet-status wallet-status-success">
+                    Completed
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- TRANSACTION 4 -->
+
+        <div class="wallet-transaction">
+
+            <div class="wallet-transaction-left">
+
+                <div class="wallet-transaction-icon wallet-debit-icon">
+                    <i class="bi bi-x-circle"></i>
+                </div>
+
+                <div>
+
+                    <div class="wallet-transaction-title">
+                        Failed Payment
+                    </div>
+
+                    <div class="wallet-transaction-date">
+                        02 September 2026
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="wallet-transaction-right">
+
+                <div class="wallet-amount wallet-debit">
+                    -₹300
+                </div>
+
+                <span class="wallet-status wallet-status-failed">
+                    Failed
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,3177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Customers - Naadan Box</title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+         ===================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         NAADAN BOX CUSTOMER PAGE
+         ===================================================== -->
+
+    <style>
+
+        /* =====================================================
+           ROOT
+           ===================================================== */
+
+        :root {
+
+            --green: #1B5233;
+            --green-dark: #16452B;
+            --green-soft: #EDF4ED;
+
+            --gold: #C99B25;
+            --gold-soft: #F8EFCF;
+
+            --cream: #F8F5ED;
+            --cream-dark: #F1EDE3;
+
+            --white: #FFFDF8;
+
+            --text: #25372C;
+            --muted: #7B857D;
+
+            --border: #E5DFD2;
+
+            --danger: #C95454;
+            --danger-soft: #FFF0F0;
+        }
+
+
+        /* =====================================================
+           GLOBAL
+           ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            overflow-y: scroll;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            background: var(--cream);
+
+            color: var(--text);
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+        }
+
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
+
+        .admin-main {
+
+            position: relative;
+
+            margin-left: 255px;
+
+            width: calc(100% - 255px);
+
+            min-height: 100vh;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           BOTANICAL BACKGROUND
+           ===================================================== */
+
+        .customer-leaf {
+
+            position: absolute;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        .customer-leaf-right {
+
+            width: 220px;
+            height: 95px;
+
+            right: -72px;
+            top: 145px;
+
+            background:
+                rgba(213,216,199,.32);
+
+            border-radius:
+                100% 0 100% 0;
+
+            transform: rotate(-34deg);
+        }
+
+
+        .customer-leaf-right::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 1px;
+            height: 145px;
+
+            left: 110px;
+            top: -27px;
+
+            background:
+                rgba(190,181,145,.22);
+
+            transform: rotate(-20deg);
+        }
+
+
+        .customer-leaf-left {
+
+            width: 160px;
+            height: 68px;
+
+            left: -82px;
+            bottom: 90px;
+
+            background:
+                rgba(218,218,203,.25);
+
+            border-radius:
+                100% 0 100% 0;
+
+            transform: rotate(43deg);
+        }
+
+
+        .customer-leaf-left::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 1px;
+            height: 110px;
+
+            left: 80px;
+            top: -20px;
+
+            background:
+                rgba(190,181,145,.20);
+
+            transform: rotate(-20deg);
+        }
+
+
+        .customer-leaf-small {
+
+            width: 90px;
+            height: 38px;
+
+            right: 100px;
+            bottom: 25px;
+
+            background:
+                rgba(218,218,203,.18);
+
+            border-radius:
+                100% 0 100% 0;
+
+            transform: rotate(28deg);
+        }
+
+
+        /* =====================================================
+           PAGE CONTENT
+           ===================================================== */
+
+        .customers-content {
+
+            position: relative;
+
+            z-index: 1;
+
+            padding: 38px 38px 48px;
+
+            max-width: 1700px;
+
+            margin: 0 auto;
+        }
+
+
+        /* =====================================================
+           HERO / INTRO
+           ===================================================== */
+
+        .customer-hero {
+
+            position: relative;
+
+            text-align: center;
+
+            margin-bottom: 28px;
+        }
+
+
+        .customer-eyebrow {
+
+            margin-bottom: 8px;
+
+            color: var(--gold);
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: 2.5px;
+
+            text-transform: uppercase;
+        }
+
+
+        .customer-page-heading {
+
+            margin: 0;
+
+            color: var(--green);
+
+            font-size: 30px;
+
+            font-weight: 800;
+
+            letter-spacing: -.6px;
+        }
+
+
+        .customer-page-subtitle {
+
+            max-width: 520px;
+
+            margin: 8px auto 0;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           HERO DECORATION
+           ===================================================== */
+
+        .hero-decoration {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            margin-top: 14px;
+        }
+
+
+        .hero-decoration::before {
+
+            content: "";
+
+            width: 34px;
+            height: 2px;
+
+            background: var(--gold);
+
+            border-radius: 10px;
+        }
+
+
+        .hero-decoration span {
+
+            width: 5px;
+            height: 5px;
+
+            background: var(--gold);
+
+            transform: rotate(45deg);
+        }
+
+
+        .hero-decoration::after {
+
+            content: "";
+
+            width: 34px;
+            height: 1px;
+
+            background: #D9CDA9;
+
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           TOP ACTION AREA
+           ===================================================== */
+
+        .customer-top-actions {
+
+            position: relative;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 19px;
+        }
+
+
+        .customer-intro-note {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+
+        .customer-intro-note::before {
+
+            content: "";
+
+            width: 28px;
+            height: 2px;
+
+            background: var(--gold);
+
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           EXPORT BUTTON
+           ===================================================== */
+
+        .export-button {
+
+            height: 40px;
+
+            min-width: 148px;
+
+            padding: 0 17px;
+
+            border: 0;
+
+            border-radius: 8px;
+
+            background: var(--green);
+
+            color: #fff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 18px rgba(27,82,51,.12);
+
+            transition:
+                background .2s ease,
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .export-button:hover {
+
+            background: var(--green-dark);
+
+            color: #fff;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 10px 22px rgba(27,82,51,.17);
+        }
+
+
+        .export-button i {
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           CUSTOMER INSIGHT CARDS
+           ===================================================== */
+
+        .customer-insights {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 14px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .insight-card {
+
+            position: relative;
+
+            min-height: 108px;
+
+            padding: 17px 19px;
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 20px rgba(27,82,51,.035);
+        }
+
+
+        .insight-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 19px;
+            top: 0;
+
+            width: 32px;
+            height: 3px;
+
+            background: var(--gold);
+
+            border-radius:
+                0 0 5px 5px;
+        }
+
+
+        .insight-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 82px;
+            height: 82px;
+
+            right: -32px;
+            top: -33px;
+
+            background:
+                rgba(218,218,203,.38);
+
+            border-radius: 50%;
+        }
+
+
+        .insight-icon {
+
+            position: absolute;
+
+            right: 17px;
+            bottom: 15px;
+
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: var(--green-soft);
+
+            color: var(--green);
+
+            font-size: 14px;
+
+            z-index: 2;
+        }
+
+
+        .insight-card:nth-child(2)
+        .insight-icon {
+
+            background: #F4F0DE;
+
+            color: var(--gold);
+        }
+
+
+        .insight-card:nth-child(3)
+        .insight-icon {
+
+            background: var(--danger-soft);
+
+            color: var(--danger);
+        }
+
+
+        .insight-label {
+
+            position: relative;
+
+            z-index: 2;
+
+            color: var(--muted);
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        .insight-value {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin-top: 3px;
+
+            color: var(--green);
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            line-height: 1;
+        }
+
+
+        .insight-description {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin-top: 5px;
+
+            color: #9A9F99;
+
+            font-size: 9px;
+        }
+
+
+        /* =====================================================
+           ERROR
+           ===================================================== */
+
+        .customers-error {
+
+            position: relative;
+
+            z-index: 3;
+
+            margin-bottom: 16px;
+
+            padding: 12px 15px;
+
+            border: 1px solid #F0CCCC;
+
+            border-radius: 9px;
+
+            background: var(--danger-soft);
+
+            color: var(--danger);
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           FILTER / SEARCH CARD
+           ===================================================== */
+
+        .customer-toolbar {
+
+            position: relative;
+
+            z-index: 3;
+
+            min-height: 70px;
+
+            padding: 13px;
+
+            margin-bottom: 17px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 5px 20px rgba(27,82,51,.035);
+        }
+
+
+        /* =====================================================
+           SEARCH
+           ===================================================== */
+
+        .customer-search {
+
+            position: relative;
+
+            width: 280px;
+
+            height: 40px;
+
+            min-width: 280px;
+        }
+
+
+        .customer-search > i {
+
+            position: absolute;
+
+            left: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #7E8981;
+
+            font-size: 14px;
+
+            pointer-events: none;
+
+            z-index: 2;
+        }
+
+
+        .customer-search input {
+
+            width: 100%;
+
+            height: 100%;
+
+            padding:
+                0 38px 0 39px;
+
+            border: 1px solid #E2DCD0;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            background: #F9F7F1;
+
+            color: var(--text);
+
+            font-size: 11px;
+
+            transition:
+                border-color .2s ease,
+                background .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .customer-search input:hover {
+
+            border-color: #D6CCB8;
+        }
+
+
+        .customer-search input:focus {
+
+            border-color: #CDBB7C;
+
+            background: #fff;
+
+            box-shadow:
+                0 0 0 3px rgba(201,155,37,.08);
+        }
+
+
+        .customer-search input::placeholder {
+
+            color: #8A918B;
+        }
+
+
+        /* =====================================================
+           CLEAR SEARCH
+           ===================================================== */
+
+        .clear-search {
+
+            position: absolute;
+
+            right: 8px;
+
+            top: 50%;
+
+            width: 24px;
+            height: 24px;
+
+            transform: translateY(-50%);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            color: #8A918B;
+
+            text-decoration: none;
+
+            z-index: 3;
+        }
+
+
+        .clear-search:hover {
+
+            color: var(--danger);
+        }
+
+
+        /* =====================================================
+           FILTERS
+           ===================================================== */
+
+        .customer-filters {
+
+            height: 40px;
+
+            padding: 3px;
+
+            display: flex;
+
+            align-items: center;
+
+            background: #F1EEE5;
+
+            border: 1px solid #E7E1D6;
+
+            border-radius: 8px;
+
+            overflow: hidden;
+        }
+
+
+        .customer-filter {
+
+            height: 32px;
+
+            min-width: 84px;
+
+            padding: 0 14px;
+
+            border: 0;
+
+            border-radius: 6px;
+
+            background: transparent;
+
+            color: #5D6861;
+
+            font-size: 10px;
+
+            font-weight: 500;
+
+            text-decoration: none;
+
+            white-space: nowrap;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            transition: .2s ease;
+        }
+
+
+        .customer-filter:first-child {
+
+            min-width: 102px;
+        }
+
+
+        .customer-filter:hover {
+
+            color: var(--green);
+
+            background: rgba(255,255,255,.55);
+        }
+
+
+        .customer-filter.active {
+
+            background: #fff;
+
+            color: var(--green);
+
+            font-weight: 700;
+
+            box-shadow:
+                0 2px 7px rgba(27,82,51,.06);
+        }
+
+
+        /* =====================================================
+           CUSTOMER COUNT
+           ===================================================== */
+
+        .customer-count {
+
+            margin-left: auto;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            white-space: nowrap;
+        }
+
+
+        .customer-count strong {
+
+            color: var(--green);
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           COLLECTION CARD
+           ===================================================== */
+
+        .customer-collection {
+
+            position: relative;
+
+            z-index: 3;
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 7px 25px rgba(27,82,51,.045);
+        }
+
+
+        /* =====================================================
+           COLLECTION HEADER
+           ===================================================== */
+
+        .collection-header {
+
+            min-height: 72px;
+
+            padding: 16px 21px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border-bottom: 1px solid #EEE9DF;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #FFFDF8,
+                    #FBF9F3
+                );
+        }
+
+
+        .collection-title-wrap {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .collection-mark {
+
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background: var(--green-soft);
+
+            color: var(--green);
+
+            font-size: 16px;
+        }
+
+
+        .collection-title {
+
+            margin: 0;
+
+            color: var(--green);
+
+            font-size: 16px;
+
+            font-weight: 800;
+        }
+
+
+        .collection-subtitle {
+
+            margin-top: 3px;
+
+            color: var(--muted);
+
+            font-size: 9px;
+        }
+
+
+        .collection-decoration {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+        }
+
+
+        .collection-decoration::before {
+
+            content: "";
+
+            width: 28px;
+            height: 2px;
+
+            background: var(--gold);
+
+            border-radius: 5px;
+        }
+
+
+        .collection-decoration span {
+
+            width: 4px;
+            height: 4px;
+
+            background: var(--gold);
+
+            transform: rotate(45deg);
+        }
+
+
+        /* =====================================================
+           TABLE WRAPPER
+           ===================================================== */
+
+        .customer-table-wrapper {
+
+            width: 100%;
+
+            overflow-x: auto;
+        }
+
+
+        .customer-table-wrapper::-webkit-scrollbar {
+
+            height: 5px;
+        }
+
+
+        .customer-table-wrapper::-webkit-scrollbar-thumb {
+
+            background: #D8D1C1;
+
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           TABLE
+           ===================================================== */
+
+        .customer-table {
+
+            width: 100%;
+
+            min-width: 900px;
+
+            margin: 0;
+
+            border-collapse: collapse;
+
+            table-layout: fixed;
+        }
+
+
+        .customer-table th:nth-child(1),
+        .customer-table td:nth-child(1) {
+
+            width: 20%;
+        }
+
+
+        .customer-table th:nth-child(2),
+        .customer-table td:nth-child(2) {
+
+            width: 24%;
+        }
+
+
+        .customer-table th:nth-child(3),
+        .customer-table td:nth-child(3) {
+
+            width: 14%;
+        }
+
+
+        .customer-table th:nth-child(4),
+        .customer-table td:nth-child(4) {
+
+            width: 15%;
+        }
+
+
+        .customer-table th:nth-child(5),
+        .customer-table td:nth-child(5) {
+
+            width: 12%;
+        }
+
+
+        .customer-table th:nth-child(6),
+        .customer-table td:nth-child(6) {
+
+            width: 15%;
+        }
+
+
+        /* =====================================================
+           TABLE HEADER
+           ===================================================== */
+
+        .customer-table thead {
+
+            background: #F4F1E9;
+        }
+
+
+        .customer-table th {
+
+            height: 51px;
+
+            padding: 0 17px;
+
+            border-bottom: 1px solid var(--border);
+
+            color: #6D766F;
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            letter-spacing: .9px;
+
+            text-transform: uppercase;
+
+            vertical-align: middle;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           TABLE BODY
+           ===================================================== */
+
+        .customer-table td {
+
+            height: 82px;
+
+            padding: 10px 17px;
+
+            border-bottom: 1px solid #EEE9DF;
+
+            color: var(--text);
+
+            font-size: 11px;
+
+            vertical-align: middle;
+        }
+
+
+        .customer-table tbody tr {
+
+            transition:
+                background .18s ease;
+        }
+
+
+        .customer-table tbody tr:hover {
+
+            background: #FCFAF5;
+        }
+
+
+        .customer-table tbody tr:last-child td {
+
+            border-bottom: 0;
+        }
+
+
+        /* =====================================================
+           CUSTOMER PROFILE
+           ===================================================== */
+
+        .customer-profile {
+
+            min-width: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .customer-image {
+
+            width: 42px;
+            height: 42px;
+
+            min-width: 42px;
+
+            flex: 0 0 42px;
+
+            padding: 2px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            background: #F1EEE4;
+
+            border: 1px solid #DDD6C7;
+        }
+
+
+        .customer-image-placeholder {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 0;
+
+            color: #9AA19B;
+
+            font-size: 16px;
+        }
+
+
+        .customer-name {
+
+            overflow: hidden;
+
+            color: var(--green);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+        }
+
+
+        .customer-id {
+
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 8px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           CONTACT
+           ===================================================== */
+
+        .customer-email {
+
+            overflow: hidden;
+
+            color: var(--text);
+
+            font-size: 10.5px;
+
+            font-weight: 500;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+        }
+
+
+        .customer-phone {
+
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 8.5px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           ORDERS
+           ===================================================== */
+
+        .order-count {
+
+            display: inline-flex;
+
+            min-width: 65px;
+
+            height: 28px;
+
+            padding: 5px 11px;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background: var(--gold-soft);
+
+            color: #856300;
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+        .order-count.zero {
+
+            background: #ECEAE5;
+
+            color: #74736D;
+        }
+
+
+        /* =====================================================
+           DATE
+           ===================================================== */
+
+        .joined-date {
+
+            color: #59655D;
+
+            font-size: 9.5px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           STATUS
+           ===================================================== */
+
+        .status-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 59px;
+
+            height: 23px;
+
+            padding: 0 9px;
+
+            border-radius: 13px;
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            letter-spacing: .5px;
+
+            white-space: nowrap;
+        }
+
+
+        .status-badge.active {
+
+            background: #E2F2E5;
+
+            color: #34744A;
+
+            border: 1px solid #D2E8D6;
+        }
+
+
+        .status-badge.blocked {
+
+            background: #FBE6E6;
+
+            color: #B74A4A;
+
+            border: 1px solid #F1D2D2;
+        }
+
+
+        /* =====================================================
+           ACTIONS
+           ===================================================== */
+
+        .customer-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            white-space: nowrap;
+        }
+
+
+        .action-button {
+
+            width: 32px;
+            height: 32px;
+
+            min-width: 32px;
+
+            padding: 0;
+
+            border: 1px solid #DED8CC;
+
+            border-radius: 8px;
+
+            background: #FFFDF8;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition:
+                background .2s ease,
+                border-color .2s ease,
+                color .2s ease,
+                transform .2s ease;
+        }
+
+
+        .action-button:hover {
+
+            transform: translateY(-1px);
+        }
+
+
+        .action-button:disabled {
+
+            opacity: .5;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        .action-button i {
+
+            font-size: 13px;
+        }
+
+
+        .view-button {
+
+            color: #59655D;
+        }
+
+
+        .view-button:hover {
+
+            background: var(--green-soft);
+
+            border-color: #D4E2D5;
+
+            color: var(--green);
+        }
+
+
+        .block-button {
+
+            color: var(--danger);
+        }
+
+
+        .block-button:hover {
+
+            background: var(--danger-soft);
+
+            border-color: #F0D3D3;
+        }
+
+
+        .unblock-button {
+
+            color: var(--green);
+        }
+
+
+        .unblock-button:hover {
+
+            background: var(--green-soft);
+
+            border-color: #D4E2D5;
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+           ===================================================== */
+
+        .empty-state {
+
+            padding: 70px 20px;
+
+            text-align: center;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        .empty-state i {
+
+            display: block;
+
+            margin-bottom: 12px;
+
+            color: #BFC3BC;
+
+            font-size: 34px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        .customer-table-footer {
+
+            min-height: 65px;
+
+            padding: 0 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            border-top: 1px solid #EEE9DF;
+
+            background: #FFFDF8;
+        }
+
+
+        .page-info {
+
+            color: var(--muted);
+
+            font-size: 9.5px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           PAGINATION
+           ===================================================== */
+
+        .customer-pagination {
+
+            margin: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 4px;
+
+            white-space: nowrap;
+        }
+
+
+        .customer-pagination .page-link {
+
+            width: 31px;
+            height: 31px;
+
+            min-width: 31px;
+
+            padding: 0;
+
+            border: 0;
+
+            border-radius: 7px !important;
+
+            background: transparent;
+
+            color: #5D6861;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 10px;
+        }
+
+
+        .customer-pagination .page-link:hover {
+
+            background: #F0EDE4;
+
+            color: var(--green);
+        }
+
+
+        .customer-pagination
+        .page-item.active
+        .page-link {
+
+            background: var(--green);
+
+            color: #fff;
+
+            box-shadow:
+                0 4px 10px rgba(27,82,51,.12);
+        }
+
+
+        .customer-pagination
+        .page-item.disabled
+        .page-link {
+
+            color: #B8BBB6;
+
+            background: transparent;
+        }
+
+
+        .page-dots {
+
+            width: 20px;
+
+            text-align: center;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           CONFIRMATION MODAL
+           ===================================================== */
+
+        .confirmation-modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 3000;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                rgba(27,82,51,.27);
+
+            backdrop-filter: blur(5px);
+
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+
+        .confirmation-modal.show {
+
+            display: flex;
+        }
+
+
+        .confirmation-box {
+
+            width: 100%;
+
+            max-width: 365px;
+
+            padding: 30px 26px 23px;
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            text-align: center;
+
+            box-shadow:
+                0 25px 65px rgba(27,82,51,.18);
+
+            animation:
+                confirmationShow .18s ease-out;
+        }
+
+
+        .confirmation-icon {
+
+            position: relative;
+
+            width: 52px;
+            height: 52px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            background: var(--gold-soft);
+
+            color: var(--gold);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 19px;
+        }
+
+
+        .confirmation-icon::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: -5px;
+
+            border: 1px solid rgba(201,155,37,.15);
+
+            border-radius: 50%;
+        }
+
+
+        .confirmation-box.block-mode
+        .confirmation-icon {
+
+            background: var(--danger-soft);
+
+            color: var(--danger);
+        }
+
+
+        .confirmation-title {
+
+            margin: 0;
+
+            color: var(--green);
+
+            font-size: 19px;
+
+            font-weight: 800;
+        }
+
+
+        .confirmation-message {
+
+            margin: 8px auto 22px;
+
+            max-width: 290px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            line-height: 1.6;
+        }
+
+
+        .confirmation-actions {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 9px;
+        }
+
+
+        .confirmation-button {
+
+            min-width: 108px;
+
+            height: 39px;
+
+            border-radius: 7px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .2s ease;
+        }
+
+
+        .confirmation-button:disabled {
+
+            opacity: .5;
+
+            cursor: not-allowed;
+        }
+
+
+        .confirmation-cancel {
+
+            border: 1px solid var(--border);
+
+            background: #fff;
+
+            color: var(--text);
+        }
+
+
+        .confirmation-cancel:hover {
+
+            background: var(--cream-dark);
+        }
+
+
+        .confirmation-confirm {
+
+            border: 1px solid var(--green);
+
+            background: var(--green);
+
+            color: #fff;
+        }
+
+
+        .confirmation-confirm:hover {
+
+            background: var(--green-dark);
+        }
+
+
+        .confirmation-box.block-mode
+        .confirmation-confirm {
+
+            border-color: var(--danger);
+
+            background: var(--danger);
+        }
+
+
+        .confirmation-box.block-mode
+        .confirmation-confirm:hover {
+
+            background: #B54444;
+        }
+
+
+        @keyframes confirmationShow {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(8px)
+                    scale(.98);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 1200px) {
+
+            .customers-content {
+
+                padding-left: 26px;
+
+                padding-right: 26px;
+            }
+
+
+            .customer-table {
+
+                min-width: 900px;
+            }
+
+        }
+
+
+        @media (max-width: 1000px) {
+
+            .customer-insights {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+
+            .customer-search {
+
+                width: 235px;
+
+                min-width: 235px;
+            }
+
+        }
+
+
+        @media (max-width: 900px) {
+
+            .admin-main {
+
+                margin-left: 78px;
+
+                width:
+                    calc(100% - 78px);
+            }
+
+
+            .customers-content {
+
+                padding:
+                    27px
+                    20px
+                    35px;
+            }
+
+
+            .customer-toolbar {
+
+                flex-wrap: wrap;
+            }
+
+
+            .customer-count {
+
+                width: 100%;
+
+                margin-left: 0;
+
+                padding-top: 2px;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .customer-insights {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .insight-card {
+
+                min-height: 95px;
+            }
+
+
+            .customer-hero {
+
+                text-align: left;
+            }
+
+
+            .customer-page-subtitle {
+
+                margin-left: 0;
+            }
+
+
+            .hero-decoration {
+
+                justify-content: flex-start;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .admin-main {
+
+                margin-left: 65px;
+
+                width:
+                    calc(100% - 65px);
+            }
+
+
+            .customers-content {
+
+                padding:
+                    20px
+                    12px
+                    30px;
+            }
+
+
+            .customer-page-heading {
+
+                font-size: 25px;
+            }
+
+
+            .customer-page-subtitle {
+
+                font-size: 11px;
+            }
+
+
+            .customer-top-actions {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 12px;
+            }
+
+
+            .export-button {
+
+                min-width: 140px;
+            }
+
+
+            .customer-toolbar {
+
+                align-items: flex-start;
+
+                padding: 11px;
+            }
+
+
+            .customer-search {
+
+                width: 100%;
+
+                min-width: 0;
+            }
+
+
+            .customer-filters {
+
+                max-width: 100%;
+
+                overflow-x: auto;
+            }
+
+
+            .customer-count {
+
+                width: 100%;
+            }
+
+
+            .collection-header {
+
+                padding:
+                    15px;
+            }
+
+
+            .collection-decoration {
+
+                display: none;
+            }
+
+
+            .customer-table {
+
+                min-width: 900px;
+            }
+
+
+            .customer-table-footer {
+
+                padding:
+                    12px 15px;
+
+                flex-wrap: wrap;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <%- include("partials/sidebar", {
+        activePage: "customers"
+    }) %>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="admin-main">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <%- include("partials/header", {
+            pageTitle: "Customers",
+            showSearch: false,
+            admin: admin
+        }) %>
+
+
+        <!-- =================================================
+             BOTANICAL DECORATIONS
+             ================================================= -->
+
+        <div class="customer-leaf customer-leaf-right"></div>
+
+        <div class="customer-leaf customer-leaf-left"></div>
+
+        <div class="customer-leaf customer-leaf-small"></div>
+
+
+        <!-- =================================================
+             CONTENT
+             ================================================= -->
+
+        <section class="customers-content">
+
+
+            <!-- =================================================
+                 HERO
+                 ================================================= -->
+
+            <div class="customer-hero">
+
+                <div class="customer-eyebrow">
+                    Naadan Box Community
+                </div>
+
+
+                <h2 class="customer-page-heading">
+                    Our Customers
+                </h2>
+
+
+                <p class="customer-page-subtitle">
+                    Discover and manage the people who bring
+                    authentic Naadan flavours into their homes.
+                </p>
+
+
+                <div class="hero-decoration">
+
+                    <span></span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 TOP ACTIONS
+                 ================================================= -->
+
+            <div class="customer-top-actions">
+
+
+                <div class="customer-intro-note">
+
+                    Customer Collection
+
+                </div>
+
+
+                <!-- EXPORT -->
+
+                <button
+                    type="button"
+                    class="export-button"
+                    onclick="window.location.href='/admin/customers/export'"
+                >
+
+                    <i class="bi bi-download"></i>
+
+                    Export Customers
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 ERROR
+                 ================================================= -->
+
+            <% if (typeof error !== "undefined" && error) { %>
+
+                <div class="customers-error">
+
+                    <i class="bi bi-exclamation-circle me-1"></i>
+
+                    <%= error %>
+
+                </div>
+
+            <% } %>
+
+
+            <!-- =================================================
+                 CUSTOMER INSIGHTS
+                 ================================================= -->
+
+            <div class="customer-insights">
+
+
+                <!-- TOTAL -->
+
+                <div class="insight-card">
+
+                    <div class="insight-label">
+                        Total Customers
+                    </div>
+
+
+                    <div class="insight-value">
+                        <%= totalUsers || 0 %>
+                    </div>
+
+
+                    <div class="insight-description">
+                        Registered members
+                    </div>
+
+
+                    <div class="insight-icon">
+
+                        <i class="bi bi-people"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CURRENT PAGE -->
+
+                <div class="insight-card">
+
+                    <div class="insight-label">
+                        Customers Shown
+                    </div>
+
+
+                    <div class="insight-value">
+                        <%= users ? users.length : 0 %>
+                    </div>
+
+
+                    <div class="insight-description">
+                        Customers on this page
+                    </div>
+
+
+                    <div class="insight-icon">
+
+                        <i class="bi bi-person-lines-fill"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PAGES -->
+
+                <div class="insight-card">
+
+                    <div class="insight-label">
+                        Customer Pages
+                    </div>
+
+
+                    <div class="insight-value">
+                        <%= totalPages || 0 %>
+                    </div>
+
+
+                    <div class="insight-description">
+                        Available customer pages
+                    </div>
+
+
+                    <div class="insight-icon">
+
+                        <i class="bi bi-journals"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SEARCH / FILTER TOOLBAR
+                 ================================================= -->
+
+            <form
+                class="customer-toolbar"
+                method="GET"
+                action="/admin/customers"
+            >
+
+
+                <!-- SEARCH -->
+
+                <div class="customer-search">
+
+                    <i class="bi bi-person-search"></i>
+
+
+                    <input
+                        type="text"
+                        name="search"
+                        value="<%= typeof search !== 'undefined' ? search : '' %>"
+                        placeholder="Search by name or email"
+                        maxlength="100"
+                        autocomplete="off"
+                    >
+
+
+                    <% if (typeof search !== "undefined" && search) { %>
+
+                        <a
+                            href="/admin/customers?status=<%= encodeURIComponent(status || 'all') %>"
+                            class="clear-search"
+                            title="Clear Search"
+                            aria-label="Clear Search"
+                        >
+
+                            <i class="bi bi-x-circle"></i>
+
+                        </a>
+
+                    <% } %>
+
+                </div>
+
+
+                <!-- FILTERS -->
+
+                <div class="customer-filters">
+
+
+                    <a
+                        href="/admin/customers?status=all&search=<%= encodeURIComponent(search || '') %>"
+                        class="customer-filter <%= (!status || status === 'all') ? 'active' : '' %>"
+                    >
+                        All Customers
+                    </a>
+
+
+                    <a
+                        href="/admin/customers?status=active&search=<%= encodeURIComponent(search || '') %>"
+                        class="customer-filter <%= status === 'active' ? 'active' : '' %>"
+                    >
+                        Active
+                    </a>
+
+
+                    <a
+                        href="/admin/customers?status=blocked&search=<%= encodeURIComponent(search || '') %>"
+                        class="customer-filter <%= status === 'blocked' ? 'active' : '' %>"
+                    >
+                        Blocked
+                    </a>
+
+                </div>
+
+
+                <!-- CURRENT STATUS -->
+
+                <input
+                    type="hidden"
+                    name="status"
+                    value="<%= status || 'all' %>"
+                >
+
+
+                <!-- COUNT -->
+
+                <div class="customer-count">
+
+                    Showing
+
+                    <strong>
+                        <%= users && users.length
+                            ? ((currentPage - 1) * 10) + 1
+                            : 0
+                        %>
+                    </strong>
+
+                    -
+
+                    <strong>
+                        <%= users && users.length
+                            ? ((currentPage - 1) * 10) + users.length
+                            : 0
+                        %>
+                    </strong>
+
+                    of
+
+                    <strong>
+                        <%= totalUsers || 0 %>
+                    </strong>
+
+                </div>
+
+            </form>
+
+
+            <!-- =================================================
+                 CUSTOMER COLLECTION
+                 ================================================= -->
+
+            <div class="customer-collection">
+
+
+                <!-- =================================================
+                     COLLECTION HEADER
+                     ================================================= -->
+
+                <div class="collection-header">
+
+
+                    <div class="collection-title-wrap">
+
+
+                        <div class="collection-mark">
+
+                            <i class="bi bi-people"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3 class="collection-title">
+                                Customer Collection
+                            </h3>
+
+
+                            <div class="collection-subtitle">
+                                Registered Naadan Box customers
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="collection-decoration">
+
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     TABLE
+                     ================================================= -->
+
+                <div class="customer-table-wrapper">
+
+
+                    <table class="customer-table">
+
+
+                        <!-- =================================================
+                             TABLE HEADER
+                             ================================================= -->
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Customer Profile
+                                </th>
+
+                                <th>
+                                    Contact Info
+                                </th>
+
+                                <th>
+                                    Total Orders
+                                </th>
+
+                                <th>
+                                    Joined Date
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <!-- =================================================
+                             TABLE BODY
+                             ================================================= -->
+
+                        <tbody>
+
+
+                            <% if (users && users.length > 0) { %>
+
+
+                                <% users.forEach(user => { %>
+
+
+                                    <tr>
+
+
+                                        <!-- CUSTOMER PROFILE -->
+
+                                        <td>
+
+                                            <div class="customer-profile">
+
+
+                                                <% if (
+                                                    user.profileImage &&
+                                                    user.profileImage !== "default-profile.png"
+                                                ) { %>
+
+
+                                                    <img
+                                                        class="customer-image"
+                                                        src="<%= user.profileImage %>"
+                                                        alt="Customer"
+                                                        onerror="this.style.display='none'"
+                                                    >
+
+
+                                                <% } else { %>
+
+
+                                                    <div class="customer-image customer-image-placeholder">
+
+                                                        <i class="bi bi-person"></i>
+
+                                                    </div>
+
+
+                                                <% } %>
+
+
+                                                <div>
+
+                                                    <div class="customer-name">
+
+                                                        <%= user.name %>
+
+                                                    </div>
+
+
+                                                    <div class="customer-id">
+
+                                                        ID:
+                                                        NB-<%= user._id.toString().slice(-4).toUpperCase() %>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+                                        </td>
+
+
+                                        <!-- CONTACT -->
+
+                                        <td>
+
+                                            <div class="customer-email">
+
+                                                <%= user.email %>
+
+                                            </div>
+
+
+                                            <div class="customer-phone">
+
+                                                <%= user.phone || "No phone number" %>
+
+                                            </div>
+
+                                        </td>
+
+
+                                        <!-- ORDERS -->
+
+                                        <td>
+
+                                            <span class="order-count zero">
+
+                                                0 Orders
+
+                                            </span>
+
+                                        </td>
+
+
+                                        <!-- JOINED DATE -->
+
+                                        <td>
+
+                                            <div class="joined-date">
+
+                                                <%= new Date(user.createdAt).toLocaleDateString(
+                                                    "en-IN",
+                                                    {
+                                                        day: "2-digit",
+                                                        month: "short",
+                                                        year: "numeric"
+                                                    }
+                                                ) %>
+
+                                            </div>
+
+                                        </td>
+
+
+                                        <!-- STATUS -->
+
+                                        <td>
+
+
+                                            <% if (user.isBlocked) { %>
+
+
+                                                <span class="status-badge blocked">
+
+                                                    BLOCKED
+
+                                                </span>
+
+
+                                            <% } else { %>
+
+
+                                                <span class="status-badge active">
+
+                                                    ACTIVE
+
+                                                </span>
+
+
+                                            <% } %>
+
+
+                                        </td>
+
+
+                                        <!-- ACTIONS -->
+
+                                        <td>
+
+                                            <div class="customer-actions">
+
+
+                                                <!-- VIEW -->
+
+                                                <button
+                                                    type="button"
+                                                    class="action-button view-button"
+                                                    title="View Customer"
+                                                    data-user-id="<%= user._id %>"
+                                                >
+
+                                                    <i class="bi bi-eye"></i>
+
+                                                </button>
+
+
+                                                <!-- BLOCK / UNBLOCK -->
+
+                                                <% if (user.isBlocked) { %>
+
+
+                                                    <button
+                                                        type="button"
+                                                        class="action-button unblock-button"
+                                                        title="Unblock Customer"
+                                                        data-user-id="<%= user._id %>"
+                                                        data-action="unblock"
+                                                    >
+
+                                                        <i class="bi bi-check-circle"></i>
+
+                                                    </button>
+
+
+                                                <% } else { %>
+
+
+                                                    <button
+                                                        type="button"
+                                                        class="action-button block-button"
+                                                        title="Block Customer"
+                                                        data-user-id="<%= user._id %>"
+                                                        data-action="block"
+                                                    >
+
+                                                        <i class="bi bi-ban"></i>
+
+                                                    </button>
+
+
+                                                <% } %>
+
+
+                                            </div>
+
+                                        </td>
+
+
+                                    </tr>
+
+
+                                <% }) %>
+
+
+                            <% } else { %>
+
+
+                                <!-- EMPTY STATE -->
+
+                                <tr>
+
+                                    <td colspan="6">
+
+                                        <div class="empty-state">
+
+                                            <i class="bi bi-people"></i>
+
+                                            No customers found.
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+
+                            <% } %>
+
+
+                        </tbody>
+
+
+                    </table>
+
+                </div>
+
+
+                <!-- =================================================
+                     FOOTER / PAGINATION
+                     ================================================= -->
+
+                <div class="customer-table-footer">
+
+
+                    <div class="page-info">
+
+                        Total
+                        <%= totalPages || 0 %>
+                        pages
+
+                    </div>
+
+
+                    <% if (totalPages > 0) { %>
+
+
+                        <nav
+                            aria-label="Customer pagination"
+                        >
+
+
+                            <ul class="pagination customer-pagination">
+
+
+                                <!-- PREVIOUS -->
+
+                                <li
+                                    class="page-item <%= currentPage <= 1 ? 'disabled' : '' %>"
+                                >
+
+
+                                    <% if (currentPage > 1) { %>
+
+
+                                        <a
+                                            class="page-link"
+                                            href="/admin/customers?page=<%= currentPage - 1 %>&search=<%= encodeURIComponent(search || '') %>&status=<%= encodeURIComponent(status || 'all') %>"
+                                        >
+
+                                            <i class="bi bi-chevron-left"></i>
+
+                                        </a>
+
+
+                                    <% } else { %>
+
+
+                                        <span class="page-link">
+
+                                            <i class="bi bi-chevron-left"></i>
+
+                                        </span>
+
+
+                                    <% } %>
+
+
+                                </li>
+
+
+                                <!-- PAGE NUMBERS -->
+
+                                <% if (totalPages <= 5) { %>
+
+
+                                    <% for (
+                                        let page = 1;
+                                        page <= totalPages;
+                                        page++
+                                    ) { %>
+
+
+                                        <li
+                                            class="page-item <%= page === currentPage ? 'active' : '' %>"
+                                        >
+
+
+                                            <a
+                                                class="page-link"
+                                                href="/admin/customers?page=<%= page %>&search=<%= encodeURIComponent(search || '') %>&status=<%= encodeURIComponent(status || 'all') %>"
+                                            >
+
+                                                <%= page %>
+
+                                            </a>
+
+
+                                        </li>
+
+
+                                    <% } %>
+
+
+                                <% } else { %>
+
+
+                                    <li
+                                        class="page-item <%= currentPage === 1 ? 'active' : '' %>"
+                                    >
+
+                                        <a
+                                            class="page-link"
+                                            href="/admin/customers?page=1&search=<%= encodeURIComponent(search || '') %>&status=<%= encodeURIComponent(status || 'all') %>"
+                                        >
+                                            1
+                                        </a>
+
+                                    </li>
+
+
+                                    <li
+                                        class="page-item <%= currentPage === 2 ? 'active' : '' %>"
+                                    >
+
+                                        <a
+                                            class="page-link"
+                                            href="/admin/customers?page=2&search=<%= encodeURIComponent(search || '') %>&status=<%= encodeURIComponent(status || 'all') %>"
+                                        >
+                                            2
+                                        </a>
+
+                                    </li>
+
+
+                                    <li
+                                        class="page-item <%= currentPage === 3 ? 'active' : '' %>"
+                                    >
+
+                                        <a
+                                            class="page-link"
+                                            href="/admin/customers?page=3&search=<%= encodeURIComponent(search || '') %>&status=<%= encodeURIComponent(status || 'all') %>"
+                                        >
+                                            3
+                                        </a>
+
+                                    </li>
+
+
+                                    <li class="page-dots">
+                                        ...
+                                    </li>
+
+
+                                    <li
+                                        class="page-item <%= currentPage === totalPages ? 'active' : '' %>"
+                                    >
+
+                                        <a
+                                            class="page-link"
+                                            href="/admin/customers?page=<%= totalPages %>&search=<%= encodeURIComponent(search || '') %>&status=<%= encodeURIComponent(status || 'all') %>"
+                                        >
+
+                                            <%= totalPages %>
+
+                                        </a>
+
+                                    </li>
+
+
+                                <% } %>
+
+
+                                <!-- NEXT -->
+
+                                <li
+                                    class="page-item <%= currentPage >= totalPages ? 'disabled' : '' %>"
+                                >
+
+
+                                    <% if (currentPage < totalPages) { %>
+
+
+                                        <a
+                                            class="page-link"
+                                            href="/admin/customers?page=<%= currentPage + 1 %>&search=<%= encodeURIComponent(search || '') %>&status=<%= encodeURIComponent(status || 'all') %>"
+                                        >
+
+                                            <i class="bi bi-chevron-right"></i>
+
+                                        </a>
+
+
+                                    <% } else { %>
+
+
+                                        <span class="page-link">
+
+                                            <i class="bi bi-chevron-right"></i>
+
+                                        </span>
+
+
+                                    <% } %>
+
+
+                                </li>
+
+
+                            </ul>
+
+                        </nav>
+
+
+                    <% } %>
+
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         CONFIRMATION MODAL
+         ===================================================== -->
+
+    <div
+        class="confirmation-modal"
+        id="confirmationModal"
+        aria-hidden="true"
+    >
+
+
+        <div
+            class="confirmation-box"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="confirmationTitle"
+        >
+
+
+            <div
+                class="confirmation-icon"
+                id="confirmationIcon"
+            >
+
+                <i class="bi bi-exclamation-triangle"></i>
+
+            </div>
+
+
+            <h2
+                class="confirmation-title"
+                id="confirmationTitle"
+            >
+
+                Confirm Action
+
+            </h2>
+
+
+            <p
+                class="confirmation-message"
+                id="confirmationMessage"
+            >
+
+                Are you sure you want to continue?
+
+            </p>
+
+
+            <div class="confirmation-actions">
+
+
+                <button
+                    type="button"
+                    class="confirmation-button confirmation-cancel"
+                    id="confirmationCancel"
+                >
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="confirmation-button confirmation-confirm"
+                    id="confirmationConfirm"
+                >
+
+                    Confirm
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CUSTOMERS JAVASCRIPT
+         ===================================================== -->
+
+    <script src="/js/adminCustomers.js"></script>
+
+
+    <!-- =====================================================
+         BOOTSTRAP JAVASCRIPT
+         ===================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+
+</body>
+
+</html>

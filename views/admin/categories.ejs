@@ -1,0 +1,4807 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Categories - Naadan Box</title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+         ===================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         NAADAN BOX CATEGORY PAGE
+         ===================================================== -->
+
+    <style>
+
+        /* =====================================================
+           ROOT
+        ===================================================== */
+
+        :root {
+
+            --green: #1B5233;
+            --green-dark: #16452B;
+            --green-soft: #EDF4ED;
+
+            --gold: #C99B25;
+            --gold-soft: #F8EFCF;
+
+            --cream: #F8F5ED;
+            --cream-dark: #F1EDE3;
+
+            --white: #FFFDF8;
+
+            --text: #25372C;
+            --muted: #7B857D;
+
+            --border: #E5DFD2;
+
+            --danger: #C95454;
+            --danger-soft: #FFF0F0;
+        }
+
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            overflow-y: scroll;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            background: var(--cream);
+
+            color: var(--text);
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+        }
+
+
+        button,
+        input {
+            font: inherit;
+        }
+
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           MAIN ADMIN LAYOUT
+           Same structure as Customers page
+        ===================================================== */
+
+        .admin-main {
+
+            position: relative;
+
+            margin-left: 255px;
+
+            width:
+                calc(100% - 255px);
+
+            min-height: 100vh;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           BOTANICAL BACKGROUND
+        ===================================================== */
+
+        .category-leaf {
+
+            position: absolute;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        .category-leaf-right {
+
+            width: 220px;
+            height: 95px;
+
+            right: -72px;
+            top: 145px;
+
+            background:
+                rgba(213,216,199,.32);
+
+            border-radius:
+                100% 0 100% 0;
+
+            transform:
+                rotate(-34deg);
+        }
+
+
+        .category-leaf-right::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 1px;
+            height: 145px;
+
+            left: 110px;
+            top: -27px;
+
+            background:
+                rgba(190,181,145,.22);
+
+            transform:
+                rotate(-20deg);
+        }
+
+
+        .category-leaf-left {
+
+            width: 160px;
+            height: 68px;
+
+            left: -82px;
+            bottom: 90px;
+
+            background:
+                rgba(218,218,203,.25);
+
+            border-radius:
+                100% 0 100% 0;
+
+            transform:
+                rotate(43deg);
+        }
+
+
+        .category-leaf-left::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 1px;
+            height: 110px;
+
+            left: 80px;
+            top: -20px;
+
+            background:
+                rgba(190,181,145,.20);
+
+            transform:
+                rotate(-20deg);
+        }
+
+
+        .category-leaf-small {
+
+            width: 90px;
+            height: 38px;
+
+            right: 100px;
+            bottom: 25px;
+
+            background:
+                rgba(218,218,203,.18);
+
+            border-radius:
+                100% 0 100% 0;
+
+            transform:
+                rotate(28deg);
+        }
+
+
+        /* =====================================================
+           PAGE CONTENT
+           Same content system as Customers
+        ===================================================== */
+
+        .categories-content {
+
+            position: relative;
+
+            z-index: 1;
+
+            padding:
+                38px
+                38px
+                48px;
+
+            max-width: 1700px;
+
+            margin: 0 auto;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .category-hero {
+
+            position: relative;
+
+            text-align: center;
+
+            margin-bottom: 28px;
+        }
+
+
+        .category-eyebrow {
+
+            margin-bottom: 8px;
+
+            color: var(--gold);
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: 2.5px;
+
+            text-transform: uppercase;
+        }
+
+
+        .category-page-heading {
+
+            margin: 0;
+
+            color: var(--green);
+
+            font-size: 30px;
+
+            font-weight: 800;
+
+            letter-spacing: -.6px;
+        }
+
+
+        .category-page-subtitle {
+
+            max-width: 520px;
+
+            margin:
+                8px
+                auto
+                0;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           HERO DECORATION
+        ===================================================== */
+
+        .hero-decoration {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            margin-top: 14px;
+        }
+
+
+        .hero-decoration::before {
+
+            content: "";
+
+            width: 34px;
+            height: 2px;
+
+            background:
+                var(--gold);
+
+            border-radius: 10px;
+        }
+
+
+        .hero-decoration span {
+
+            width: 5px;
+            height: 5px;
+
+            background:
+                var(--gold);
+
+            transform:
+                rotate(45deg);
+        }
+
+
+        .hero-decoration::after {
+
+            content: "";
+
+            width: 34px;
+            height: 1px;
+
+            background:
+                #D9CDA9;
+
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           TOP ACTION AREA
+        ===================================================== */
+
+        .category-top-actions {
+
+            position: relative;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 19px;
+        }
+
+
+        .category-intro-note {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+
+        .category-intro-note::before {
+
+            content: "";
+
+            width: 28px;
+            height: 2px;
+
+            background:
+                var(--gold);
+
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           ADD CATEGORY BUTTON
+        ===================================================== */
+
+        .add-category-button {
+
+            height: 40px;
+
+            min-width: 145px;
+
+            padding:
+                0 17px;
+
+            border: 0;
+
+            border-radius: 8px;
+
+            background:
+                var(--green);
+
+            color: #fff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            box-shadow:
+                0 7px 18px
+                rgba(27,82,51,.12);
+
+            transition:
+                background .2s ease,
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .add-category-button:hover {
+
+            background:
+                var(--green-dark);
+
+            color: #fff;
+
+            transform:
+                translateY(-1px);
+
+            box-shadow:
+                0 10px 22px
+                rgba(27,82,51,.17);
+        }
+
+
+        .add-category-button i {
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           CATEGORY INSIGHT CARDS
+        ===================================================== */
+
+        .category-insights {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 14px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .insight-card {
+
+            position: relative;
+
+            min-height: 108px;
+
+            padding:
+                17px
+                19px;
+
+            background:
+                var(--white);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 20px
+                rgba(27,82,51,.035);
+        }
+
+
+        .insight-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 19px;
+            top: 0;
+
+            width: 32px;
+            height: 3px;
+
+            background:
+                var(--gold);
+
+            border-radius:
+                0 0 5px 5px;
+        }
+
+
+        .insight-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 82px;
+            height: 82px;
+
+            right: -32px;
+            top: -33px;
+
+            background:
+                rgba(218,218,203,.38);
+
+            border-radius: 50%;
+        }
+
+
+        .insight-icon {
+
+            position: absolute;
+
+            right: 17px;
+            bottom: 15px;
+
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background:
+                var(--green-soft);
+
+            color:
+                var(--green);
+
+            font-size: 14px;
+
+            z-index: 2;
+        }
+
+
+        .insight-card:nth-child(2)
+        .insight-icon {
+
+            background:
+                #F4F0DE;
+
+            color:
+                var(--gold);
+        }
+
+
+        .insight-card:nth-child(3)
+        .insight-icon {
+
+            background:
+                var(--danger-soft);
+
+            color:
+                var(--danger);
+        }
+
+
+        .insight-label {
+
+            position: relative;
+
+            z-index: 2;
+
+            color:
+                var(--muted);
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        .insight-value {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin-top: 3px;
+
+            color:
+                var(--green);
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            line-height: 1;
+        }
+
+
+        .insight-description {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin-top: 5px;
+
+            color: #9A9F99;
+
+            font-size: 9px;
+        }
+
+
+        /* =====================================================
+           FILTER / SEARCH TOOLBAR
+        ===================================================== */
+
+        .category-toolbar {
+
+            position: relative;
+
+            z-index: 3;
+
+            min-height: 70px;
+
+            padding: 13px;
+
+            margin-bottom: 17px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            background:
+                var(--white);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(27,82,51,.035);
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        .category-search {
+
+            position: relative;
+
+            width: 280px;
+
+            height: 40px;
+
+            min-width: 280px;
+        }
+
+
+        .category-search > i {
+
+            position: absolute;
+
+            left: 14px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color: #7E8981;
+
+            font-size: 14px;
+
+            pointer-events: none;
+
+            z-index: 2;
+        }
+
+
+        .category-search input {
+
+            width: 100%;
+
+            height: 100%;
+
+            padding:
+                0
+                38px
+                0
+                39px;
+
+            border:
+                1px solid #E2DCD0;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            background:
+                #F9F7F1;
+
+            color:
+                var(--text);
+
+            font-size: 11px;
+
+            transition:
+                border-color .2s ease,
+                background .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .category-search input:hover {
+
+            border-color:
+                #D6CCB8;
+        }
+
+
+        .category-search input:focus {
+
+            border-color:
+                #CDBB7C;
+
+            background:
+                #fff;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(201,155,37,.08);
+        }
+
+
+        .category-search input::placeholder {
+
+            color:
+                #8A918B;
+        }
+
+
+        .clear-search {
+
+            position: absolute;
+
+            right: 8px;
+
+            top: 50%;
+
+            width: 24px;
+            height: 24px;
+
+            transform:
+                translateY(-50%);
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            border: 0;
+
+            background: transparent;
+
+            color:
+                #8A918B;
+
+            z-index: 3;
+        }
+
+
+        .clear-search:hover {
+
+            color:
+                var(--danger);
+        }
+
+
+        /* =====================================================
+           FILTERS
+        ===================================================== */
+
+        .category-filters {
+
+            height: 40px;
+
+            padding: 3px;
+
+            display: flex;
+
+            align-items: center;
+
+            background:
+                #F1EEE5;
+
+            border:
+                1px solid #E7E1D6;
+
+            border-radius: 8px;
+
+            overflow: hidden;
+        }
+
+
+        .category-filter {
+
+            height: 32px;
+
+            min-width: 84px;
+
+            padding:
+                0 14px;
+
+            border: 0;
+
+            border-radius: 6px;
+
+            background:
+                transparent;
+
+            color:
+                #5D6861;
+
+            font-size: 10px;
+
+            font-weight: 500;
+
+            text-decoration: none;
+
+            white-space: nowrap;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            transition: .2s ease;
+        }
+
+
+        .category-filter:first-child {
+
+            min-width: 102px;
+        }
+
+
+        .category-filter:hover {
+
+            color:
+                var(--green);
+
+            background:
+                rgba(255,255,255,.55);
+        }
+
+
+        .category-filter.active {
+
+            background:
+                #fff;
+
+            color:
+                var(--green);
+
+            font-weight: 700;
+
+            box-shadow:
+                0 2px 7px
+                rgba(27,82,51,.06);
+        }
+
+
+        .category-count {
+
+            margin-left: auto;
+
+            color:
+                var(--muted);
+
+            font-size: 10px;
+
+            white-space: nowrap;
+        }
+
+
+        .category-count strong {
+
+            color:
+                var(--green);
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           COLLECTION CARD
+        ===================================================== */
+
+        .category-collection {
+
+            position: relative;
+
+            z-index: 3;
+
+            background:
+                var(--white);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 7px 25px
+                rgba(27,82,51,.045);
+        }
+
+
+        /* =====================================================
+           COLLECTION HEADER
+        ===================================================== */
+
+        .collection-header {
+
+            min-height: 72px;
+
+            padding:
+                16px
+                21px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border-bottom:
+                1px solid #EEE9DF;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #FFFDF8,
+                    #FBF9F3
+                );
+        }
+
+
+        .collection-title-wrap {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .collection-mark {
+
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background:
+                var(--green-soft);
+
+            color:
+                var(--green);
+
+            font-size: 16px;
+        }
+
+
+        .collection-title {
+
+            margin: 0;
+
+            color:
+                var(--green);
+
+            font-size: 16px;
+
+            font-weight: 800;
+        }
+
+
+        .collection-subtitle {
+
+            margin-top: 3px;
+
+            color:
+                var(--muted);
+
+            font-size: 9px;
+        }
+
+
+        .collection-decoration {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+        }
+
+
+        .collection-decoration::before {
+
+            content: "";
+
+            width: 28px;
+            height: 2px;
+
+            background:
+                var(--gold);
+
+            border-radius: 5px;
+        }
+
+
+        .collection-decoration span {
+
+            width: 4px;
+            height: 4px;
+
+            background:
+                var(--gold);
+
+            transform:
+                rotate(45deg);
+        }
+
+
+        /* =====================================================
+           TABLE WRAPPER
+        ===================================================== */
+
+        .category-table-wrapper {
+
+            width: 100%;
+
+            overflow-x: auto;
+        }
+
+
+        .category-table-wrapper::-webkit-scrollbar {
+
+            height: 5px;
+        }
+
+
+        .category-table-wrapper::-webkit-scrollbar-thumb {
+
+            background:
+                #D8D1C1;
+
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           TABLE
+        ===================================================== */
+
+        .category-table {
+
+            width: 100%;
+
+            min-width: 760px;
+
+            margin: 0;
+
+            border-collapse: collapse;
+
+            table-layout: fixed;
+        }
+
+
+        .category-table th:nth-child(1),
+        .category-table td:nth-child(1) {
+
+            width: 12%;
+        }
+
+
+        .category-table th:nth-child(2),
+        .category-table td:nth-child(2) {
+
+            width: 30%;
+        }
+
+
+        .category-table th:nth-child(3),
+        .category-table td:nth-child(3) {
+
+            width: 18%;
+        }
+
+
+        .category-table th:nth-child(4),
+        .category-table td:nth-child(4) {
+
+            width: 20%;
+        }
+
+
+        .category-table th:nth-child(5),
+        .category-table td:nth-child(5) {
+
+            width: 20%;
+        }
+
+
+        /* =====================================================
+           TABLE HEADER
+        ===================================================== */
+
+        .category-table thead {
+
+            background:
+                #F4F1E9;
+        }
+
+
+        .category-table th {
+
+            height: 51px;
+
+            padding:
+                0
+                17px;
+
+            border-bottom:
+                1px solid var(--border);
+
+            color:
+                #6D766F;
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            letter-spacing: .9px;
+
+            text-transform: uppercase;
+
+            vertical-align: middle;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           TABLE BODY
+        ===================================================== */
+
+        .category-table td {
+
+            height: 82px;
+
+            padding:
+                10px
+                17px;
+
+            border-bottom:
+                1px solid #EEE9DF;
+
+            color:
+                var(--text);
+
+            font-size: 11px;
+
+            vertical-align: middle;
+        }
+
+
+        .category-table tbody tr {
+
+            transition:
+                background .18s ease;
+        }
+
+
+        .category-table tbody tr:hover {
+
+            background:
+                #FCFAF5;
+        }
+
+
+        .category-table tbody tr:last-child td {
+
+            border-bottom: 0;
+        }
+
+
+        /* =====================================================
+           CATEGORY IMAGE
+        ===================================================== */
+
+        .category-image {
+
+            width: 42px;
+            height: 42px;
+
+            min-width: 42px;
+
+            border-radius: 9px;
+
+            object-fit: cover;
+
+            background:
+                #F1EEE4;
+
+            border:
+                1px solid #DDD6C7;
+
+            display: block;
+        }
+
+
+        .category-image-placeholder {
+
+            width: 42px;
+            height: 42px;
+
+            min-width: 42px;
+
+            border-radius: 9px;
+
+            background:
+                #F1EEE4;
+
+            border:
+                1px solid #DDD6C7;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            color:
+                #9AA19B;
+
+            font-size: 16px;
+        }
+
+
+        /* =====================================================
+           CATEGORY NAME
+        ===================================================== */
+
+        .category-name {
+
+            overflow: hidden;
+
+            color:
+                var(--green);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+        }
+
+
+        .category-slug {
+
+            margin-top: 4px;
+
+            color:
+                var(--muted);
+
+            font-size: 8px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .status-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 6px;
+
+            min-width: 65px;
+
+            height: 23px;
+
+            padding:
+                0 9px;
+
+            border-radius: 13px;
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            letter-spacing: .5px;
+
+            text-transform: uppercase;
+
+            white-space: nowrap;
+        }
+
+
+        .status-dot {
+
+            width: 5px;
+            height: 5px;
+
+            border-radius: 50%;
+        }
+
+
+        .status-active {
+
+            background:
+                #E2F2E5;
+
+            color:
+                #34744A;
+
+            border:
+                1px solid #D2E8D6;
+        }
+
+
+        .status-active .status-dot {
+
+            background:
+                #4B8A58;
+        }
+
+
+        .status-inactive {
+
+            background:
+                #FBE6E6;
+
+            color:
+                #B74A4A;
+
+            border:
+                1px solid #F1D2D2;
+        }
+
+
+        .status-inactive .status-dot {
+
+            background:
+                #B74A4A;
+        }
+
+
+        /* =====================================================
+           DATE
+        ===================================================== */
+
+        .created-date {
+
+            color:
+                #59655D;
+
+            font-size: 9.5px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           ACTIONS
+        ===================================================== */
+
+        .category-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            white-space: nowrap;
+        }
+
+
+        .action-button {
+
+            width: 32px;
+            height: 32px;
+
+            min-width: 32px;
+
+            padding: 0;
+
+            border:
+                1px solid #DED8CC;
+
+            border-radius: 8px;
+
+            background:
+                #FFFDF8;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition:
+                background .2s ease,
+                border-color .2s ease,
+                color .2s ease,
+                transform .2s ease;
+        }
+
+
+        .action-button:hover {
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .action-button:disabled {
+
+            opacity: .5;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        .action-button i {
+
+            font-size: 13px;
+        }
+
+
+
+
+        .restore-button {
+
+            color:
+                var(--green);
+        }
+
+
+        .restore-button:hover {
+
+            background:
+                var(--green-soft);
+
+            border-color:
+                #D4E2D5;
+
+            color:
+                var(--green);
+        }
+
+
+        .view-button {
+
+            color:
+                #59655D;
+        }
+
+
+        .view-button:hover {
+
+            background:
+                var(--green-soft);
+
+            border-color:
+                #D4E2D5;
+
+            color:
+                var(--green);
+        }
+
+
+        .edit-button {
+
+            color:
+                #806A27;
+        }
+
+
+        .edit-button:hover {
+
+            background:
+                var(--gold-soft);
+
+            border-color:
+                #E7D9A9;
+
+            color:
+                #856300;
+        }
+
+
+        .deactivate-button {
+
+            color:
+                var(--danger);
+        }
+
+
+        .deactivate-button:hover {
+
+            background:
+                var(--danger-soft);
+
+            border-color:
+                #F0D3D3;
+
+            color:
+                var(--danger);
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+        ===================================================== */
+
+        .empty-state {
+
+            padding:
+                70px
+                20px;
+
+            text-align: center;
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        .empty-state-icon {
+
+            display: block;
+
+            margin-bottom: 12px;
+
+            color:
+                #BFC3BC;
+
+            font-size: 34px;
+        }
+
+
+        .empty-state h3 {
+
+            margin: 0 0 5px;
+
+            color:
+                var(--green);
+
+            font-size: 15px;
+
+            font-weight: 700;
+        }
+
+
+        .empty-state p {
+
+            margin: 0;
+
+            color:
+                var(--muted);
+
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           LOADING
+        ===================================================== */
+
+        .loading-state {
+
+            padding:
+                55px
+                20px;
+
+            text-align: center;
+
+            color:
+                var(--muted);
+
+            font-size: 11px;
+        }
+
+
+        .loading-spinner {
+
+            width: 24px;
+            height: 24px;
+
+            margin:
+                0
+                auto
+                12px;
+
+            border:
+                2px solid #E4DDD1;
+
+            border-top-color:
+                var(--green);
+
+            border-radius: 50%;
+
+            animation:
+                categorySpin .7s linear infinite;
+        }
+
+
+        @keyframes categorySpin {
+
+            to {
+                transform:
+                    rotate(360deg);
+            }
+        }
+
+
+        /* =====================================================
+           TABLE FOOTER
+        ===================================================== */
+
+        .category-table-footer {
+
+            min-height: 65px;
+
+            padding:
+                0
+                18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            border-top:
+                1px solid #EEE9DF;
+
+            background:
+                #FFFDF8;
+        }
+
+
+        .category-page-info {
+
+            color:
+                var(--muted);
+
+            font-size: 9.5px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           PAGINATION
+        ===================================================== */
+
+        .category-pagination {
+
+            margin: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 4px;
+
+            white-space: nowrap;
+        }
+
+
+        .category-pagination .page-button {
+
+            width: 31px;
+            height: 31px;
+
+            min-width: 31px;
+
+            padding: 0;
+
+            border: 0;
+
+            border-radius: 7px;
+
+            background:
+                transparent;
+
+            color:
+                #5D6861;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 10px;
+
+            cursor: pointer;
+        }
+
+
+        .category-pagination .page-button:hover:not(:disabled) {
+
+            background:
+                #F0EDE4;
+
+            color:
+                var(--green);
+        }
+
+
+        .category-pagination .page-button.active {
+
+            background:
+                var(--green);
+
+            color:
+                #fff;
+
+            box-shadow:
+                0 4px 10px
+                rgba(27,82,51,.12);
+        }
+
+
+        .category-pagination .page-button:disabled {
+
+            color:
+                #B8BBB6;
+
+            background:
+                transparent;
+
+            cursor:
+                not-allowed;
+        }
+
+
+        /* =====================================================
+           DEACTIVATE MODAL
+        ===================================================== */
+
+        .confirmation-modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 3000;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                rgba(27,82,51,.27);
+
+            backdrop-filter:
+                blur(5px);
+
+            -webkit-backdrop-filter:
+                blur(5px);
+        }
+
+
+        .confirmation-modal.show {
+
+            display: flex;
+        }
+
+
+        .confirmation-box {
+
+            width: 100%;
+
+            max-width: 365px;
+
+            padding:
+                30px
+                26px
+                23px;
+
+            background:
+                var(--white);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            text-align: center;
+
+            box-shadow:
+                0 25px 65px
+                rgba(27,82,51,.18);
+
+            animation:
+                categoryModalShow
+                .18s ease-out;
+        }
+
+
+        .confirmation-icon {
+
+            position: relative;
+
+            width: 52px;
+            height: 52px;
+
+            margin:
+                0
+                auto
+                15px;
+
+            border-radius: 50%;
+
+            background:
+                var(--danger-soft);
+
+            color:
+                var(--danger);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 19px;
+        }
+
+
+        .confirmation-title {
+
+            margin: 0;
+
+            color:
+                var(--green);
+
+            font-size: 19px;
+
+            font-weight: 800;
+        }
+
+
+        .confirmation-message {
+
+            margin:
+                8px
+                auto
+                22px;
+
+            max-width: 290px;
+
+            color:
+                var(--muted);
+
+            font-size: 11px;
+
+            line-height: 1.6;
+        }
+
+
+        .confirmation-actions {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 9px;
+        }
+
+
+        .confirmation-button {
+
+            min-width: 108px;
+
+            height: 39px;
+
+            border-radius: 7px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .2s ease;
+        }
+
+
+        .confirmation-button:disabled {
+
+            opacity: .5;
+
+            cursor: not-allowed;
+        }
+
+
+        .confirmation-cancel {
+
+            border:
+                1px solid var(--border);
+
+            background:
+                #fff;
+
+            color:
+                var(--text);
+        }
+
+
+        .confirmation-cancel:hover {
+
+            background:
+                var(--cream-dark);
+        }
+
+
+        .confirmation-confirm {
+
+            border:
+                1px solid var(--danger);
+
+            background:
+                var(--danger);
+
+            color:
+                #fff;
+        }
+
+
+        .confirmation-confirm:hover {
+
+            background:
+                #B54444;
+        }
+
+
+        .restore-confirmation-icon {
+
+            background:
+                var(--green-soft);
+
+            color:
+                var(--green);
+        }
+
+
+        .restore-confirm-button {
+
+            border:
+                1px solid var(--green);
+
+            background:
+                var(--green);
+
+            color:
+                #fff;
+        }
+
+
+        .restore-confirm-button:hover {
+
+            background:
+                var(--green-dark);
+
+            color:
+                #fff;
+        }
+
+
+        .restore-confirm-button:disabled {
+
+            opacity: .5;
+
+            cursor: not-allowed;
+        }
+
+
+        @keyframes categoryModalShow {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(8px)
+                    scale(.98);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        /* =====================================================
+           TOAST
+        ===================================================== */
+
+        .category-toast {
+
+            position: fixed;
+
+            right: 25px;
+            bottom: 25px;
+
+            z-index: 4000;
+
+            min-width: 280px;
+            max-width: 380px;
+
+            padding:
+                13px
+                16px;
+
+            border-radius: 9px;
+
+            background:
+                var(--green);
+
+            color:
+                #fff;
+
+            box-shadow:
+                0 12px 35px
+                rgba(20,48,31,.22);
+
+            display: none;
+
+            font-size: 11px;
+        }
+
+
+        .category-toast.show {
+
+            display: block;
+
+            animation:
+                categoryToastIn
+                .25s ease;
+        }
+
+
+        .category-toast.error {
+
+            background:
+                #8F5555;
+        }
+
+
+        @keyframes categoryToastIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(10px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           Same admin-main breakpoints as Customers
+        ===================================================== */
+
+        @media (max-width: 1200px) {
+
+            .categories-content {
+
+                padding-left: 26px;
+
+                padding-right: 26px;
+            }
+
+        }
+
+
+        @media (max-width: 1000px) {
+
+            .category-search {
+
+                width: 235px;
+
+                min-width: 235px;
+            }
+
+        }
+
+
+        @media (max-width: 900px) {
+
+            .admin-main {
+
+                margin-left: 78px;
+
+                width:
+                    calc(100% - 78px);
+            }
+
+
+            .categories-content {
+
+                padding:
+                    27px
+                    20px
+                    35px;
+            }
+
+
+            .category-toolbar {
+
+                flex-wrap: wrap;
+            }
+
+
+            .category-count {
+
+                width: 100%;
+
+                margin-left: 0;
+
+                padding-top: 2px;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .category-insights {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .category-hero {
+
+                text-align: left;
+            }
+
+
+            .category-page-subtitle {
+
+                margin-left: 0;
+            }
+
+
+            .hero-decoration {
+
+                justify-content: flex-start;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .admin-main {
+
+                margin-left: 65px;
+
+                width:
+                    calc(100% - 65px);
+            }
+
+
+            .categories-content {
+
+                padding:
+                    20px
+                    12px
+                    30px;
+            }
+
+
+            .category-page-heading {
+
+                font-size: 25px;
+            }
+
+
+            .category-page-subtitle {
+
+                font-size: 11px;
+            }
+
+
+            .category-top-actions {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 12px;
+            }
+
+
+            .add-category-button {
+
+                min-width: 140px;
+            }
+
+
+            .category-toolbar {
+
+                align-items: flex-start;
+
+                padding: 11px;
+            }
+
+
+            .category-search {
+
+                width: 100%;
+
+                min-width: 0;
+            }
+
+
+            .category-filters {
+
+                max-width: 100%;
+
+                overflow-x: auto;
+            }
+
+
+            .category-count {
+
+                width: 100%;
+            }
+
+
+            .collection-header {
+
+                padding:
+                    15px;
+            }
+
+
+            .collection-decoration {
+
+                display: none;
+            }
+
+
+            .category-table {
+
+                min-width: 760px;
+            }
+
+
+            .category-table-footer {
+
+                padding:
+                    12px
+                    15px;
+
+                flex-wrap: wrap;
+            }
+
+
+            .category-toast {
+
+                right: 15px;
+
+                left: 15px;
+
+                min-width: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <%- include("partials/sidebar", {
+        activePage: "categories"
+    }) %>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="admin-main">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <%- include("partials/header", {
+            pageTitle: "Categories",
+            showSearch: false,
+            admin: admin
+        }) %>
+
+
+        <!-- =================================================
+             BOTANICAL DECORATIONS
+             ================================================= -->
+
+        <div class="category-leaf category-leaf-right"></div>
+
+        <div class="category-leaf category-leaf-left"></div>
+
+        <div class="category-leaf category-leaf-small"></div>
+
+
+        <!-- =================================================
+             CONTENT
+             ================================================= -->
+
+        <section class="categories-content">
+
+
+            <!-- =================================================
+                 HERO
+                 ================================================= -->
+
+            <div class="category-hero">
+
+                <div class="category-eyebrow">
+                    Naadan Box Collection
+                </div>
+
+
+                <h2 class="category-page-heading">
+                    Categories
+                </h2>
+
+
+                <p class="category-page-subtitle">
+                    Organize and manage the categories that define
+                    the Naadan Box shopping experience.
+                </p>
+
+
+                <div class="hero-decoration">
+
+                    <span></span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 TOP ACTIONS
+                 ================================================= -->
+
+            <div class="category-top-actions">
+
+
+                <div class="category-intro-note">
+
+                    Category Collection
+
+                </div>
+
+
+                <!-- ADD CATEGORY -->
+
+                <a
+                    href="/admin/categories/add"
+                    class="add-category-button"
+                >
+
+                    <i class="bi bi-plus-lg"></i>
+
+                    Add Category
+
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 CATEGORY INSIGHTS
+                 ================================================= -->
+
+            <div class="category-insights">
+
+
+                <!-- TOTAL -->
+
+                <div class="insight-card">
+
+                    <div class="insight-label">
+                        Total Categories
+                    </div>
+
+
+                    <div
+                        class="insight-value"
+                        id="totalCategories"
+                    >
+                        0
+                    </div>
+
+
+                    <div class="insight-description">
+                        Categories in your store
+                    </div>
+
+
+                    <div class="insight-icon">
+
+                        <i class="bi bi-collection"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIVE -->
+
+                <div class="insight-card">
+
+                    <div class="insight-label">
+                        Active Categories
+                    </div>
+
+
+                    <div
+                        class="insight-value"
+                        id="activeCategories"
+                    >
+                        0
+                    </div>
+
+
+                    <div class="insight-description">
+                        Currently available
+                    </div>
+
+
+                    <div class="insight-icon">
+
+                        <i class="bi bi-check-circle"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- INACTIVE -->
+
+                <div class="insight-card">
+
+                    <div class="insight-label">
+                        Inactive Categories
+                    </div>
+
+
+                    <div
+                        class="insight-value"
+                        id="inactiveCategories"
+                    >
+                        0
+                    </div>
+
+
+                    <div class="insight-description">
+                        Currently unavailable
+                    </div>
+
+
+                    <div class="insight-icon">
+
+                        <i class="bi bi-archive"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SEARCH / FILTER TOOLBAR
+                 ================================================= -->
+
+            <div class="category-toolbar">
+
+
+                <!-- SEARCH -->
+
+                <div class="category-search">
+
+                    <i class="bi bi-search"></i>
+
+
+                    <input
+                        type="search"
+                        id="categorySearch"
+                        placeholder="Search by category name"
+                        maxlength="100"
+                        autocomplete="off"
+                        aria-label="Search categories"
+                        spellcheck="false"
+                    >
+
+
+                    <button
+                        type="button"
+                        class="clear-search"
+                        id="clearSearch"
+                        aria-label="Clear search"
+                    >
+
+                        <i class="bi bi-x-circle"></i>
+
+                    </button>
+
+                </div>
+
+
+                <!-- FILTERS -->
+
+                <div class="category-filters">
+
+
+                    <button
+                        type="button"
+                        class="category-filter active"
+                        data-status="all"
+                    >
+                        All Categories
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="category-filter"
+                        data-status="active"
+                    >
+                        Active
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="category-filter"
+                        data-status="inactive"
+                    >
+                        Inactive
+                    </button>
+
+                </div>
+
+
+                <!-- COUNT -->
+
+                <div class="category-count">
+
+                    Showing
+
+                    <strong id="categoryStart">
+                        0
+                    </strong>
+
+                    -
+
+                    <strong id="categoryEnd">
+                        0
+                    </strong>
+
+                    of
+
+                    <strong id="categoryTotal">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CATEGORY COLLECTION
+                 ================================================= -->
+
+            <div class="category-collection">
+
+
+                <!-- COLLECTION HEADER -->
+
+                <div class="collection-header">
+
+
+                    <div class="collection-title-wrap">
+
+
+                        <div class="collection-mark">
+
+                            <i class="bi bi-diagram-3"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3 class="collection-title">
+                                Category Collection
+                            </h3>
+
+
+                            <div class="collection-subtitle">
+                                Manage your Naadan Box categories
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="collection-decoration">
+
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     TABLE
+                     ================================================= -->
+
+                <div class="category-table-wrapper">
+
+
+                    <table class="category-table">
+
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Image
+                                </th>
+
+                                <th>
+                                    Category
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Created Date
+                                </th>
+
+                                <th>
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="categoryTableBody">
+
+
+                            <!-- LOADING -->
+
+                            <tr id="loadingRow">
+
+                                <td colspan="5">
+
+                                    <div class="loading-state">
+
+                                        <div class="loading-spinner"></div>
+
+                                        Loading categories...
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+
+                    <!-- EMPTY STATE -->
+
+                    <div
+                        class="empty-state"
+                        id="emptyState"
+                        style="display:none;"
+                    >
+
+                        <i
+                            class="bi bi-folder2-open empty-state-icon"
+                        ></i>
+
+
+                        <h3>
+                            No categories found
+                        </h3>
+
+
+                        <p>
+                            Try changing your search or filter.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     TABLE FOOTER
+                     ================================================= -->
+
+                <div class="category-table-footer">
+
+
+                    <div
+                        class="category-page-info"
+                        id="paginationInfo"
+                    >
+                        Showing 0 categories
+                    </div>
+
+
+                    <nav
+                        aria-label="Category pagination"
+                    >
+
+                        <div
+                            class="category-pagination"
+                            id="pagination"
+                        ></div>
+
+                    </nav>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         DEACTIVATE MODAL
+         ===================================================== -->
+
+    <div
+        class="confirmation-modal"
+        id="deactivateModal"
+        aria-hidden="true"
+    >
+
+
+        <div
+            class="confirmation-box"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="confirmationTitle"
+        >
+
+
+            <div class="confirmation-icon">
+
+                <i class="bi bi-exclamation-triangle"></i>
+
+            </div>
+
+
+            <h2
+                class="confirmation-title"
+                id="confirmationTitle"
+            >
+                Deactivate Category?
+            </h2>
+
+
+            <p
+                class="confirmation-message"
+                id="confirmationMessage"
+            >
+                This category will no longer be available
+                to customers. Existing data will be preserved.
+            </p>
+
+
+            <div class="confirmation-actions">
+
+
+                <button
+                    type="button"
+                    class="confirmation-button confirmation-cancel"
+                    id="cancelDeactivate"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="button"
+                    class="confirmation-button confirmation-confirm"
+                    id="confirmDeactivate"
+                >
+                    Deactivate
+                </button>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         RESTORE MODAL
+         ===================================================== -->
+
+    <div
+        class="confirmation-modal"
+        id="restoreModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="confirmation-box"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="restoreConfirmationTitle"
+        >
+
+            <div class="confirmation-icon restore-confirmation-icon">
+                <i class="bi bi-arrow-counterclockwise"></i>
+            </div>
+
+            <h2
+                class="confirmation-title"
+                id="restoreConfirmationTitle"
+            >
+                Restore Category?
+            </h2>
+
+            <p
+                class="confirmation-message"
+                id="restoreConfirmationMessage"
+            >
+                This category will become available to customers again.
+                Existing data will be preserved.
+            </p>
+
+            <div class="confirmation-actions">
+
+                <button
+                    type="button"
+                    class="confirmation-button confirmation-cancel"
+                    id="cancelRestore"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="confirmation-button restore-confirm-button"
+                    id="confirmRestore"
+                >
+                    Restore
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TOAST
+         ===================================================== -->
+
+    <div
+        class="category-toast"
+        id="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        /* =====================================================
+           STATE
+        ===================================================== */
+
+        const state = {
+
+            page: 1,
+
+            limit: 10,
+
+            search: "",
+
+            status: "all",
+
+            totalPages: 0,
+
+            totalCategories: 0
+        };
+
+
+        let categoryToDeactivate = null;
+        let categoryToRestore = null;
+        let categoryRequestController = null;
+        let categoryRequestSequence = 0;
+
+
+        /* =====================================================
+           ELEMENTS
+        ===================================================== */
+
+        const categoryTableBody =
+            document.getElementById(
+                "categoryTableBody"
+            );
+
+
+        const emptyState =
+            document.getElementById(
+                "emptyState"
+            );
+
+
+        const pagination =
+            document.getElementById(
+                "pagination"
+            );
+
+
+        const paginationInfo =
+            document.getElementById(
+                "paginationInfo"
+            );
+
+
+        const categorySearch =
+            document.getElementById(
+                "categorySearch"
+            );
+
+
+        const clearSearch =
+            document.getElementById(
+                "clearSearch"
+            );
+
+
+        const deactivateModal =
+            document.getElementById(
+                "deactivateModal"
+            );
+
+
+        const cancelDeactivate =
+            document.getElementById(
+                "cancelDeactivate"
+            );
+
+
+        const confirmDeactivate =
+            document.getElementById(
+                "confirmDeactivate"
+            );
+
+
+        const restoreModal =
+            document.getElementById(
+                "restoreModal"
+            );
+
+
+        const cancelRestore =
+            document.getElementById(
+                "cancelRestore"
+            );
+
+
+        const confirmRestore =
+            document.getElementById(
+                "confirmRestore"
+            );
+
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        const categoryStart =
+            document.getElementById(
+                "categoryStart"
+            );
+
+
+        const categoryEnd =
+            document.getElementById(
+                "categoryEnd"
+            );
+
+
+        const categoryTotal =
+            document.getElementById(
+                "categoryTotal"
+            );
+
+
+        /* =====================================================
+           ESCAPE HTML
+        ===================================================== */
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+
+            return String(value)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+        }
+
+
+        /* =====================================================
+           FORMAT DATE
+        ===================================================== */
+
+        function formatDate(dateValue) {
+
+            if (!dateValue) {
+                return "-";
+            }
+
+
+            const date =
+                new Date(dateValue);
+
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+                return "-";
+            }
+
+
+            return date.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+        }
+
+
+        /* =====================================================
+           IMAGE URL
+        ===================================================== */
+
+        function getImageUrl(image) {
+
+            if (!image) {
+                return null;
+            }
+
+
+            if (
+                image.startsWith(
+                    "http://"
+                ) ||
+
+                image.startsWith(
+                    "https://"
+                ) ||
+
+                image.startsWith("/")
+            ) {
+                return image;
+            }
+
+
+            return `/${image.replace(/^\/+/, "")}`;
+        }
+
+
+        /* =====================================================
+           SHOW TOAST
+        ===================================================== */
+
+        function showToast(
+            message,
+            isError = false
+        ) {
+
+            toast.textContent =
+                message;
+
+
+            toast.classList.toggle(
+                "error",
+                isError
+            );
+
+
+            toast.classList.add(
+                "show"
+            );
+
+
+            setTimeout(() => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            }, 3000);
+        }
+
+
+        /* =====================================================
+           UPDATE STATISTICS
+        ===================================================== */
+
+        async function loadStatistics() {
+
+            try {
+
+                const [allResponse, activeResponse, inactiveResponse] =
+                    await Promise.all([
+                        fetch("/api/admin/categories?limit=1&status=all", {
+                            headers: {
+                                "Accept": "application/json"
+                            }
+                        }),
+
+                        fetch("/api/admin/categories?limit=1&status=active", {
+                            headers: {
+                                "Accept": "application/json"
+                            }
+                        }),
+
+                        fetch("/api/admin/categories?limit=1&status=inactive", {
+                            headers: {
+                                "Accept": "application/json"
+                            }
+                        })
+                    ]);
+
+
+                const [allResult, activeResult, inactiveResult] =
+                    await Promise.all([
+                        allResponse.json(),
+                        activeResponse.json(),
+                        inactiveResponse.json()
+                    ]);
+
+
+                if (
+                    !allResponse.ok ||
+                    !activeResponse.ok ||
+                    !inactiveResponse.ok ||
+                    !allResult.success ||
+                    !activeResult.success ||
+                    !inactiveResult.success
+                ) {
+                    throw new Error(
+                        "Unable to load category statistics."
+                    );
+                }
+
+
+                document.getElementById(
+                    "totalCategories"
+                ).textContent =
+                    allResult.data?.pagination?.totalCategories || 0;
+
+
+                document.getElementById(
+                    "activeCategories"
+                ).textContent =
+                    activeResult.data?.pagination?.totalCategories || 0;
+
+
+                document.getElementById(
+                    "inactiveCategories"
+                ).textContent =
+                    inactiveResult.data?.pagination?.totalCategories || 0;
+
+
+            } catch (error) {
+
+                console.error(
+                    "Failed to load category statistics:",
+                    error
+                );
+            }
+        }
+
+
+        /* =====================================================
+           LOAD CATEGORIES
+        ===================================================== */
+
+        async function loadCategories() {
+
+            if (categoryRequestController) {
+                categoryRequestController.abort();
+            }
+
+            categoryRequestController =
+                new AbortController();
+
+            const requestSequence =
+                ++categoryRequestSequence;
+
+
+            categoryTableBody.innerHTML = `
+
+                <tr id="loadingRow">
+
+                    <td colspan="5">
+
+                        <div class="loading-state">
+
+                            <div class="loading-spinner"></div>
+
+                            Loading categories...
+
+                        </div>
+
+                    </td>
+
+                </tr>
+            `;
+
+
+            emptyState.style.display =
+                "none";
+
+
+            try {
+
+                const params =
+                    new URLSearchParams();
+
+
+                params.set(
+                    "page",
+                    state.page
+                );
+
+
+                params.set(
+                    "limit",
+                    state.limit
+                );
+
+
+                if (state.search) {
+
+                    params.set(
+                        "search",
+                        state.search
+                    );
+                }
+
+
+                /*
+                 * Category API supports:
+                 * status=all|active|inactive.
+                 *
+                 * The selected status is sent
+                 * directly to the backend.
+                 */
+
+                params.set("status", state.status);
+
+
+                const response =
+                    await fetch(
+                        `/api/admin/categories?${params.toString()}`,
+                        {
+                            headers: {
+                                "Accept":
+                                    "application/json"
+                            },
+                            signal:
+                                categoryRequestController.signal
+                        }
+                    );
+
+
+                const result =
+                    await response.json();
+
+
+                if (
+                    requestSequence !==
+                    categoryRequestSequence
+                ) {
+                    return;
+                }
+
+
+                if (
+                    !response.ok ||
+                    !result.success
+                ) {
+
+                    throw new Error(
+                        result.message ||
+                        "Unable to load categories."
+                    );
+                }
+
+
+                let categories =
+                    result.data?.categories || [];
+
+
+                const paginationData =
+                    result.data?.pagination || {};
+
+
+                state.totalPages =
+                    paginationData.totalPages || 0;
+
+
+                state.totalCategories =
+                    paginationData.totalCategories || 0;
+
+
+                renderCategories(
+                    categories
+                );
+
+
+                renderPagination(
+                    paginationData
+                );
+
+
+                updatePaginationInfo(
+                    paginationData,
+                    categories.length
+                );
+
+
+            } catch (error) {
+
+                if (error.name === "AbortError") {
+                    return;
+                }
+
+
+                console.error(
+                    "Load categories error:",
+                    error
+                );
+
+
+                categoryTableBody.innerHTML =
+                    "";
+
+
+                emptyState.style.display =
+                    "block";
+
+
+                showToast(
+                    error.message ||
+                    "Unable to load categories.",
+                    true
+                );
+            }
+        }
+
+
+        /* =====================================================
+           RENDER CATEGORIES
+        ===================================================== */
+
+        function renderCategories(
+            categories
+        ) {
+
+            categoryTableBody.innerHTML =
+                "";
+
+
+            if (!categories.length) {
+
+                emptyState.style.display =
+                    "block";
+
+                return;
+            }
+
+
+            emptyState.style.display =
+                "none";
+
+
+            categories.forEach(
+                category => {
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    const imageUrl =
+                        getImageUrl(
+                            category.image
+                        );
+
+
+                    const imageHtml =
+                        imageUrl
+
+                            ? `
+
+                                <img
+                                    src="${escapeHtml(imageUrl)}"
+                                    alt="${escapeHtml(category.name)}"
+                                    class="category-image"
+                                    loading="lazy"
+                                    onerror="
+                                        this.style.display='none';
+                                        this.nextElementSibling.style.display='flex';
+                                    "
+                                >
+
+                                <div
+                                    class="category-image-placeholder"
+                                    style="display:none;"
+                                >
+                                    <i class="bi bi-image"></i>
+                                </div>
+
+                            `
+
+                            : `
+
+                                <div
+                                    class="category-image-placeholder"
+                                >
+                                    <i class="bi bi-image"></i>
+                                </div>
+
+                            `;
+
+
+                    const statusHtml =
+                        category.isActive
+
+                            ? `
+
+                                <span
+                                    class="status-badge status-active"
+                                >
+
+                                    <span
+                                        class="status-dot"
+                                    ></span>
+
+                                    Active
+
+                                </span>
+
+                            `
+
+                            : `
+
+                                <span
+                                    class="status-badge status-inactive"
+                                >
+
+                                    <span
+                                        class="status-dot"
+                                    ></span>
+
+                                    Inactive
+
+                                </span>
+
+                            `;
+
+
+          const statusActionButton =
+    category.isActive
+        ? `
+            <button
+                type="button"
+                class="action-button deactivate-button"
+                title="Deactivate category"
+                data-action="deactivate"
+                data-id="${escapeHtml(category._id)}"
+                data-name="${escapeHtml(category.name)}"
+            >
+                <i class="bi bi-slash-circle"></i>
+            </button>
+        `
+        : 
+        
+      `
+    <button
+        type="button"
+        class="action-button restore-button"
+        title="Restore category"
+        data-action="restore"
+        data-id="${escapeHtml(category._id)}"
+        data-name="${escapeHtml(category.name)}"
+    >
+        <i class="bi bi-arrow-counterclockwise"></i>
+    </button>
+`
+
+                    row.innerHTML = `
+
+                        <!-- IMAGE -->
+
+                        <td>
+                            ${imageHtml}
+                        </td>
+
+
+                        <!-- CATEGORY -->
+
+                        <td>
+
+                            <div class="category-name">
+
+                                ${escapeHtml(
+                                    category.name
+                                )}
+
+                            </div>
+
+
+                            <div class="category-slug">
+
+                                /
+                                ${escapeHtml(
+                                    category.slug
+                                )}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            ${statusHtml}
+
+                        </td>
+
+
+                        <!-- CREATED DATE -->
+
+                        <td>
+
+                            <span
+                                class="created-date"
+                            >
+
+                                ${formatDate(
+                                    category.createdAt
+                                )}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- ACTIONS -->
+
+                        <td>
+
+                            <div
+                                class="category-actions"
+                            >
+
+
+                                <!-- VIEW -->
+
+                                <button
+                                    type="button"
+                                    class="action-button view-button"
+                                    title="View category"
+                                    data-action="view"
+                                    data-id="${escapeHtml(category._id)}"
+                                >
+
+                                    <i
+                                        class="bi bi-eye"
+                                    ></i>
+
+                                </button>
+
+
+                                <!-- EDIT -->
+
+                                <button
+                                    type="button"
+                                    class="action-button edit-button"
+                                    title="Edit category"
+                                    data-action="edit"
+                                    data-id="${escapeHtml(category._id)}"
+                                >
+
+                                    <i
+                                        class="bi bi-pencil"
+                                    ></i>
+
+                                </button>
+
+
+                                <!-- DEACTIVATE -->
+
+                              ${statusActionButton}
+
+
+                            </div>
+
+                        </td>
+
+                    `;
+
+
+                    categoryTableBody.appendChild(
+                        row
+                    );
+
+                }
+            );
+        }
+
+
+        /* =====================================================
+           PAGINATION INFO
+        ===================================================== */
+
+        function updatePaginationInfo(
+            paginationData,
+            currentCount
+        ) {
+
+            const total =
+                paginationData.totalCategories ||
+                0;
+
+
+            const currentPage =
+                paginationData.currentPage ||
+                1;
+
+
+            const limit =
+                paginationData.limit ||
+                state.limit;
+
+
+            if (!total) {
+
+                paginationInfo.textContent =
+                    "Showing 0 categories";
+
+
+                categoryStart.textContent =
+                    "0";
+
+
+                categoryEnd.textContent =
+                    "0";
+
+
+                categoryTotal.textContent =
+                    "0";
+
+
+                return;
+            }
+
+
+            const start =
+                ((currentPage - 1) * limit) +
+                1;
+
+
+            const end =
+                Math.min(
+                    start + currentCount - 1,
+                    total
+                );
+
+
+            paginationInfo.textContent =
+                `Showing ${start}-${end} of ${total} categories`;
+
+
+            categoryStart.textContent =
+                start;
+
+
+            categoryEnd.textContent =
+                end;
+
+
+            categoryTotal.textContent =
+                total;
+        }
+
+
+        /* =====================================================
+           PAGINATION
+        ===================================================== */
+
+        function renderPagination(
+            paginationData
+        ) {
+
+            pagination.innerHTML =
+                "";
+
+
+            const totalPages =
+                paginationData.totalPages ||
+                0;
+
+
+            const currentPage =
+                paginationData.currentPage ||
+                1;
+
+
+            if (totalPages <= 1) {
+                return;
+            }
+
+
+            /*
+             * Previous
+             */
+
+            const previousButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            previousButton.type =
+                "button";
+
+
+            previousButton.className =
+                "page-button";
+
+
+            previousButton.innerHTML =
+                '<i class="bi bi-chevron-left"></i>';
+
+
+            previousButton.disabled =
+                currentPage <= 1;
+
+
+            previousButton.addEventListener(
+                "click",
+                () => {
+
+                    if (state.page > 1) {
+
+                        state.page--;
+
+                        loadCategories();
+                    }
+                }
+            );
+
+
+            pagination.appendChild(
+                previousButton
+            );
+
+
+            /*
+             * Page numbers
+             */
+
+            let startPage =
+                Math.max(
+                    1,
+                    currentPage - 2
+                );
+
+
+            let endPage =
+                Math.min(
+                    totalPages,
+                    currentPage + 2
+                );
+
+
+            if (currentPage <= 3) {
+
+                endPage =
+                    Math.min(
+                        5,
+                        totalPages
+                    );
+            }
+
+
+            if (
+                currentPage >=
+                totalPages - 2
+            ) {
+
+                startPage =
+                    Math.max(
+                        1,
+                        totalPages - 4
+                    );
+            }
+
+
+            for (
+                let page = startPage;
+                page <= endPage;
+                page++
+            ) {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.type =
+                    "button";
+
+
+                button.className =
+                    "page-button";
+
+
+                if (
+                    page === currentPage
+                ) {
+
+                    button.classList.add(
+                        "active"
+                    );
+                }
+
+
+                button.textContent =
+                    page;
+
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        if (
+                            state.page !==
+                            page
+                        ) {
+
+                            state.page =
+                                page;
+
+                            loadCategories();
+                        }
+                    }
+                );
+
+
+                pagination.appendChild(
+                    button
+                );
+            }
+
+
+            /*
+             * Next
+             */
+
+            const nextButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            nextButton.type =
+                "button";
+
+
+            nextButton.className =
+                "page-button";
+
+
+            nextButton.innerHTML =
+                '<i class="bi bi-chevron-right"></i>';
+
+
+            nextButton.disabled =
+                currentPage >=
+                totalPages;
+
+
+            nextButton.addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        state.page <
+                        state.totalPages
+                    ) {
+
+                        state.page++;
+
+                        loadCategories();
+                    }
+                }
+            );
+
+
+            pagination.appendChild(
+                nextButton
+            );
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        let searchTimeout;
+
+
+        categorySearch.addEventListener(
+            "input",
+            () => {
+
+                state.search =
+                    categorySearch.value
+                        .replace(/\s+/g, " ")
+                        .trim()
+                        .slice(0, 100);
+
+
+                clearSearch.style.display =
+                    state.search
+                        ? "flex"
+                        : "none";
+
+
+                clearTimeout(
+                    searchTimeout
+                );
+
+
+                searchTimeout =
+                    setTimeout(
+                        () => {
+
+                            state.page = 1;
+
+                            loadCategories();
+
+                        },
+                        350
+                    );
+            }
+        );
+
+
+        /* =====================================================
+           CLEAR SEARCH
+        ===================================================== */
+
+        clearSearch.addEventListener(
+            "click",
+            () => {
+
+                categorySearch.value =
+                    "";
+
+
+                state.search =
+                    "";
+
+
+                state.page =
+                    1;
+
+
+                clearSearch.style.display =
+                    "none";
+
+
+                loadCategories();
+            }
+        );
+
+
+        /* =====================================================
+           STATUS FILTER
+        ===================================================== */
+
+        document
+            .querySelectorAll(
+                ".category-filter"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+
+                            document
+                                .querySelectorAll(
+                                    ".category-filter"
+                                )
+                                .forEach(
+                                    btn =>
+                                        btn.classList.remove(
+                                            "active"
+                                        )
+                                );
+
+
+                            button.classList.add(
+                                "active"
+                            );
+
+
+                            state.status =
+                                button.dataset.status;
+
+
+                            state.page =
+                                1;
+
+
+                            loadCategories();
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =====================================================
+           TABLE ACTIONS
+        ===================================================== */
+
+        categoryTableBody.addEventListener(
+            "click",
+            event => {
+
+                const button =
+                    event.target.closest(
+                        "[data-action]"
+                    );
+
+
+                if (!button) {
+                    return;
+                }
+
+
+                const action =
+                    button.dataset.action;
+
+
+                const categoryId =
+                    button.dataset.id;
+
+
+                if (!categoryId) {
+                    return;
+                }
+
+
+                /*
+                 * VIEW
+                 */
+
+                if (
+                    action ===
+                    "view"
+                ) {
+
+                    window.location.href =
+                        `/admin/categories/${categoryId}`;
+
+                    return;
+                }
+
+
+                /*
+                 * EDIT
+                 */
+
+                if (
+                    action ===
+                    "edit"
+                ) {
+
+                    window.location.href =
+                        `/admin/categories/${categoryId}/edit`;
+
+                    return;
+                }
+
+
+                /*
+                 * DEACTIVATE
+                 */
+
+                if (
+                    action ===
+                    "deactivate"
+                ) {
+
+                    categoryToDeactivate =
+                        categoryId;
+
+
+                    deactivateModal.classList.add(
+                        "show"
+                    );
+
+
+                    deactivateModal.setAttribute(
+                        "aria-hidden",
+                        "false"
+                    );
+
+                    requestAnimationFrame(() => {
+                        confirmDeactivate.focus();
+                    });
+
+                    return;
+                }
+
+
+                /*
+                 * RESTORE
+                 */
+
+                if (
+                    action ===
+                    "restore"
+                ) {
+
+                    categoryToRestore =
+                        categoryId;
+
+
+                    restoreModal.classList.add(
+                        "show"
+                    );
+
+
+                    restoreModal.setAttribute(
+                        "aria-hidden",
+                        "false"
+                    );
+
+
+                    requestAnimationFrame(() => {
+                        confirmRestore.focus();
+                    });
+
+                    return;
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           CLOSE MODAL
+        ===================================================== */
+
+        cancelDeactivate.addEventListener(
+            "click",
+            () => {
+
+                categoryToDeactivate =
+                    null;
+
+
+                deactivateModal.classList.remove(
+                    "show"
+                );
+
+
+                deactivateModal.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+            }
+        );
+
+
+        deactivateModal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    deactivateModal
+                ) {
+
+                    categoryToDeactivate =
+                        null;
+
+
+                    deactivateModal.classList.remove(
+                        "show"
+                    );
+
+
+                    deactivateModal.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+                }
+            }
+        );
+
+
+        cancelRestore.addEventListener(
+            "click",
+            () => {
+
+                categoryToRestore =
+                    null;
+
+
+                restoreModal.classList.remove(
+                    "show"
+                );
+
+
+                restoreModal.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+            }
+        );
+
+
+        restoreModal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    restoreModal
+                ) {
+
+                    categoryToRestore =
+                        null;
+
+
+                    restoreModal.classList.remove(
+                        "show"
+                    );
+
+
+                    restoreModal.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+                }
+            }
+        );
+
+
+        /* =====================================================
+           ESC KEY
+        ===================================================== */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key ===
+                    "Escape" &&
+                    deactivateModal.classList.contains(
+                        "show"
+                    )
+                ) {
+
+                    categoryToDeactivate =
+                        null;
+
+
+                    deactivateModal.classList.remove(
+                        "show"
+                    );
+
+
+                    deactivateModal.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+                    return;
+                }
+
+
+                if (
+                    event.key ===
+                    "Escape" &&
+                    restoreModal.classList.contains(
+                        "show"
+                    )
+                ) {
+
+                    categoryToRestore =
+                        null;
+
+
+                    restoreModal.classList.remove(
+                        "show"
+                    );
+
+
+                    restoreModal.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+                }
+            }
+        );
+
+
+        /* =====================================================
+           RESTORE CATEGORY
+        ===================================================== */
+
+        confirmRestore.addEventListener(
+            "click",
+            async () => {
+
+                if (!categoryToRestore) {
+                    return;
+                }
+
+
+                const categoryId =
+                    categoryToRestore;
+
+
+                confirmRestore.disabled =
+                    true;
+
+
+                confirmRestore.textContent =
+                    "Restoring...";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            `/api/admin/categories/${encodeURIComponent(categoryId)}/restore`,
+                            {
+                                method: "PATCH",
+                                headers: {
+                                    "Accept":
+                                        "application/json"
+                                }
+                            }
+                        );
+
+
+                    const result =
+                        await response.json();
+
+
+                    if (
+                        !response.ok ||
+                        !result.success
+                    ) {
+
+                        throw new Error(
+                            result.message ||
+                            "Unable to restore category."
+                        );
+                    }
+
+
+                    restoreModal.classList.remove(
+                        "show"
+                    );
+
+
+                    restoreModal.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+
+                    categoryToRestore =
+                        null;
+
+
+                    showToast(
+                        "Category restored successfully."
+                    );
+
+
+                    await loadCategories();
+
+                    await loadStatistics();
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Restore category error:",
+                        error
+                    );
+
+
+                    showToast(
+                        error.message ||
+                        "Unable to restore category.",
+                        true
+                    );
+
+
+                } finally {
+
+                    confirmRestore.disabled =
+                        false;
+
+
+                    confirmRestore.textContent =
+                        "Restore";
+                }
+            }
+        );
+
+
+        /* =====================================================
+           DEACTIVATE CATEGORY
+        ===================================================== */
+
+        confirmDeactivate.addEventListener(
+            "click",
+            async () => {
+
+                if (
+                    !categoryToDeactivate
+                ) {
+                    return;
+                }
+
+
+                const categoryId =
+                    categoryToDeactivate;
+
+
+                confirmDeactivate.disabled =
+                    true;
+
+
+                confirmDeactivate.textContent =
+                    "Deactivating...";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            `/api/admin/categories/${categoryId}/deactivate`,
+                            {
+                                method: "PATCH",
+
+                                headers: {
+                                    "Accept":
+                                        "application/json"
+                                }
+                            }
+                        );
+
+
+                    const result =
+                        await response.json();
+
+
+                    if (
+                        !response.ok ||
+                        !result.success
+                    ) {
+
+                        throw new Error(
+                            result.message ||
+                            "Unable to deactivate category."
+                        );
+                    }
+
+
+                    deactivateModal.classList.remove(
+                        "show"
+                    );
+
+
+                    deactivateModal.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+
+                    categoryToDeactivate =
+                        null;
+
+
+                    showToast(
+                        "Category deactivated successfully."
+                    );
+
+
+                    await loadCategories();
+
+                    await loadStatistics();
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Deactivate category error:",
+                        error
+                    );
+
+
+                    showToast(
+                        error.message ||
+                        "Unable to deactivate category.",
+                        true
+                    );
+
+
+                } finally {
+
+                    confirmDeactivate.disabled =
+                        false;
+
+
+                    confirmDeactivate.textContent =
+                        "Deactivate";
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           INITIAL LOAD
+        ===================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                loadCategories();
+
+                loadStatistics();
+
+            }
+        );
+
+    </script>
+
+
+    <!-- =====================================================
+         BOOTSTRAP JAVASCRIPT
+         ===================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+
+</body>
+
+</html>

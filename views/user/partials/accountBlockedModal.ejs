@@ -1,0 +1,120 @@
+<style>
+/* # ACCOUNT BLOCKED MODAL */
+.account-blocked-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, .45);
+}
+
+.account-blocked-modal.show {
+    display: flex;
+}
+
+.account-blocked-box {
+    width: 100%;
+    max-width: 380px;
+    padding: 28px 26px 25px;
+    border: 1px solid var(--border-divider-neutral);
+    border-radius: 16px;
+    background: var(--background-cream);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .18);
+    text-align: center;
+}
+
+.account-blocked-icon {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    background: #FDF2F2;
+    color: var(--danger-validation-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+}
+
+.account-blocked-box h2 {
+    margin: 0;
+    color: var(--brand-primary-green);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.account-blocked-box p {
+    margin: 9px auto 21px;
+    max-width: 310px;
+    color: var(--muted-text);
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+#accountBlockedLogout {
+    width: 100%;
+    height: 40px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--brand-primary-green);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color .2s ease;
+}
+
+#accountBlockedLogout:hover {
+    background: var(--brand-hover-green);
+}
+
+@media (max-width: 500px) {
+    .account-blocked-box {
+        max-width: 340px;
+        padding: 24px 20px 22px;
+    }
+}
+</style>
+
+<!-- # ACCOUNT BLOCKED MODAL -->
+<div
+    class="account-blocked-modal"
+    id="accountBlockedModal"
+    aria-hidden="true"
+>
+    <div
+        class="account-blocked-box"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="accountBlockedTitle"
+    >
+
+        <!-- # ICON -->
+        <div class="account-blocked-icon">
+            <i class="bi bi-shield-exclamation"></i>
+        </div>
+
+        <!-- # TITLE -->
+        <h2 id="accountBlockedTitle">
+            Account Blocked
+        </h2>
+
+        <!-- # MESSAGE -->
+        <p>
+            Your account has been blocked by the administrator.
+            You have been logged out for security reasons.
+        </p>
+
+        <!-- # LOGOUT -->
+        <button
+            type="button"
+            id="accountBlockedLogout"
+        >
+            Continue to Login
+        </button>
+
+    </div>
+</div>

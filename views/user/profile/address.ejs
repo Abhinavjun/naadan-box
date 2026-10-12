@@ -1,0 +1,1178 @@
+<style>
+    /* =========================================
+       NAADAN BOX - ADDRESS SECTION
+       ========================================= */
+
+    .address-section-wrapper {
+        position:relative;
+    }
+
+    .address-section-card,
+    .address-form-card {
+        position:relative;
+        overflow:hidden;
+    }
+
+    .address-section-card::before,
+    .address-form-card::before {
+        content:"";
+        position:absolute;
+        width:150px;
+        height:95px;
+        right:-55px;
+        top:-38px;
+        background:rgba(27,77,46,.035);
+        border-radius:70% 30% 70% 30%;
+        transform:rotate(-18deg);
+        pointer-events:none;
+    }
+
+    .address-section-card::after,
+    .address-form-card::after {
+        content:"";
+        position:absolute;
+        width:85px;
+        height:55px;
+        left:-35px;
+        bottom:-25px;
+        background:rgba(200,155,60,.035);
+        border-radius:30% 70% 30% 70%;
+        transform:rotate(25deg);
+        pointer-events:none;
+    }
+
+    .address-inner {
+        position:relative;
+        z-index:1;
+    }
+
+    /* =========================================
+       ADDRESS HEADER
+       ========================================= */
+
+    .address-header {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:1rem;
+        margin-bottom:.8rem;
+    }
+
+    .address-header-content {
+        min-width:0;
+    }
+
+    .address-heading-row {
+        display:flex;
+        align-items:center;
+        gap:.5rem;
+    }
+
+    .address-heading-icon {
+        width:32px;
+        height:32px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-shrink:0;
+        color:var(--brand-primary-green);
+        background:rgba(27,77,46,.06);
+        border:1px solid rgba(27,77,46,.08);
+        border-radius:8px;
+        font-size:.82rem;
+    }
+
+    .address-heading-row .section-heading {
+        margin:0;
+        color:var(--brand-primary-green);
+        font-size:1.25rem;
+        font-weight:800;
+    }
+
+    .address-header .section-subtext {
+        margin:.18rem 0 0 2.5rem;
+        font-size:.8rem;
+    }
+
+    .address-add-btn {
+        position:relative;
+        z-index:2;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:.3rem;
+        flex-shrink:0;
+        padding:.4rem .72rem;
+        border-radius:7px;
+        font-size:.72rem;
+        font-weight:700;
+        white-space:nowrap;
+    }
+
+    /* =========================================
+       EMPTY STATE
+       ========================================= */
+
+    .address-empty-state {
+        position:relative;
+        min-height:125px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:1rem;
+        overflow:hidden;
+        background:rgba(248,244,234,.58);
+        border:1px dashed rgba(27,77,46,.13);
+        border-radius:10px;
+    }
+
+    .address-empty-state::before {
+        content:"";
+        position:absolute;
+        width:100px;
+        height:65px;
+        left:-35px;
+        bottom:-20px;
+        background:rgba(27,77,46,.035);
+        border-radius:70% 30% 70% 30%;
+        transform:rotate(-20deg);
+    }
+
+    .address-empty-state::after {
+        content:"";
+        position:absolute;
+        width:80px;
+        height:55px;
+        right:-30px;
+        top:-20px;
+        background:rgba(200,155,60,.04);
+        border-radius:30% 70% 30% 70%;
+        transform:rotate(20deg);
+    }
+
+    .address-empty-content {
+        position:relative;
+        z-index:1;
+        text-align:center;
+    }
+
+    .address-empty-icon {
+        width:36px;
+        height:36px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin:0 auto .45rem;
+        color:var(--brand-primary-green);
+        background:rgba(27,77,46,.065);
+        border:1px solid rgba(27,77,46,.08);
+        border-radius:50%;
+        font-size:.9rem;
+    }
+
+    .address-empty-title {
+        margin:0 0 .12rem;
+        color:var(--primary-text-dark);
+        font-size:.85rem;
+        font-weight:800;
+    }
+
+    .address-empty-text {
+        margin:0 0 .6rem;
+        color:var(--muted-text);
+        font-size:.72rem;
+    }
+
+    .address-empty-btn {
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:.25rem;
+        padding:.35rem .68rem;
+        border-radius:6px;
+        font-size:.68rem;
+        font-weight:700;
+    }
+
+    /* =========================================
+       SAVED ADDRESS LIST
+       ========================================= */
+
+    #addressList {
+        position:relative;
+        z-index:1;
+        display:flex;
+        flex-direction:column;
+        gap:.6rem;
+    }
+
+    #addressList > div {
+        position:relative;
+        margin:0!important;
+        padding:.8rem .9rem!important;
+        background:#fff!important;
+        border:1px solid rgba(27,77,46,.09)!important;
+        border-radius:9px!important;
+        box-shadow:0 4px 14px rgba(27,77,46,.035);
+        transition:all .2s ease;
+    }
+
+    #addressList > div::before {
+        content:"";
+        position:absolute;
+        left:0;
+        top:12px;
+        bottom:12px;
+        width:2px;
+        background:var(--brand-gold);
+        border-radius:0 2px 2px 0;
+        opacity:.75;
+    }
+
+    #addressList > div:hover {
+        border-color:rgba(27,77,46,.15)!important;
+        box-shadow:0 7px 18px rgba(27,77,46,.055);
+        transform:translateY(-1px);
+    }
+
+    #addressList h5 {
+        color:var(--primary-text-dark);
+        font-size:.9rem;
+    }
+
+    #addressList p {
+        color:var(--muted-text);
+        font-size:.75rem;
+        line-height:1.4;
+    }
+
+    #addressList .badge {
+        padding:.22rem .42rem;
+        border-radius:5px;
+        font-size:.6rem;
+        font-weight:700;
+    }
+
+    #addressList .btn {
+        padding:.28rem .5rem;
+        border-radius:6px;
+        font-size:.65rem;
+        font-weight:700;
+    }
+
+    /* =========================================
+       ADD / EDIT FORM
+       ========================================= */
+
+    .address-form-card {
+        margin-top:.7rem!important;
+        padding:1rem 1.1rem!important;
+    }
+
+    .address-form-inner {
+        position:relative;
+        z-index:1;
+    }
+
+    .address-form-header {
+        display:flex;
+        align-items:center;
+        gap:.55rem;
+        margin-bottom:.75rem;
+        padding-bottom:.65rem;
+        border-bottom:1px solid rgba(27,77,46,.07);
+    }
+
+    .address-form-icon {
+        width:32px;
+        height:32px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-shrink:0;
+        color:var(--brand-primary-green);
+        background:rgba(27,77,46,.06);
+        border:1px solid rgba(27,77,46,.08);
+        border-radius:8px;
+        font-size:.82rem;
+    }
+
+    .address-form-heading {
+        min-width:0;
+    }
+
+    .address-form-heading .section-heading {
+        margin:0;
+        color:var(--brand-primary-green);
+        font-size:1.15rem;
+        font-weight:800;
+    }
+
+    .address-form-heading .section-subtext {
+        margin:.12rem 0 0;
+        font-size:.8rem;
+    }
+
+    /* =========================================
+       FORM SECTIONS
+       ========================================= */
+
+    .address-form-section {
+        margin-bottom:.75rem;
+        padding-bottom:.7rem;
+        border-bottom:1px solid rgba(27,77,46,.06);
+    }
+
+    .address-form-section:last-of-type {
+        margin-bottom:0;
+        padding-bottom:0;
+        border-bottom:0;
+    }
+
+    .address-form-section-title {
+        display:flex;
+        align-items:center;
+        gap:.35rem;
+        margin-bottom:.55rem;
+        color:var(--brand-primary-green);
+        font-size:.72rem;
+        font-weight:800;
+        letter-spacing:.8px;
+        text-transform:uppercase;
+    }
+
+    .address-form-section-title::before {
+        content:"";
+        width:15px;
+        height:2px;
+        flex-shrink:0;
+        background:var(--brand-gold);
+        border-radius:2px;
+    }
+
+    .address-form-row {
+        --bs-gutter-x:.7rem;
+        --bs-gutter-y:.45rem;
+    }
+
+    .address-form-label {
+        display:block;
+        margin-bottom:.2rem;
+        color:#596961;
+        font-size:.68rem;
+        font-weight:800;
+        letter-spacing:.4px;
+        text-transform:uppercase;
+    }
+
+    .address-form-input,
+    .address-form-select,
+    .address-form-textarea {
+        width:100%;
+        color:var(--primary-text-dark);
+        background:#FBF9F4;
+        border:1px solid rgba(27,77,46,.1);
+        border-radius:7px;
+        font-size:.8rem;
+        transition:all .2s ease;
+    }
+
+    .address-form-input,
+    .address-form-select {
+        height:34px;
+        padding:.38rem .6rem;
+    }
+
+    .address-form-textarea {
+        min-height:58px;
+        padding:.45rem .6rem;
+        resize:vertical;
+    }
+
+    .address-form-input::placeholder,
+    .address-form-textarea::placeholder {
+        color:#A6ADA8;
+    }
+
+    .address-form-input:focus,
+    .address-form-select:focus,
+    .address-form-textarea:focus {
+        background:#fff;
+        border-color:rgba(27,77,46,.42);
+        box-shadow:0 0 0 .12rem rgba(27,77,46,.055);
+        outline:none;
+    }
+
+    .address-form-input[readonly] {
+        color:#737C77;
+        background:#F0EEE8;
+    }
+
+    .address-error {
+        display:block;
+        min-height:12px;
+        margin-top:.15rem;
+        color:var(--danger-validation-red);
+        font-size:.6rem;
+    }
+
+    #pincodeMessage {
+        min-height:12px;
+        margin-top:.15rem!important;
+        color:var(--brand-primary-green);
+        font-size:.6rem;
+    }
+
+    /* =========================================
+       DEFAULT ADDRESS
+       ========================================= */
+
+    .default-address-wrap {
+        height:34px;
+        display:flex;
+        align-items:center;
+        padding:0 .55rem;
+        background:var(--background-cream);
+        border:1px solid rgba(27,77,46,.07);
+        border-radius:7px;
+    }
+
+    .default-address-wrap .form-check {
+        display:flex;
+        align-items:center;
+        gap:.35rem;
+        margin:0;
+    }
+
+    .default-address-wrap .form-check-input {
+        width:14px;
+        height:14px;
+        margin:0;
+        border-color:rgba(27,77,46,.2);
+        cursor:pointer;
+    }
+
+    .default-address-wrap .form-check-input:checked {
+        background-color:var(--brand-primary-green);
+        border-color:var(--brand-primary-green);
+    }
+
+    .default-address-wrap .form-check-label {
+        color:var(--primary-text-dark);
+        font-size:.68rem;
+        font-weight:600;
+        cursor:pointer;
+    }
+
+    /* =========================================
+       FORM BUTTONS
+       ========================================= */
+
+    .address-form-actions {
+        display:flex;
+        align-items:center;
+        justify-content:flex-end;
+        gap:.4rem;
+        margin-top:.75rem;
+        padding-top:.65rem;
+        border-top:1px solid rgba(27,77,46,.07);
+    }
+
+    .address-action-btn {
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:.28rem;
+        min-width:76px;
+        height:32px;
+        padding:.3rem .65rem;
+        border-radius:6px;
+        font-size:.68rem;
+        font-weight:700;
+    }
+
+    .address-save-btn {
+        min-width:102px;
+    }
+
+    /* =========================================
+       RESPONSIVE
+       ========================================= */
+
+    @media (max-width:767px) {
+
+        .address-header {
+            align-items:flex-start;
+        }
+
+        .address-header .section-subtext {
+            margin-left:0;
+        }
+
+        .address-form-card {
+            padding:.9rem!important;
+        }
+
+        .address-form-header {
+            align-items:flex-start;
+        }
+
+        .address-form-section {
+            margin-bottom:.65rem;
+            padding-bottom:.6rem;
+        }
+
+        .address-form-actions {
+            justify-content:stretch;
+        }
+
+        .address-action-btn {
+            flex:1;
+        }
+
+        #addressList > div {
+            padding:.72rem!important;
+        }
+    }
+
+    @media (max-width:575px) {
+
+        .address-header {
+            flex-direction:column;
+            gap:.55rem;
+        }
+
+        .address-add-btn {
+            width:auto;
+        }
+
+        .address-empty-state {
+            min-height:120px;
+        }
+
+        .address-form-actions {
+            flex-direction:column-reverse;
+        }
+
+        .address-action-btn,
+        .address-save-btn {
+            width:100%;
+        }
+    }
+</style>
+
+
+<div class="profile-section d-none" data-section="addresses">
+
+    <!-- =========================================
+         SAVED ADDRESSES
+         ========================================= -->
+
+    <div class="content-card address-section-card">
+
+        <div class="address-inner">
+
+            <div class="address-header">
+
+                <div class="address-header-content">
+
+                    <div class="address-heading-row">
+
+                        <span class="address-heading-icon">
+                            <i class="bi bi-geo-alt"></i>
+                        </span>
+
+                        <h3 class="section-heading">
+                            My Addresses
+                        </h3>
+
+                    </div>
+
+                    <p class="section-subtext">
+                        Manage your saved delivery addresses.
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="btn btn-profile-primary address-add-btn"
+                    id="btnAddAddress"
+                >
+                    <i class="bi bi-plus-lg"></i>
+                    Add Address
+                </button>
+
+            </div>
+
+
+            <!-- SAVED ADDRESS LIST -->
+
+            <div id="addressList"></div>
+
+
+            <!-- EMPTY STATE -->
+
+            <div
+                id="noAddresses"
+                class="address-empty-state"
+            >
+
+                <div class="address-empty-content">
+
+                    <div class="address-empty-icon">
+                        <i class="bi bi-house-heart"></i>
+                    </div>
+
+                    <h5 class="address-empty-title">
+                        No saved addresses
+                    </h5>
+
+                    <p class="address-empty-text">
+                        Save a delivery address for a faster checkout.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="btn btn-profile-primary address-empty-btn"
+                        id="btnAddFirstAddress"
+                    >
+                        <i class="bi bi-plus-lg"></i>
+                        Add First Address
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         ADD / EDIT ADDRESS FORM
+         ========================================= -->
+
+    <div
+        class="content-card address-form-card d-none"
+        id="addressFormCard"
+    >
+
+        <div class="address-form-inner">
+
+            <div class="address-form-header">
+
+                <div class="address-form-icon">
+                    <i class="bi bi-geo-alt"></i>
+                </div>
+
+                <div class="address-form-heading">
+
+                    <h3
+                        class="section-heading"
+                        id="addressFormTitle"
+                    >
+                        Add New Address
+                    </h3>
+
+                    <p class="section-subtext">
+                        Enter your delivery details.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form id="addressForm" novalidate>
+
+                <input
+                    type="hidden"
+                    id="addressId"
+                >
+
+
+                <!-- =================================
+                     CONTACT DETAILS
+                     ================================= -->
+
+                <div class="address-form-section">
+
+                    <div class="address-form-section-title">
+                        Contact Details
+                    </div>
+
+                    <div class="row address-form-row">
+
+                        <!-- FULL NAME -->
+
+                        <div class="col-12 col-md-6">
+
+                            <label
+                                for="addressFullName"
+                                class="address-form-label"
+                            >
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="addressFullName"
+                                class="address-form-input"
+                                maxlength="50"
+                                placeholder="Enter full name"
+                                required
+                            >
+
+                            <small
+                                id="addressFullNameError"
+                                class="address-error"
+                            ></small>
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="col-12 col-md-6">
+
+                            <label
+                                for="addressPhone"
+                                class="address-form-label"
+                            >
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="addressPhone"
+                                class="address-form-input"
+                                maxlength="10"
+                                inputmode="numeric"
+                                placeholder="10-digit phone number"
+                                required
+                            >
+
+                            <small
+                                id="addressPhoneError"
+                                class="address-error"
+                            ></small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     DELIVERY LOCATION
+                     ================================= -->
+
+                <div class="address-form-section">
+
+                    <div class="address-form-section-title">
+                        Delivery Location
+                    </div>
+
+                    <div class="row address-form-row">
+
+                        <!-- ADDRESS -->
+
+                        <div class="col-12">
+
+                            <label
+                                for="addressLine"
+                                class="address-form-label"
+                            >
+                                Address
+                            </label>
+
+                            <textarea
+                                id="addressLine"
+                                class="address-form-textarea"
+                                rows="2"
+                                maxlength="200"
+                                placeholder="House no, street, area"
+                                required
+                            ></textarea>
+
+                            <small
+                                id="addressLineError"
+                                class="address-error"
+                            ></small>
+
+                        </div>
+
+
+                        <!-- PIN CODE -->
+
+                        <div class="col-12 col-md-4">
+
+                            <label
+                                for="addressPincode"
+                                class="address-form-label"
+                            >
+                                PIN Code
+                            </label>
+
+                            <input
+                                type="text"
+                                id="addressPincode"
+                                class="address-form-input"
+                                maxlength="6"
+                                inputmode="numeric"
+                                placeholder="6-digit PIN code"
+                                required
+                            >
+
+                            <small
+                                id="pincodeMessage"
+                                class="d-block"
+                            ></small>
+
+                        </div>
+
+
+                        <!-- CITY -->
+
+                        <div class="col-12 col-md-4">
+
+                            <label
+                                for="addressCity"
+                                class="address-form-label"
+                            >
+                                City
+                            </label>
+
+                            <input
+                                type="text"
+                                id="addressCity"
+                                class="address-form-input"
+                                placeholder="City"
+                                readonly
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- STATE -->
+
+                        <div class="col-12 col-md-4">
+
+                            <label
+                                for="addressState"
+                                class="address-form-label"
+                            >
+                                State
+                            </label>
+
+                            <select
+                                id="addressState"
+                                class="address-form-select"
+                                required
+                            >
+
+                                <option value="">
+                                    Select State
+                                </option>
+
+                                <option value="Andhra Pradesh">
+                                    Andhra Pradesh
+                                </option>
+
+                                <option value="Arunachal Pradesh">
+                                    Arunachal Pradesh
+                                </option>
+
+                                <option value="Assam">
+                                    Assam
+                                </option>
+
+                                <option value="Bihar">
+                                    Bihar
+                                </option>
+
+                                <option value="Chhattisgarh">
+                                    Chhattisgarh
+                                </option>
+
+                                <option value="Goa">
+                                    Goa
+                                </option>
+
+                                <option value="Gujarat">
+                                    Gujarat
+                                </option>
+
+                                <option value="Haryana">
+                                    Haryana
+                                </option>
+
+                                <option value="Himachal Pradesh">
+                                    Himachal Pradesh
+                                </option>
+
+                                <option value="Jharkhand">
+                                    Jharkhand
+                                </option>
+
+                                <option value="Karnataka">
+                                    Karnataka
+                                </option>
+
+                                <option value="Kerala">
+                                    Kerala
+                                </option>
+
+                                <option value="Madhya Pradesh">
+                                    Madhya Pradesh
+                                </option>
+
+                                <option value="Maharashtra">
+                                    Maharashtra
+                                </option>
+
+                                <option value="Manipur">
+                                    Manipur
+                                </option>
+
+                                <option value="Meghalaya">
+                                    Meghalaya
+                                </option>
+
+                                <option value="Mizoram">
+                                    Mizoram
+                                </option>
+
+                                <option value="Nagaland">
+                                    Nagaland
+                                </option>
+
+                                <option value="Odisha">
+                                    Odisha
+                                </option>
+
+                                <option value="Punjab">
+                                    Punjab
+                                </option>
+
+                                <option value="Rajasthan">
+                                    Rajasthan
+                                </option>
+
+                                <option value="Sikkim">
+                                    Sikkim
+                                </option>
+
+                                <option value="Tamil Nadu">
+                                    Tamil Nadu
+                                </option>
+
+                                <option value="Telangana">
+                                    Telangana
+                                </option>
+
+                                <option value="Tripura">
+                                    Tripura
+                                </option>
+
+                                <option value="Uttar Pradesh">
+                                    Uttar Pradesh
+                                </option>
+
+                                <option value="Uttarakhand">
+                                    Uttarakhand
+                                </option>
+
+                                <option value="West Bengal">
+                                    West Bengal
+                                </option>
+
+                                <option value="Delhi">
+                                    Delhi
+                                </option>
+
+                                <option value="Jammu and Kashmir">
+                                    Jammu and Kashmir
+                                </option>
+
+                                <option value="Ladakh">
+                                    Ladakh
+                                </option>
+
+                                <option value="Puducherry">
+                                    Puducherry
+                                </option>
+
+                                <option value="Chandigarh">
+                                    Chandigarh
+                                </option>
+
+                                <option value="Dadra and Nagar Haveli and Daman and Diu">
+                                    Dadra and Nagar Haveli and Daman and Diu
+                                </option>
+
+                                <option value="Lakshadweep">
+                                    Lakshadweep
+                                </option>
+
+                                <option value="Andaman and Nicobar Islands">
+                                    Andaman and Nicobar Islands
+                                </option>
+
+                            </select>
+
+                            <small
+                                id="addressStateError"
+                                class="address-error"
+                            ></small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     ADDITIONAL DETAILS
+                     ================================= -->
+
+                <div class="address-form-section">
+
+                    <div class="address-form-section-title">
+                        Additional Details
+                    </div>
+
+                    <div class="row address-form-row">
+
+                        <!-- LANDMARK -->
+
+                        <div class="col-12 col-md-6">
+
+                            <label
+                                for="addressLandmark"
+                                class="address-form-label"
+                            >
+                                Landmark
+                                <span class="text-muted">
+                                    (Optional)
+                                </span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="addressLandmark"
+                                class="address-form-input"
+                                maxlength="100"
+                                placeholder="Nearby landmark"
+                            >
+
+                        </div>
+
+
+                        <!-- ADDRESS TYPE -->
+
+                        <div class="col-12 col-md-3">
+
+                            <label
+                                for="addressType"
+                                class="address-form-label"
+                            >
+                                Address Type
+                            </label>
+
+                            <select
+                                id="addressType"
+                                class="address-form-select"
+                                required
+                            >
+
+                                <option value="Home">
+                                    Home
+                                </option>
+
+                                <option value="Work">
+                                    Work
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- DEFAULT ADDRESS -->
+
+                        <div class="col-12 col-md-3">
+
+                            <label class="address-form-label">
+                                Preferences
+                            </label>
+
+                            <div class="default-address-wrap">
+
+                                <div class="form-check">
+
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        id="addressDefault"
+                                    >
+
+                                    <label
+                                        class="form-check-label"
+                                        for="addressDefault"
+                                    >
+                                        Set as default
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     ACTION BUTTONS
+                     ================================= -->
+
+                <div class="address-form-actions">
+
+                    <button
+                        type="button"
+                        class="btn btn-profile-outline address-action-btn"
+                        id="btnCancelAddress"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-profile-primary address-action-btn address-save-btn"
+                        id="btnSaveAddress"
+                    >
+                        <i class="bi bi-check-lg"></i>
+                        Save Address
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

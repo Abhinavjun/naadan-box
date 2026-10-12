@@ -1,0 +1,783 @@
+<!-- REFERRAL SECTION -->
+
+<style>
+
+/* =========================================
+   NAADAN BOX - REFERRALS
+   ========================================= */
+
+.referral-section {
+    position:relative;
+}
+
+/* =========================================
+   REFERRAL HEADER
+   ========================================= */
+
+.referral-header {
+    margin-bottom:1rem;
+}
+
+.referral-header .section-heading {
+    margin:0;
+    color:var(--brand-primary-green);
+    font-size:1.3rem;
+    font-weight:800;
+    line-height:1.3;
+}
+
+.referral-header .section-subtext {
+    margin:.25rem 0 0;
+    color:var(--muted-text);
+    font-size:.8rem;
+    line-height:1.5;
+}
+
+.referral-heading-decoration {
+    display:flex;
+    align-items:center;
+    gap:.3rem;
+    margin-top:.45rem;
+}
+
+.referral-heading-decoration span {
+    display:block;
+    width:24px;
+    height:2px;
+    background:var(--brand-gold);
+    border-radius:2px;
+}
+
+.referral-heading-decoration span:nth-child(2) {
+    width:4px;
+    height:4px;
+    border-radius:50%;
+}
+
+/* =========================================
+   MAIN REFERRAL CARD
+   ========================================= */
+
+.referral-details-card {
+    position:relative;
+    overflow:hidden;
+    background:#fff;
+    border:1px solid rgba(27,77,46,.08);
+    border-radius:13px;
+    padding:1.2rem 1.25rem;
+    margin-bottom:1rem;
+    box-shadow:0 5px 18px rgba(27,77,46,.035);
+}
+
+.referral-details-card::before {
+    content:"";
+    position:absolute;
+    width:160px;
+    height:100px;
+    right:-55px;
+    top:-35px;
+    background:rgba(27,77,46,.025);
+    border-radius:70% 30% 70% 30%;
+    transform:rotate(-18deg);
+    pointer-events:none;
+}
+
+.referral-details-card::after {
+    content:"";
+    position:absolute;
+    width:85px;
+    height:65px;
+    left:-35px;
+    bottom:-25px;
+    background:rgba(200,155,60,.025);
+    border-radius:30% 70% 30% 70%;
+    transform:rotate(20deg);
+    pointer-events:none;
+}
+
+.referral-card-content {
+    position:relative;
+    z-index:1;
+}
+
+/* =========================================
+   REFERRAL INTRO
+   ========================================= */
+
+.referral-intro {
+    display:flex;
+    align-items:center;
+    gap:.75rem;
+    margin-bottom:1rem;
+}
+
+.referral-intro-icon {
+    width:42px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    background:#F2F6F3;
+    border:1px solid rgba(27,77,46,.07);
+    border-radius:10px;
+    color:var(--brand-primary-green);
+    font-size:1rem;
+}
+
+.referral-intro-title {
+    margin:0;
+    color:var(--brand-primary-green);
+    font-size:1rem;
+    font-weight:800;
+    line-height:1.3;
+}
+
+.referral-intro-text {
+    margin:.15rem 0 0;
+    color:var(--muted-text);
+    font-size:.8rem;
+    line-height:1.45;
+}
+
+/* =========================================
+   REFERRAL CODE
+   ========================================= */
+
+.referral-code-area {
+    display:flex;
+    align-items:flex-end;
+    gap:.7rem;
+}
+
+.referral-code-wrapper {
+    flex:1;
+    min-width:0;
+}
+
+.referral-code-label {
+    margin-bottom:.35rem;
+    color:#718078;
+    font-size:.65rem;
+    font-weight:800;
+    letter-spacing:.35px;
+    text-transform:uppercase;
+}
+
+.referral-code-row {
+    display:flex;
+    align-items:center;
+    gap:.55rem;
+}
+
+.referral-code-box {
+    flex:1;
+    min-width:0;
+    min-height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:.6rem;
+    padding:.5rem .55rem .5rem .85rem;
+    background:var(--background-cream);
+    border:1px dashed rgba(27,77,46,.22);
+    border-radius:8px;
+}
+
+.referral-code {
+    color:var(--brand-primary-green);
+    font-size:1.2rem;
+    font-weight:900;
+    letter-spacing:.6px;
+    line-height:1.2;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.referral-copy-button {
+    width:32px;
+    height:32px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    border:1px solid rgba(27,77,46,.09);
+    border-radius:7px;
+    background:#fff;
+    color:var(--brand-primary-green);
+    cursor:pointer;
+    font-size:.8rem;
+    transition:all .2s ease;
+}
+
+.referral-copy-button:hover {
+    background:var(--brand-primary-green);
+    border-color:var(--brand-primary-green);
+    color:#fff;
+}
+
+/* =========================================
+   SHARE BUTTON
+   ========================================= */
+
+.referral-share-button {
+    height:48px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.35rem;
+    flex-shrink:0;
+    min-width:145px;
+    padding:0 .9rem;
+    border:1px solid var(--brand-primary-green);
+    border-radius:8px;
+    background:var(--brand-primary-green);
+    color:#fff;
+    font-size:.75rem;
+    font-weight:700;
+    cursor:pointer;
+    transition:all .2s ease;
+}
+
+.referral-share-button:hover {
+    background:var(--brand-hover-green);
+    border-color:var(--brand-hover-green);
+    color:#fff;
+    transform:translateY(-1px);
+}
+
+.referral-share-button i {
+    font-size:.75rem;
+}
+
+/* =========================================
+   REWARD STRIP
+   ========================================= */
+
+.referral-reward-box {
+    display:flex;
+    align-items:center;
+    gap:.65rem;
+    margin-top:.85rem;
+    padding:.7rem .8rem;
+    background:var(--background-cream);
+    border:1px solid rgba(200,155,60,.09);
+    border-radius:8px;
+}
+
+.referral-reward-icon {
+    width:30px;
+    height:30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    background:#fff;
+    border:1px solid rgba(200,155,60,.12);
+    border-radius:50%;
+    color:var(--brand-gold);
+    font-size:.75rem;
+}
+
+.referral-reward-content {
+    min-width:0;
+}
+
+.referral-reward-title {
+    margin:0;
+    color:var(--primary-text-dark);
+    font-size:.75rem;
+    font-weight:800;
+}
+
+.referral-reward-text {
+    margin:.15rem 0 0;
+    color:var(--muted-text);
+    font-size:.75rem;
+    line-height:1.45;
+}
+
+/* =========================================
+   HOW IT WORKS
+   ========================================= */
+
+.referral-how {
+    margin-bottom:1rem;
+}
+
+.referral-how-title {
+    margin:0 0 .65rem;
+    color:var(--primary-text-dark);
+    font-size:.9rem;
+    font-weight:800;
+}
+
+/* =========================================
+   REFERRAL STEPS
+   ========================================= */
+
+.referral-steps {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:.65rem;
+}
+
+.referral-step {
+    display:flex;
+    align-items:center;
+    gap:.65rem;
+    min-width:0;
+    padding:.75rem;
+    background:#fff;
+    border:1px solid rgba(27,77,46,.07);
+    border-radius:9px;
+    box-shadow:0 3px 10px rgba(27,77,46,.025);
+}
+
+.referral-step-icon {
+    width:32px;
+    height:32px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    background:#F2F6F3;
+    border:1px solid rgba(27,77,46,.06);
+    border-radius:50%;
+    color:var(--brand-primary-green);
+    font-size:.75rem;
+}
+
+.referral-step-content {
+    min-width:0;
+}
+
+.referral-step-title {
+    margin:0;
+    color:var(--primary-text-dark);
+    font-size:.75rem;
+    font-weight:700;
+    line-height:1.35;
+}
+
+.referral-step-text {
+    margin:.15rem 0 0;
+    color:var(--muted-text);
+    font-size:.7rem;
+    line-height:1.45;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width:767px) {
+
+    .referral-code-area {
+        align-items:stretch;
+        flex-direction:column;
+    }
+
+    .referral-share-button {
+        width:100%;
+    }
+
+    .referral-steps {
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media (max-width:575px) {
+
+    .referral-details-card {
+        padding:1rem;
+        border-radius:11px;
+    }
+
+    .referral-header .section-heading {
+        font-size:1.2rem;
+    }
+
+    .referral-header .section-subtext {
+        font-size:.75rem;
+    }
+
+    .referral-code {
+        font-size:1rem;
+    }
+
+    .referral-intro-title {
+        font-size:.92rem;
+    }
+
+    .referral-intro-text {
+        font-size:.75rem;
+    }
+
+}
+
+</style>
+
+
+<div class="profile-section d-none referral-section" data-section="referrals">
+
+
+    <!-- REFERRAL HEADER -->
+
+    <div class="referral-header">
+
+        <h3 class="section-heading">
+            Referrals
+        </h3>
+
+        <p class="section-subtext">
+            Invite friends and earn rewards with Naadan Box.
+        </p>
+
+        <div class="referral-heading-decoration">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+    </div>
+
+
+    <!-- REFERRAL DETAILS -->
+
+    <div class="referral-details-card">
+
+        <div class="referral-card-content">
+
+
+            <!-- REFERRAL INTRO -->
+
+            <div class="referral-intro">
+
+                <div class="referral-intro-icon">
+
+                    <i class="bi bi-gift"></i>
+
+                </div>
+
+                <div>
+
+                    <h3 class="referral-intro-title">
+                        Refer & Earn
+                    </h3>
+
+                    <p class="referral-intro-text">
+                        Share your referral code with friends and family.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- REFERRAL CODE -->
+
+            <div class="referral-code-area">
+
+                <div class="referral-code-wrapper">
+
+                    <div class="referral-code-label">
+                        Your Referral Code
+                    </div>
+
+                    <div class="referral-code-row">
+
+                        <div class="referral-code-box">
+
+                            <span class="referral-code">
+                                <%= user.referralCode || "Not available" %>
+                            </span>
+
+                            <button
+                                type="button"
+                                class="referral-copy-button"
+                                id="copyReferralCode"
+                                title="Copy Referral Code"
+                            >
+
+                                <i class="bi bi-copy"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="referral-share-button"
+                    id="shareReferral"
+                >
+
+                    <i class="bi bi-share"></i>
+
+                    Share Referral
+
+                </button>
+
+            </div>
+
+
+            <!-- REFERRAL REWARD -->
+
+            <div class="referral-reward-box">
+
+                <div class="referral-reward-icon">
+
+                    <i class="bi bi-wallet2"></i>
+
+                </div>
+
+
+                <div class="referral-reward-content">
+
+                    <p class="referral-reward-title">
+                        ₹100 Wallet Reward
+                    </p>
+
+                    <p class="referral-reward-text">
+                        New users who successfully sign up using your referral code receive ₹100 in their Naadan Box Wallet.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- HOW IT WORKS -->
+
+    <div class="referral-how">
+
+        <h3 class="referral-how-title">
+            How It Works
+        </h3>
+
+
+        <div class="referral-steps">
+
+
+            <!-- STEP 1 -->
+
+            <div class="referral-step">
+
+                <div class="referral-step-icon">
+
+                    <i class="bi bi-send"></i>
+
+                </div>
+
+                <div class="referral-step-content">
+
+                    <p class="referral-step-title">
+                        Share your code
+                    </p>
+
+                    <p class="referral-step-text">
+                        Send your referral code to a friend.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 2 -->
+
+            <div class="referral-step">
+
+                <div class="referral-step-icon">
+
+                    <i class="bi bi-person-plus"></i>
+
+                </div>
+
+                <div class="referral-step-content">
+
+                    <p class="referral-step-title">
+                        Friend signs up
+                    </p>
+
+                    <p class="referral-step-text">
+                        Your friend enters the code during signup.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 3 -->
+
+            <div class="referral-step">
+
+                <div class="referral-step-icon">
+
+                    <i class="bi bi-wallet2"></i>
+
+                </div>
+
+                <div class="referral-step-content">
+
+                    <p class="referral-step-title">
+                        ₹100 is credited
+                    </p>
+
+                    <p class="referral-step-text">
+                        ₹100 is added to your friend's wallet after successful signup.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const copyCodeButton =
+        document.getElementById("copyReferralCode");
+
+    const shareButton =
+        document.getElementById("shareReferral");
+
+    const referralCode =
+        "<%= user.referralCode || '' %>";
+
+
+    /* =========================================
+       COPY REFERRAL CODE
+       ========================================= */
+
+    if (copyCodeButton) {
+
+        copyCodeButton.addEventListener("click", async () => {
+
+            if (!referralCode) {
+                return;
+            }
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    referralCode
+                );
+
+                copyCodeButton.innerHTML =
+                    '<i class="bi bi-check-lg"></i>';
+
+                setTimeout(() => {
+
+                    copyCodeButton.innerHTML =
+                        '<i class="bi bi-copy"></i>';
+
+                }, 1500);
+
+            } catch (error) {
+
+                console.error(
+                    "Failed to copy referral code:",
+                    error
+                );
+
+            }
+
+        });
+
+    }
+
+
+    /* =========================================
+       SHARE REFERRAL
+       ========================================= */
+
+    if (shareButton) {
+
+        shareButton.addEventListener("click", async () => {
+
+            if (!referralCode) {
+                return;
+            }
+
+            const shareData = {
+
+                title:"Join Naadan Box",
+
+                text:
+                    "Join Naadan Box using my referral code: " +
+                    referralCode
+
+            };
+
+
+            try {
+
+                if (navigator.share) {
+
+                    await navigator.share(
+                        shareData
+                    );
+
+                } else {
+
+                    await navigator.clipboard.writeText(
+                        referralCode
+                    );
+
+                    shareButton.innerHTML =
+                        '<i class="bi bi-check-lg"></i> Code Copied';
+
+                    setTimeout(() => {
+
+                        shareButton.innerHTML =
+                            '<i class="bi bi-share"></i> Share Referral';
+
+                    }, 1500);
+
+                }
+
+            } catch (error) {
+
+                if (error.name !== "AbortError") {
+
+                    console.error(
+                        "Share failed:",
+                        error
+                    );
+
+                }
+
+            }
+
+        });
+
+    }
+
+});
+
+</script>
