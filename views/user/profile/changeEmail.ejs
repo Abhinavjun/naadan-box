@@ -613,6 +613,42 @@
 
 
         /* =========================
+           INLINE FORM MESSAGE
+           ========================= */
+
+        .inline-form-message {
+            display: none;
+            align-items: flex-start;
+            gap: .55rem;
+            margin-top: .85rem;
+            padding: .75rem .85rem;
+            border: 1px solid rgba(220, 53, 69, .22);
+            border-left: 3px solid var(--danger);
+            border-radius: 9px;
+            background: rgba(220, 53, 69, .055);
+            color: #9F2632;
+            font-size: .78rem;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .inline-form-message.show {
+            display: flex;
+        }
+
+        .inline-form-message.success {
+            border-color: rgba(27, 77, 46, .2);
+            border-left-color: var(--green);
+            background: rgba(27, 77, 46, .055);
+            color: var(--green);
+        }
+
+        .inline-form-message i {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* =========================
            BUTTONS
            ========================= */
 
@@ -1380,6 +1416,16 @@
 
                             </p>
 
+                            <div
+                                id="emailFormMessage"
+                                class="inline-form-message"
+                                role="alert"
+                                aria-live="polite"
+                            >
+                                <i id="emailFormMessageIcon" class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>
+                                <span id="emailFormMessageText"></span>
+                            </div>
+
                         </div>
 
 
@@ -1508,97 +1554,94 @@
          ========================= -->
 
     <script>
+        const showInlineMessage = (message, type = "error") => {
+            const messageBox = document.getElementById("emailFormMessage");
+            const messageText = document.getElementById("emailFormMessageText");
+            const messageIcon = document.getElementById("emailFormMessageIcon");
+
+            if (!messageBox || !messageText || !messageIcon) return;
+
+            messageText.textContent = String(message || "Something went wrong. Please try again.");
+
+            messageBox.classList.remove("success");
+            if (type === "success") {
+                messageBox.classList.add("success");
+                messageIcon.className = "bi bi-check-circle-fill";
+            } else {
+                messageIcon.className = "bi bi-exclamation-circle-fill";
+            }
+
+            messageBox.classList.add("show");
+        };
+
+        const clearInlineMessage = () => {
+            const messageBox = document.getElementById("emailFormMessage");
+            const messageText = document.getElementById("emailFormMessageText");
+
+            messageBox.classList.remove("show", "success");
+            messageText.textContent = "";
+        };
+
+        document
+            .getElementById("newEmail")
+            .addEventListener("input", clearInlineMessage);
 
         document
             .getElementById("changeEmailForm")
             .addEventListener("submit", async function(e) {
-
                 e.preventDefault();
+                clearInlineMessage();
 
+                const newEmail = document
+                    .getElementById("newEmail")
+                    .value
+                    .trim();
 
-                const newEmail =
-                    document
-                        .getElementById("newEmail")
-                        .value
-                        .trim();
-
-
-                const button =
-                    document.getElementById("btnUpdateEmail");
-
+                const button = document.getElementById("btnUpdateEmail");
 
                 if (!newEmail) {
-
-                    alert("Please enter your new email address.");
-
+                    showInlineMessage("Please enter your new email address.");
+                    document.getElementById("newEmail").focus();
                     return;
-
                 }
-
 
                 button.disabled = true;
-
-                button.textContent = "Sending...";
-
+                button.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Sending...';
 
                 try {
+                    const response = await fetch("/profile/email/send-otp", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ newEmail })
+                    });
 
-                    const response =
-                        await fetch(
-                            "/profile/email/send-otp",
-                            {
-                                method: "POST",
+                    let data;
 
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-
-                                body: JSON.stringify({
-                                    newEmail
-                                })
-                            }
-                        );
-
-
-                    const data =
-                        await response.json();
-
-
-                    if (data.success) {
-
-                        window.location.href =
-                            "/profile/security/verify-email";
-
+                    try {
+                        data = await response.json();
+                    } catch (parseError) {
+                        showInlineMessage("The server returned an unexpected response. Please try again.");
                         return;
-
                     }
 
+                    if (response.ok && data.success) {
+                        window.location.href = "/profile/security/verify-email";
+                        return;
+                    }
 
-                    alert(data.message);
-
+                    showInlineMessage(data.message || "Unable to send the verification code. Please try again.");
 
                 } catch (error) {
-
-                    console.error(
-                        "Email change error:",
-                        error
-                    );
-
-                    alert(
-                        "Something went wrong. Please try again."
-                    );
+                    console.error("Email change error:", error);
+                    showInlineMessage("Something went wrong. Please check your connection and try again.");
 
                 } finally {
-
                     button.disabled = false;
-
-                    button.innerHTML =
-                        '<i class="bi bi-shield-check me-2"></i>Update Email';
-
+                    button.innerHTML = '<i class="bi bi-shield-check me-2"></i>Update Email';
                 }
-
             });
-
     </script>
 
 

@@ -1,6 +1,5 @@
 const nodemailer = require("nodemailer");
 
-//email transporter
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -31,7 +30,7 @@ const sendOtpEmail = async (email, otp) => {
             <p>This OTP will expire in 5 minutes.</p>
         `
     };
-    
+
      console.time("OTP email sending");
 
     await transporter.sendMail(mailOptions);

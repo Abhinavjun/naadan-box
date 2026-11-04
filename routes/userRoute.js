@@ -38,10 +38,7 @@ router.get("/forgot-password/reset-password", isGuest, noCache, userController.l
 router.post("/forgot-password/reset-password", isGuest, userController.resetPassword);
 
 //  acc status
-router.get(
-    "/account-status",
-    isAuthenticated,
-    userController.checkAccountStatus
+router.get("/account-status", isAuthenticated, userController.checkAccountStatus
 );
 // LOGOUT
 router.post("/logout", userController.logout);

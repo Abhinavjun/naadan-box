@@ -135,6 +135,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         phoneError.textContent="";
         addressLineError.textContent="";
         stateError.textContent="";
+        pincodeMessage.style.color = "";
     }
 
     function openAddForm(){
@@ -408,6 +409,8 @@ document.addEventListener("DOMContentLoaded",()=>{
         pincodeVerified=false;
         addressCity.value="";
         pincodeMessage.textContent="";
+        
+        pincodeMessage.style.color = "red";
 
         if(!/^\d{6}$/.test(pincode)){
 
@@ -469,6 +472,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
                 pincodeMessage.textContent=
                     `This PIN code belongs to ${data.state}.`;
+                    pincodeMessage.style.color = "red";
 
                 addressState.value="";
 
@@ -478,11 +482,13 @@ document.addEventListener("DOMContentLoaded",()=>{
                 return;
             }
 
-            pincodeVerified=true;
-            originalPincode=pincode;
+         pincodeVerified = true;
+originalPincode = pincode;
 
-            pincodeMessage.textContent=
-                `PIN verified — ${data.city}, ${data.state}`;
+pincodeMessage.textContent =
+    `PIN verified — ${data.city}, ${data.state}`;
+
+pincodeMessage.style.color = "green";
 
         }catch(error){
 
@@ -598,26 +604,32 @@ document.addEventListener("DOMContentLoaded",()=>{
         modal.show();
     }
 
-    addressPincode.addEventListener("input",()=>{
+   
+addressPincode.addEventListener("input", () => {
+    const pincode = addressPincode.value.trim();
 
-        const pincode=addressPincode.value.trim();
+    if (pincode !== originalPincode) {
+        pincodeVerified = false;
+    }
 
-        if(pincode!==originalPincode){
+    if (!/^\d{6}$/.test(pincode)) {
+        pincodeVerified = false;
+        addressCity.value = "";
 
-            pincodeVerified=false;
+        if (pincode.length > 0) {
+            pincodeMessage.textContent =
+                "Enter a valid 6-digit PIN code.";
+            pincodeMessage.style.color = "red";
+        } else {
+            pincodeMessage.textContent = "";
         }
 
-        if(pincode.length===6){
+        return;
+    }
 
-            verifyPincode();
+    verifyPincode();
+});
 
-        }else{
-
-            pincodeVerified=false;
-            addressCity.value="";
-            pincodeMessage.textContent="";
-        }
-    });
 
     addressState.addEventListener("change",()=>{
 

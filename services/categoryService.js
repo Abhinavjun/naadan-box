@@ -5,6 +5,9 @@ const Category = require("../models/categoryModel");
 const normalizeCategoryName = (name) => {
   return name.trim().replace(/\s+/g, " ");
 };
+const escapeRegex = (value) => {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+};
 
 
 // CREATE CATEGORY
@@ -21,6 +24,10 @@ const createCategoryService = async ({ name,image }) => {
 
   if (normalizedName.length < 2) {
     throw new Error("Category name must be at least 2 characters");
+  }
+  if(normalizedName.length > 50 ){
+    throw new Error("Category name cannot exceed 50 characters");
+    
   }
 
   const nameNormalized = normalizedName.toLowerCase();
@@ -46,6 +53,10 @@ const createCategoryService = async ({ name,image }) => {
   const slug = nameNormalized
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+    
+    if(!slug) {
+      throw new Error("Category name must contain at least one English letter or number.")
+    }
 
   try {
     const category = await Category.create({
@@ -79,6 +90,14 @@ const getCategoriesService = async ({
 }) => {
   page = Number(page);
   limit = Number(limit);
+  
+  if( typeof search !== "string") {
+    throw new Error9("Search must be a string.");
+  }
+  
+  if (search.length > 50) {
+    throw new Error("Search cannot exceed 50 characters.");
+}
 
   // Validate page
 
@@ -126,7 +145,7 @@ const getCategoriesService = async ({
 
     if (normalizedSearch) {
       query.name = {
-        $regex: normalizedSearch,
+$regex: escapeRegex(normalizedSearch),
         $options: "i",
       };
     }

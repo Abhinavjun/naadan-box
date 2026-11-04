@@ -1301,7 +1301,7 @@ body.crop-modal-open {
         /* =========================================
            BLOCKED USER POPUP
            ========================================= */
-
+/*
         .blocked-user-popup-overlay {
             position:fixed!important;
             inset:0!important;
@@ -1312,8 +1312,8 @@ body.crop-modal-open {
             align-items:center!important;
             justify-content:center!important;
             z-index:99999!important;
-        }
-
+        } */
+/*
         .blocked-user-popup-overlay.show {
             display:flex!important;
         }
@@ -1373,7 +1373,7 @@ body.crop-modal-open {
 
         .blocked-user-confirm-btn:hover {
             background:var(--brand-hover-green);
-        }
+        } */
 
         /* =========================================
            RESPONSIVE
@@ -1536,93 +1536,9 @@ body.crop-modal-open {
      HEADER
      ========================================= -->
 
-<header class="py-3 px-3 px-md-5">
 
-    <div class="container-fluid">
 
-        <div class="d-flex justify-content-between align-items-center">
-
-            <a
-                href="/"
-                class="navbar-brand fs-4 m-0"
-            >
-                NAADAN BOX
-            </a>
-
-            <nav class="d-none d-lg-flex gap-4 align-items-center">
-
-                <a href="/" class="nav-link">
-                    Home
-                </a>
-
-                <a href="/products" class="nav-link">
-                    Products
-                </a>
-
-                <a href="/veg" class="nav-link">
-                    Veg
-                </a>
-
-                <a href="/non-veg" class="nav-link">
-                    Non-Veg
-                </a>
-
-                <a href="/about" class="nav-link">
-                    About
-                </a>
-
-                <a href="/contact" class="nav-link">
-                    Contact
-                </a>
-
-            </nav>
-
-            <div class="d-flex align-items-center gap-4">
-
-                <a
-                    href="#"
-                    class="nav-icon-link"
-                    aria-label="Search"
-                >
-                    <i class="bi bi-search"></i>
-                </a>
-
-                <a
-                    href="#"
-                    class="nav-icon-link"
-                    aria-label="Wishlist"
-                >
-                    <i class="bi bi-heart"></i>
-                </a>
-
-                <a
-                    href="/cart"
-                    class="nav-icon-link"
-                    aria-label="Cart"
-                >
-                    <i class="bi bi-cart3"></i>
-
-                    <span class="cart-badge">
-                        0
-                    </span>
-
-                </a>
-
-                <a
-                    href="/profile"
-                    class="nav-icon-link active"
-                    aria-label="User Profile"
-                >
-                    <i class="bi bi-person"></i>
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</header>
+<%- include("partials/userHeader") %>
 
 <!-- =========================================
      MAIN ACCOUNT PAGE
@@ -1834,7 +1750,7 @@ body.crop-modal-open {
                             class="profile-avatar"
                         >
 
-                       
+
                         <div class="profile-image-actions">
     <label for="profileImageInput" class="profile-image-btn">
         <i class="bi bi-camera"></i>
@@ -2563,212 +2479,12 @@ body.crop-modal-open {
 <!-- =========================================
      FOOTER
      ========================================= -->
+<%- include("partials/userFooter") %>
 
-<footer class="pt-5 pb-3 px-3 px-md-5">
 
-    <div class="container-fluid">
+<!-- ACCOUNT BLOCKED MODAL -->
+<%- include("partials/accountBlockedModal") %>
 
-        <div class="row g-4 mb-4">
-
-            <div class="col-12 col-md-4">
-
-                <div class="navbar-brand fs-4 mb-2">
-                    NAADAN BOX
-                </div>
-
-                <p
-                    class="text-muted small"
-                    style="max-width:300px;"
-                >
-                    Authentic Kerala flavors delivered to your kitchen.
-                    We bring you the taste of tradition in modern, eco-friendly packs.
-                </p>
-
-                <div class="d-flex gap-3">
-
-                    <a
-                        href="#"
-                        aria-label="Instagram"
-                    >
-                        <i class="bi bi-instagram fs-5"></i>
-                    </a>
-
-                    <a
-                        href="#"
-                        aria-label="Facebook"
-                    >
-                        <i class="bi bi-facebook fs-5"></i>
-                    </a>
-
-                </div>
-
-            </div>
-
-            <div class="col-6 col-md-2">
-
-                <div class="footer-heading">
-                    Shop
-                </div>
-
-                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-
-                    <li>
-                        <a href="/products">
-                            All Products
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="/veg">
-                            Vegetarian Kits
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="/non-veg">
-                            Non-Vegetarian Kits
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="/spices">
-                            Spice Blends
-                        </a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-            <div class="col-6 col-md-2">
-
-                <div class="footer-heading">
-                    Support
-                </div>
-
-                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-
-                    <li>
-                        <a href="/shipping">
-                            Shipping Info
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="/refund">
-                            Refund Policy
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="/privacy">
-                            Privacy Policy
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="/terms">
-                            Terms of Service
-                        </a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-            <div class="col-12 col-md-4">
-
-                <div class="footer-heading">
-                    Get In Touch
-                </div>
-
-                <ul class="list-unstyled d-flex flex-column gap-2 text-muted mb-0">
-
-                    <li>
-                        <i class="bi bi-geo-alt me-2"></i>
-                        Kochi, Kerala, India
-                    </li>
-
-                    <li>
-                        <i class="bi bi-envelope me-2"></i>
-                        hello@naadanbox.com
-                    </li>
-
-                    <li>
-                        <i class="bi bi-telephone me-2"></i>
-                        +91 98765 43210
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-
-        <hr style="border-color:var(--border-divider-neutral);">
-
-        <div
-            class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 pt-2 text-muted"
-            style="font-size:.75rem;"
-        >
-
-            <div>
-                © 2024 NAADAN BOX. Authentic Kerala Flavors.
-            </div>
-
-            <div class="d-flex gap-3 fs-5">
-
-                <i class="bi bi-credit-card"></i>
-
-                <i class="bi bi-wallet2"></i>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</footer>
-
-<!-- =========================================
-     BLOCKED USER POPUP
-     ========================================= -->
-
-<div
-    id="customBlockedUserPopup"
-    class="blocked-user-popup-overlay"
->
-
-    <div class="blocked-user-popup-card">
-
-        <div class="blocked-user-popup-icon">
-            <i class="bi bi-shield-lock"></i>
-        </div>
-
-        <h5 class="blocked-user-popup-title">
-            Account Blocked
-        </h5>
-
-        <p class="blocked-user-popup-text">
-            Your account has been blocked by the administrator.
-            You will be logged out.
-        </p>
-
-        <div class="blocked-user-popup-actions">
-
-            <button
-                type="button"
-                id="customBlockedLogoutButton"
-                class="blocked-user-confirm-btn"
-            >
-                Continue
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
 
 <!-- =========================================
      SAVE ADDRESS MODAL
@@ -3120,7 +2836,7 @@ body.crop-modal-open {
 <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.js"></script>
 <script src="/js/profileImage.js"></script>
 <script src="/js/logout.js"></script>
-
+<script src="/js/accountStatus.js"></script>
 </body>
 
 </html>

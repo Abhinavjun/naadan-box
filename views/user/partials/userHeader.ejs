@@ -1,0 +1,56 @@
+<% const currentPath = (typeof currentPathFromApp !== 'undefined' ? currentPathFromApp : (typeof req !== 'undefined' ? req.path : '/')); %>
+
+
+<header class="py-3 px-3 px-md-5">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+
+                <a href="/" class="navbar-brand fs-4 m-0">NAADAN BOX</a>
+
+
+
+<!-- Desktop Navigation Links -->
+<nav class="d-none d-lg-flex gap-4 align-items-center">
+    <a href="/" class="nav-link <%= currentPath === '/' ? 'active' : '' %>">Home</a>
+    <a href="/products" class="nav-link <%= currentPath === '/products' ? 'active' : '' %>">Products</a>
+    <a href="/veg" class="nav-link <%= currentPath === '/veg' ? 'active' : '' %>">Veg</a>
+    <a href="/non-veg" class="nav-link <%= currentPath === '/non-veg' ? 'active' : '' %>">Non-Veg</a>
+    <a href="/about" class="nav-link <%= currentPath === '/about' ? 'active' : '' %>">About</a>
+    <a href="/contact" class="nav-link <%= currentPath === '/contact' ? 'active' : '' %>">Contact</a>
+    
+    
+
+    
+    
+
+    
+</nav>
+
+
+                <!-- Header Action Icons -->
+                <div class="d-flex align-items-center gap-4">
+
+                    <a href="#" class="nav-icon-link" aria-label="Search">
+                        <i class="bi bi-search"></i>
+                    </a>
+
+                    <a href="#" class="nav-icon-link" aria-label="Wishlist">
+                        <i class="bi bi-heart"></i>
+                    </a>
+
+                    <a href="/cart" class="nav-icon-link" aria-label="Cart">
+                        <i class="bi bi-cart3"></i>
+                        <span class="cart-badge">0</span>
+                    </a>
+
+                   <a href="/profile"
+   class="nav-icon-link <%= currentPath.startsWith('/profile') ? 'active' : '' %>"
+   aria-label="User Profile">
+    <i class="bi bi-person"></i>
+</a>
+
+                </div>
+
+            </div>
+        </div>
+    </header>

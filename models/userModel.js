@@ -27,7 +27,7 @@ password: {
     default : null
 },
 
-googleId: { 
+googleId: {
 
     type: String,
     default: null
@@ -50,6 +50,7 @@ dateOfBirth: {
     type: Date,
     default: null
 },
+
 referralCode: {
     type: String,
     required: true,
@@ -70,7 +71,8 @@ isVerified: {
 isBlocked: {
     type: Boolean,
     default: false
-}, 
+}
+
 
 
 

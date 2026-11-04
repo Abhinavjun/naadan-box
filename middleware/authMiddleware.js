@@ -25,27 +25,31 @@ const isAuthenticated = async (req, res, next) => {
         }
 
         // User blocked
-        if (user.isBlocked) {
+
+
+         if (user.isBlocked) {
             return req.session.destroy(() => {
-                res.clearCookie("naadan_user_sid");
+                 res.clearCookie("naadan_user_sid");
 
                 const isFetchRequest =
-                    req.xhr ||
-                    req.headers.accept?.includes("application/json") ||
-                    req.headers["content-type"]?.includes("application/json");
+                     req.xhr ||
+                     req.headers.accept?.includes("application/json") ||
+                     req.headers["content-type"]?.includes("application/json");
 
-                if (isFetchRequest) {
-                    return res.status(403).json({
-                        success: false,
-                        code: "USER_BLOCKED",
-                        message:
-                            "Your account has been blocked by the administrator."
-                    });
-                }
+                 if (isFetchRequest) {
+                     return res.status(403).json({
+                         success: false,
+                         code: "USER_BLOCKED",
+                         message:
+                             "Your account has been blocked by the administrator."
+                     });
+                 }
 
-                return res.redirect("/login?blocked=true");
-            });
-        }
+                   return res.redirect("/login?blocked=true");
+             });
+         }
+
+
 
         return next();
 
@@ -61,3 +65,6 @@ const isAuthenticated = async (req, res, next) => {
 module.exports = {
     isAuthenticated
 };
+
+
+

@@ -1,17 +1,10 @@
-// # MODULES
+
 const mongoose = require("mongoose");
 const Address = require("../models/addressModel");
 const { validatePincodeState } = require("./pincodeService");
 
-// # VALIDATE ADDRESS ID
-const validateId = id => {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw new Error("INVALID_ADDRESS_ID");
-    }
-};
-
-// # VALIDATE ADDRESS DATA
-const validateAddressData = data => {
+// VALIDATE ADDRESS DATA
+const validateAddress = (data) => {
     if (!data.fullName || !/^[A-Za-z]+(?: [A-Za-z]+)*$/.test(data.fullName.trim())) {
         throw new Error("INVALID_NAME");
     }
@@ -20,7 +13,8 @@ const validateAddressData = data => {
         throw new Error("INVALID_PHONE");
     }
 
-    if (!data.addressLine || data.addressLine.trim().length < 5 || data.addressLine.trim().length > 200) {
+    if (!data.addressLine || data.addressLine.trim().length < 5 ||
+        data.addressLine.trim().length > 200) {
         throw new Error("INVALID_ADDRESS");
     }
 
@@ -41,78 +35,89 @@ const validateAddressData = data => {
     }
 };
 
-// # GET USER ADDRESSES
-const getUserAddresses = async userId => {
-    return await Address.find({ userId })
-        .sort({ isDefault: -1, createdAt: -1 })
-        .lean();
+// VALIDATE ADDRESS ID
+const validateId = (id) => {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new Error("INVALID_ADDRESS_ID");
+    }
 };
 
-// # ADD ADDRESS
-const addAddress = async (userId, addressData) => {
-    validateAddressData(addressData);
+// GET ADDRESSES
+const getUserAddresses = async (userId) => {
+    const addresses = await Address.find({ userId })
+        .sort({ isDefault: -1, createdAt: -1 });
+
+    return addresses;
+};
+
+// ADD ADDRESS
+const addAddress = async (userId, data) => {
+    validateAddress(data);
 
     const pincodeDetails = await validatePincodeState(
-        addressData.pincode.trim(),
-        addressData.state.trim()
+        data.pincode.trim(),
+        data.state.trim()
     );
 
-    const addressCount = await Address.countDocuments({ userId });
+    const count = await Address.countDocuments({ userId });
 
-    if (addressCount >= 10) {
+    if (count >= 10) {
         throw new Error("ADDRESS_LIMIT_REACHED");
     }
 
-    if (addressData.isDefault || addressCount === 0) {
+    if (data.isDefault || count === 0) {
         await Address.updateMany(
             { userId },
-            { $set: { isDefault: false } }
+            { isDefault: false }
         );
-        addressData.isDefault = true;
+
+        data.isDefault = true;
     }
 
-    return await Address.create({
+    const address = await Address.create({
+        ...data,
         userId,
-        ...addressData,
         city: pincodeDetails.city
     });
+
+    return address;
 };
 
-// # UPDATE ADDRESS
-const updateAddress = async (userId, addressId, addressData) => {
+// UPDATE ADDRESS
+const updateAddress = async (userId, addressId, data) => {
     validateId(addressId);
-    validateAddressData(addressData);
+    validateAddress(data);
 
     const address = await Address.findOne({
         _id: addressId,
         userId
     });
 
-    if (!address) throw new Error("ADDRESS_NOT_FOUND");
+    if (!address) {
+        throw new Error("ADDRESS_NOT_FOUND");
+    }
 
     const pincodeDetails = await validatePincodeState(
-        addressData.pincode.trim(),
-        addressData.state.trim()
+        data.pincode.trim(),
+        data.state.trim()
     );
 
-    if (addressData.isDefault) {
+    if (data.isDefault) {
         await Address.updateMany(
             { userId, _id: { $ne: addressId } },
-            { $set: { isDefault: false } }
+            { isDefault: false }
         );
     }
 
-    Object.assign(address, {
-        ...addressData,
-        city: pincodeDetails.city
-    });
+    Object.assign(address, data);
+    address.city = pincodeDetails.city;
 
     await address.save();
 
     return address;
 };
 
-// # DELETE ADDRESS
+// DELETE ADDRESS
 const deleteAddress = async (userId, addressId) => {
     validateId(addressId);
 
@@ -121,7 +126,9 @@ const deleteAddress = async (userId, addressId) => {
         userId
     });
 
-    if (!address) throw new Error("ADDRESS_NOT_FOUND");
+    if (!address) {
+        throw new Error("ADDRESS_NOT_FOUND");
+    }
 
     await address.deleteOne();
 
@@ -138,7 +145,7 @@ const deleteAddress = async (userId, addressId) => {
     return address;
 };
 
-// # EXPORT SERVICES
+// EXPORT SERVICES
 module.exports = {
     getUserAddresses,
     addAddress,

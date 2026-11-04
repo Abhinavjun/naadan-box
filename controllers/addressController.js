@@ -33,6 +33,7 @@ const handleError=(res,error)=>{
 };
 
 const loadAddresses=async(req,res)=>{
+    
  try{
   const addresses=await getUserAddresses(req.session.userId);
 
@@ -40,7 +41,9 @@ const loadAddresses=async(req,res)=>{
    success:true,
    addresses
   });
+  
  }catch(error){
+    
   console.error("Load addresses error:",error);
 
   return res.status(500).json({
@@ -52,7 +55,12 @@ const loadAddresses=async(req,res)=>{
 
 // create address
 const createAddress=async(req,res)=>{
+    
+    
+    
  try{
+    
+    
   const address=await addAddress(req.session.userId,{
    fullName:req.body.fullName?.trim(),
    phone:req.body.phone?.trim(),
@@ -78,7 +86,11 @@ const createAddress=async(req,res)=>{
 
 // update address
 const editAddress=async(req,res)=>{
+    
+    
  try{
+    
+    
   const address=await updateAddress(req.session.userId,req.params.id,{
    fullName:req.body.fullName?.trim(),
    phone:req.body.phone?.trim(),
@@ -89,6 +101,8 @@ const editAddress=async(req,res)=>{
    landmark:req.body.landmark?.trim()||null,
    addressType:req.body.addressType,
    isDefault:req.body.isDefault==="true"||req.body.isDefault===true
+   
+   
   });
 
   return res.json({
@@ -102,7 +116,10 @@ const editAddress=async(req,res)=>{
  }
 };
 
+
+
 const removeAddress=async(req,res)=>{
+    
  try{
   await deleteAddress(req.session.userId,req.params.id);
 
@@ -115,6 +132,7 @@ const removeAddress=async(req,res)=>{
   return handleError(res,error);
  }
 };
+
 
 // verify pincode
 const checkPincode=async(req,res)=>{

@@ -101,7 +101,6 @@ const updateUserProfileService = async (userId, profileData) => {
             age--;
         }
 
-        // Reject users aged 120 or older.
         if (age >= 120) {
             throw new Error("INVALID_DATE_OF_BIRTH");
         }
@@ -121,7 +120,7 @@ const updateUserProfileService = async (userId, profileData) => {
     user.dateOfBirth = dateOfBirth || null;
 
     // 7. SAVE UPDATED PROFILE
- 
+
     try {
         await user.save();
     } catch (error) {

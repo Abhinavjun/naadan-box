@@ -1,11 +1,10 @@
-// # ACCOUNT STATUS CHECK
 const accountBlockedModal = document.querySelector("#accountBlockedModal");
 const accountBlockedLogout = document.querySelector("#accountBlockedLogout");
 
 let accountBlocked = false;
 let statusCheckInProgress = false;
 
-// # SHOW BLOCKED MODAL
+//BLOCKED MODAL
 const showAccountBlockedModal = () => {
     if (!accountBlockedModal || accountBlocked) return;
 
@@ -17,7 +16,7 @@ const showAccountBlockedModal = () => {
     document.body.style.overflow = "hidden";
 };
 
-// # CHECK ACCOUNT STATUS
+//  CHECK ACCOUNT STATUS
 const checkAccountStatus = async () => {
     if (accountBlocked || statusCheckInProgress) return;
 
@@ -87,8 +86,7 @@ if (accountBlockedLogout) {
     });
 }
 
-// # INITIAL CHECK
+// INITIAL CHECK
 checkAccountStatus();
 
-// # PERIODIC CHECK
 setInterval(checkAccountStatus, 10000);

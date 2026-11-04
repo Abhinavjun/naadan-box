@@ -6,7 +6,7 @@ const connectDB = require("./config/db");
 const PORT = process.env.PORT || 3000;
 
 const startServer = async () => {
-    try {
+    try { 
         // Configure DNS and establish the MongoDB connection first.
         await connectDB();
 

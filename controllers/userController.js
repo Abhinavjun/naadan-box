@@ -1,10 +1,11 @@
-const User = require("../models/userModel");
-
 const {
     loginUserService,
     signupUserService,
     resetUserPasswordByEmailService,
-    findUserForPasswordReset
+    findUserForPasswordReset,
+    logoutUserService,
+    isPasswordResetVerificationValid,
+    checkAccountStatusService
 } = require("../services/authService");
 
 const {
@@ -13,7 +14,8 @@ const {
     resendOtpService,
     createPasswordResetOtp,
     verifyPasswordResetOtp,
-    getResendRemaining
+    getResendRemaining,
+    getOtpAttemptsRemaining
 } = require("../services/otpservice");
 
 // Load home
@@ -79,6 +81,7 @@ const login = async (req, res) => {
                 return res.redirect("/");
             });
         });
+
     } catch (error) {
         if (error.message === "EMAIL_REQUIRED") {
             return res.status(400).render("user/login", {
@@ -125,7 +128,7 @@ const login = async (req, res) => {
 };
 
 // Logout
-const logout = (req, res) => {
+const logout = async (req, res) => {
     if (!req.session) {
         return res.status(401).json({
             success: false,
@@ -133,15 +136,8 @@ const logout = (req, res) => {
         });
     }
 
-    req.session.destroy(error => {
-        if (error) {
-            console.error("Logout error:", error);
-
-            return res.status(500).json({
-                success: false,
-                message: "Unable to logout. Please try again."
-            });
-        }
+    try {
+        await logoutUserService(req.session);
 
         res.clearCookie("naadan_user_sid");
 
@@ -149,7 +145,15 @@ const logout = (req, res) => {
             success: true,
             message: "You have been logged out successfully."
         });
-    });
+
+    } catch (error) {
+        console.error("Logout error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Unable to log out. Please try again."
+        });
+    }
 };
 
 // Load signup OTP page
@@ -178,10 +182,18 @@ const loadVerifyOtp = async (req, res) => {
             req.session
         );
 
+        // Read the error saved by the previous POST request.
+        const otpError = req.session.otpError || null;
+
+        // Remove it so the message appears only once.
+        delete req.session.otpError;
+
         return res.render("user/verifyOtp", {
             email,
-            resendRemaining
+            resendRemaining,
+            otpError
         });
+
     } catch (error) {
         console.error("Load OTP page error:", error);
         return res.status(500).send("Something went wrong.");
@@ -197,20 +209,6 @@ const verifyOtp = async (req, res) => {
         return res.redirect("/signup");
     }
 
-    if (typeof otp !== "string" || !/^\d{6}$/.test(otp)) {
-        const resendRemaining = await getResendRemaining(
-            email,
-            "signup",
-            req.session
-        );
-
-        return res.status(400).render("user/verifyOtp", {
-            email,
-            resendRemaining,
-            otpError: "Please enter a valid 6-digit OTP."
-        });
-    }
-
     try {
         const user = await verifyOtpService(
             email,
@@ -218,6 +216,7 @@ const verifyOtp = async (req, res) => {
             req.session
         );
 
+        // Regenerate session after successful verification
         req.session.regenerate(error => {
             if (error) {
                 console.error("Signup session regeneration error:", error);
@@ -229,6 +228,7 @@ const verifyOtp = async (req, res) => {
                 });
             }
 
+            // Store user details in session
             req.session.userId = user._id.toString();
 
             req.session.user = {
@@ -237,6 +237,7 @@ const verifyOtp = async (req, res) => {
                 email: user.email
             };
 
+            // Save session
             return req.session.save(saveError => {
                 if (saveError) {
                     console.error("Signup session save error:", saveError);
@@ -249,82 +250,64 @@ const verifyOtp = async (req, res) => {
                 }
 
                 console.log("User signed up and logged in:", user.email);
+
                 return res.redirect("/");
             });
         });
+
     } catch (error) {
-        if (error.message === "OTP_INVALID") {
-            const attempts =
-                req.session.otpData?.signup?.attempts ?? 0;
 
-            const attemptsRemaining = Math.max(0, 5 - attempts);
-
-            return res.status(400).render("user/verifyOtp", {
-                email,
-                resendRemaining: await getResendRemaining(
-                    email,
-                    "signup",
-                    req.session
-                ),
-                otpError: `Invalid OTP. You have ${attemptsRemaining} attempts remaining.`
-            });
-        }
-
-        if (error.message === "OTP_ATTEMPTS_EXCEEDED") {
-            return res.status(429).render("user/verifyOtp", {
-                email,
-                resendRemaining: await getResendRemaining(
-                    email,
-                    "signup",
-                    req.session
-                ),
-                otpError: "Too many incorrect attempts. Please request a new OTP."
-            });
-        }
-
-        if (
-            error.message === "OTP_NOT_FOUND" ||
-            error.message === "OTP_EXPIRED"
-        ) {
-            return res.status(400).render("user/verifyOtp", {
-                email,
-                resendRemaining: await getResendRemaining(
-                    email,
-                    "signup",
-                    req.session
-                ),
-                otpError: error.message === "OTP_EXPIRED"
-                    ? "OTP has expired. Please request a new OTP."
-                    : "OTP not found. Please request a new OTP."
-            });
-        }
-
-        if (error.message === "USER_NOT_FOUND") {
-            return res.status(404).render("user/verifyOtp", {
-                email,
-                resendRemaining: await getResendRemaining(
-                    email,
-                    "signup",
-                    req.session
-                ),
-                otpError: "User account not found."
-            });
-        }
-
-        if (error.message === "ALREADY_VERIFIED") {
-            return res.redirect("/login");
-        }
-
-        console.error("OTP verification error:", error);
-
-        return res.status(500).render("user/verifyOtp", {
-            email,
-            resendRemaining: await getResendRemaining(
+        if (error.message === "OTP_FORMAT_INVALID") {
+            const resendRemaining = await getResendRemaining(
                 email,
                 "signup",
                 req.session
-            ),
-            otpError: "Something went wrong. Please try again."
+            );
+
+            return res.status(400).render("user/verifyOtp", {
+                email,
+                resendRemaining,
+                otpError: "Please enter a valid 6-digit OTP."
+            });
+        }
+
+        let otpError;
+
+        if (error.message === "OTP_INVALID") {
+            const attemptsRemaining = getOtpAttemptsRemaining(
+                "signup",
+                req.session
+            );
+
+            otpError = `Invalid OTP. You have ${attemptsRemaining} attempts remaining.`;
+        } else if (error.message === "OTP_ATTEMPTS_EXCEEDED") {
+            otpError = "Too many incorrect attempts. Please request a new OTP.";
+        } else if (error.message === "OTP_NOT_FOUND") {
+            otpError = "OTP not found. Please request a new OTP.";
+        } else if (error.message === "OTP_EXPIRED") {
+            otpError = "OTP has expired. Please request a new OTP.";
+        } else if (error.message === "USER_NOT_FOUND") {
+            otpError = "User account not found.";
+        } else if (error.message === "ALREADY_VERIFIED") {
+            otpError = "This email is already verified. Please log in.";
+        } else {
+            console.error("OTP verification error:", error);
+            otpError = "Something went wrong. Please try again.";
+        }
+
+        // Save error message in session
+        req.session.otpError = otpError;
+
+        return req.session.save(saveError => {
+            if (saveError) {
+                console.error("OTP error session save failed:", saveError);
+
+                return res.status(500).send(
+                    "Something went wrong. Please try again."
+                );
+            }
+
+            return res.redirect("/verify-otp");
         });
     }
 };
@@ -347,6 +330,7 @@ const resendOtp = async (req, res) => {
         console.log("New OTP created and email sent");
 
         return res.redirect("/verify-otp");
+
     } catch (error) {
         if (error.message === "RESEND_COOLDOWN") {
             return res.status(429).json({
@@ -357,6 +341,12 @@ const resendOtp = async (req, res) => {
         if (error.message === "USER_NOT_FOUND") {
             return res.status(404).json({
                 message: "User account not found."
+            });
+        }
+
+        if (error.message === "USER_BLOCKED") {
+            return res.status(403).json({
+                message: "Your account has been blocked. Please contact support."
             });
         }
 
@@ -393,51 +383,30 @@ const signup = async (req, res) => {
             referralCode
         });
 
-        // Existing user
-        if (result.existingUser) {
-            if (result.existingUser.isVerified) {
-                return res.status(409).render("user/signup", {
-                    nameError: null,
-                    emailError: "Email is already registered.",
-                    passwordError: null,
-                    referralCodeError: null
-                });
-            }
-
-            req.session.email = result.existingUser.email;
-
-            try {
-                await createOtp(
-                    result.existingUser.email,
-                    "signup",
-                    req.session
-                );
-
-                return res.redirect("/verify-otp");
-            } catch (error) {
-                if (error.message === "RESEND_COOLDOWN") {
-                    return res.redirect("/verify-otp");
-                }
-
-                console.error("OTP creation error:", error);
-
-                return res.status(500).send(
-                    "Unable to send OTP. Please try again."
-                );
-            }
+        if (result.status === "EXISTING_VERIFIED_USER") {
+            return res.status(409).render("user/signup", {
+                nameError: null,
+                emailError: "Email is already registered.",
+                passwordError: null,
+                referralCodeError: null
+            });
         }
 
-        // New user
-        req.session.email = result.user.email;
+        const user = result.user;
+
+        // Store email in session
+        req.session.email = user.email;
 
         try {
+            // Create and send OTP
             await createOtp(
-                result.user.email,
+                user.email,
                 "signup",
                 req.session
             );
 
             return res.redirect("/verify-otp");
+
         } catch (error) {
             if (error.message === "RESEND_COOLDOWN") {
                 return res.redirect("/verify-otp");
@@ -449,7 +418,9 @@ const signup = async (req, res) => {
                 "Unable to send OTP. Please try again."
             );
         }
+
     } catch (error) {
+
         if (error.message === "NAME_REQUIRED") {
             return res.status(400).render("user/signup", {
                 nameError: "Name is required.",
@@ -555,33 +526,27 @@ const loadForgotPassword = (req, res) => {
 };
 
 // Forgot password
-
 const forgotPassword = async (req, res) => {
     const { email } = req.body;
 
     try {
-        const result = await findUserForPasswordReset(email);
-        const normalizedEmail = result.email;
+        const { email: normalizedEmail } =
+            await findUserForPasswordReset(email);
 
-        // Clear any previous password-reset verification.
+        // Clear previous password-reset verification.
         delete req.session.passwordResetVerifiedAt;
 
-        // Store the normalized email in the session.
         req.session.forgotPasswordEmail = normalizedEmail;
 
-        // Generate and send the OTP.
         await createPasswordResetOtp(
             normalizedEmail,
             req.session
         );
 
-        // Save the session before redirecting to the OTP page.
-        return req.session.save((error) => {
+        // Save session before redirecting.
+        return req.session.save(error => {
             if (error) {
-                console.error(
-                    "Forgot password session save error:",
-                    error
-                );
+                console.error("Forgot password session save error:", error);
 
                 return res.status(500).render("user/forgotPassword", {
                     error: "Unable to start password recovery. Please try again.",
@@ -622,7 +587,6 @@ const forgotPassword = async (req, res) => {
         }
 
         if (error.message === "RESEND_COOLDOWN") {
-            // Do not redirect if the session has no recovery email.
             if (!req.session.forgotPasswordEmail) {
                 return res.status(429).render("user/forgotPassword", {
                     error: "Please wait before requesting another OTP.",
@@ -630,7 +594,7 @@ const forgotPassword = async (req, res) => {
                 });
             }
 
-            return req.session.save((saveError) => {
+            return req.session.save(saveError => {
                 if (saveError) {
                     console.error(
                         "Forgot password cooldown session save error:",
@@ -656,24 +620,18 @@ const forgotPassword = async (req, res) => {
     }
 };
 
-
 // Load forgot-password OTP page
 const loadForgotPasswordOtp = async (req, res) => {
     const email = req.session.forgotPasswordEmail;
 
     if (!email) {
-        return res.status(401).json({
-            success: false,
-            message: "Session expired. Please request a new OTP."
-        });
+        return res.redirect("/forgot-password");
     }
 
-    const verifiedAt = req.session.passwordResetVerifiedAt;
-
     const verificationIsValid =
-        Number.isFinite(verifiedAt) &&
-        verifiedAt <= Date.now() &&
-        Date.now() - verifiedAt < 5 * 60 * 1000;
+        isPasswordResetVerificationValid(
+            req.session.passwordResetVerifiedAt
+        );
 
     if (verificationIsValid) {
         return res.redirect("/forgot-password/reset-password");
@@ -696,6 +654,7 @@ const loadForgotPasswordOtp = async (req, res) => {
             resendRemaining,
             otpError: null
         });
+
     } catch (error) {
         console.error("Load forgot password OTP error:", error);
         return res.status(500).send("Something went wrong.");
@@ -714,13 +673,6 @@ const verifyForgotPasswordOtp = async (req, res) => {
         });
     }
 
-    if (typeof otp !== "string" || !/^\d{6}$/.test(otp)) {
-        return res.status(400).json({
-            success: false,
-            message: "Please enter a valid 6-digit OTP."
-        });
-    }
-
     try {
         await verifyPasswordResetOtp(
             email,
@@ -728,11 +680,15 @@ const verifyForgotPasswordOtp = async (req, res) => {
             req.session
         );
 
+        // OTP verified successfully.
         req.session.passwordResetVerifiedAt = Date.now();
 
         return req.session.save(error => {
             if (error) {
-                console.error("Password reset verification session save error:", error);
+                console.error(
+                    "Password reset verification session save error:",
+                    error
+                );
 
                 return res.status(500).json({
                     success: false,
@@ -745,12 +701,20 @@ const verifyForgotPasswordOtp = async (req, res) => {
                 redirect: "/forgot-password/reset-password"
             });
         });
-    } catch (error) {
-        if (error.message === "OTP_INVALID") {
-            const attempts =
-                req.session.otpData?.["forgot-password"]?.attempts ?? 0;
 
-            const attemptsRemaining = Math.max(0, 5 - attempts);
+    } catch (error) {
+        if (error.message === "OTP_FORMAT_INVALID") {
+            return res.status(400).json({
+                success: false,
+                message: "Please enter a valid 6-digit OTP."
+            });
+        }
+
+        if (error.message === "OTP_INVALID") {
+            const attemptsRemaining = getOtpAttemptsRemaining(
+                "forgot-password",
+                req.session
+            );
 
             return res.status(400).json({
                 success: false,
@@ -802,11 +766,15 @@ const resendForgotPasswordOtp = async (req, res) => {
             req.session
         );
 
+        // Invalidate previous password-reset verification.
         delete req.session.passwordResetVerifiedAt;
 
         return req.session.save(error => {
             if (error) {
-                console.error("Forgot password resend session save error:", error);
+                console.error(
+                    "Forgot password resend session save error:",
+                    error
+                );
 
                 return res.status(500).json({
                     success: false,
@@ -814,15 +782,21 @@ const resendForgotPasswordOtp = async (req, res) => {
                 });
             }
 
-            console.log("Forgot password OTP resent to:", email);
-
             return res.status(200).json({
                 success: true,
                 message: "OTP sent successfully.",
                 resendRemaining: 60
             });
         });
+
     } catch (error) {
+        if (error.message === "USER_BLOCKED") {
+            return res.status(403).json({
+                success: false,
+                message: "Your account has been blocked. Please contact support."
+            });
+        }
+
         if (error.message === "RESEND_COOLDOWN") {
             return res.status(429).json({
                 success: false,
@@ -851,12 +825,11 @@ const loadResetPassword = (req, res) => {
     const verifiedAt = req.session.passwordResetVerifiedAt;
 
     const verificationIsValid =
-        Number.isFinite(verifiedAt) &&
-        verifiedAt <= Date.now() &&
-        Date.now() - verifiedAt < 5 * 60 * 1000;
+        isPasswordResetVerificationValid(verifiedAt);
 
     if (!req.session.forgotPasswordEmail || !verificationIsValid) {
         delete req.session.passwordResetVerifiedAt;
+
         return res.redirect("/forgot-password");
     }
 
@@ -865,11 +838,11 @@ const loadResetPassword = (req, res) => {
         "no-store, no-cache, must-revalidate, private"
     );
 
-   return res.render("user/resetPassword", {
-    passwordError: null,
-    confirmPasswordError: null,
-    resetUrl: "/forgot-password/reset-password"
-});
+    return res.render("user/resetPassword", {
+        passwordError: null,
+        confirmPasswordError: null,
+        resetUrl: "/forgot-password/reset-password"
+    });
 };
 
 // Reset password
@@ -878,10 +851,9 @@ const resetPassword = async (req, res) => {
     const email = req.session.forgotPasswordEmail;
     const verifiedAt = req.session.passwordResetVerifiedAt;
 
+    // Check whether OTP verification is still valid.
     const verificationIsValid =
-        Number.isFinite(verifiedAt) &&
-        verifiedAt <= Date.now() &&
-        Date.now() - verifiedAt < 5 * 60 * 1000;
+        isPasswordResetVerificationValid(verifiedAt);
 
     if (!email || !verificationIsValid) {
         delete req.session.passwordResetVerifiedAt;
@@ -893,12 +865,14 @@ const resetPassword = async (req, res) => {
     }
 
     try {
+        // Validate and update password through the service.
         await resetUserPasswordByEmailService(
             email,
             password,
             confirmPassword
         );
 
+        // Clear password recovery session data.
         delete req.session.forgotPasswordEmail;
         delete req.session.passwordResetVerifiedAt;
 
@@ -917,6 +891,7 @@ const resetPassword = async (req, res) => {
                 redirect: "/login"
             });
         });
+
     } catch (error) {
         if (error.message === "PASSWORD_REQUIRED") {
             return res.status(400).json({
@@ -980,10 +955,15 @@ const checkAccountStatus = async (req, res) => {
     }
 
     try {
-        const user = await User.findById(req.session.userId)
-            .select("_id isBlocked");
+        await checkAccountStatusService(req.session.userId);
 
-        if (!user) {
+        return res.status(200).json({
+            success: true,
+            blocked: false
+        });
+
+    } catch (error) {
+        if (error.message === "USER_NOT_FOUND") {
             return res.status(401).json({
                 success: false,
                 blocked: false,
@@ -991,7 +971,7 @@ const checkAccountStatus = async (req, res) => {
             });
         }
 
-        if (user.isBlocked) {
+        if (error.message === "USER_BLOCKED") {
             return res.status(403).json({
                 success: false,
                 blocked: true,
@@ -1000,11 +980,6 @@ const checkAccountStatus = async (req, res) => {
             });
         }
 
-        return res.status(200).json({
-            success: true,
-            blocked: false
-        });
-    } catch (error) {
         console.error("Account status check error:", error);
 
         return res.status(500).json({
@@ -1014,6 +989,7 @@ const checkAccountStatus = async (req, res) => {
         });
     }
 };
+
 
 module.exports = {
     loadHome,
@@ -1033,4 +1009,24 @@ module.exports = {
     loadResetPassword,
     resetPassword,
     checkAccountStatus
+    
 };
+
+
+
+
+
+
+
+
+// const attempting  = async(req,res) => {
+    
+//     const {email, password} = req.body;
+//     const user = User.findOne({email},{password});
+//     if(!password) {
+//         loginAttempt +=1;
+//     }
+//     if(loginAttempt > 2) {
+//         user.blocked = true;
+//     }
+// }

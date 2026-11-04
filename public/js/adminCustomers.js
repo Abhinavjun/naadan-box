@@ -30,7 +30,9 @@ const updateClearSearchButton = () => {
     }
 };
 
+// # SEARCH VARIABLES
 let searchDebounceTimer;
+let searchController = null;
 
 // # RENDER CUSTOMERS
 const renderCustomers = users => {
@@ -51,9 +53,20 @@ const renderCustomers = users => {
     }
 
     customerTableBody.innerHTML = users.map(user => {
-        const profileImage = user.profileImage && user.profileImage !== "default-profile.png"
-            ? `<img class="customer-image" src="${user.profileImage}" alt="Customer" onerror="this.style.display='none'">`
-            : `<div class="customer-image customer-image-placeholder"><i class="bi bi-person"></i></div>`;
+
+
+        const profileImage =
+    user.profileImage &&
+    user.profileImage !== "default-profile.png"
+        ? `<img
+                class="customer-image"
+                src="/uploads/${encodeURIComponent(user.profileImage)}"
+                alt="Customer"
+                onerror="this.style.display='none'"
+           >`
+        : `<div class="customer-image customer-image-placeholder">
+                <i class="bi bi-person"></i>
+           </div>`;
 
         const status = user.isBlocked
             ? `<span class="status-badge blocked">BLOCKED</span>`
@@ -83,11 +96,14 @@ const renderCustomers = users => {
                 </button>
             `;
 
-        const joinedDate = new Date(user.createdAt).toLocaleDateString("en-IN", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric"
-        });
+        const joinedDate = new Date(user.createdAt).toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        );
 
         return `
             <tr>
@@ -96,21 +112,30 @@ const renderCustomers = users => {
                         ${profileImage}
                         <div>
                             <div class="customer-name">${user.name}</div>
-                            <div class="customer-id">ID: NB-${user._id.slice(-4).toUpperCase()}</div>
+                            <div class="customer-id">
+                                ID: NB-${user._id.slice(-4).toUpperCase()}
+                            </div>
                         </div>
                     </div>
                 </td>
+
                 <td>
                     <div class="customer-email">${user.email}</div>
-                    <div class="customer-phone">${user.phone || "No phone number"}</div>
+                    <div class="customer-phone">
+                        ${user.phone || "No phone number"}
+                    </div>
                 </td>
+
                 <td>
                     <span class="order-count zero">0 Orders</span>
                 </td>
+
                 <td>
                     <div class="joined-date">${joinedDate}</div>
                 </td>
+
                 <td>${status}</td>
+
                 <td>
                     <div class="customer-actions">
                         <button
@@ -121,6 +146,7 @@ const renderCustomers = users => {
                         >
                             <i class="bi bi-eye"></i>
                         </button>
+
                         ${action}
                     </div>
                 </td>
@@ -143,9 +169,10 @@ const renderPagination = data => {
     // # PREVIOUS
     paginationHTML += `
         <li class="page-item ${data.currentPage <= 1 ? "disabled" : ""}">
-            ${data.currentPage > 1
-                ? `<a class="page-link" href="/admin/customers?page=${data.currentPage - 1}&search=${encodeURIComponent(data.search || "")}&status=${encodeURIComponent(data.status || "all")}"><i class="bi bi-chevron-left"></i></a>`
-                : `<span class="page-link"><i class="bi bi-chevron-left"></i></span>`
+            ${
+                data.currentPage > 1
+                    ? `<a class="page-link" href="/admin/customers?page=${data.currentPage - 1}&search=${encodeURIComponent(data.search || "")}&status=${encodeURIComponent(data.status || "all")}"><i class="bi bi-chevron-left"></i></a>`
+                    : `<span class="page-link"><i class="bi bi-chevron-left"></i></span>`
             }
         </li>
     `;
@@ -180,9 +207,10 @@ const renderPagination = data => {
     // # NEXT
     paginationHTML += `
         <li class="page-item ${data.currentPage >= data.totalPages ? "disabled" : ""}">
-            ${data.currentPage < data.totalPages
-                ? `<a class="page-link" href="/admin/customers?page=${data.currentPage + 1}&search=${encodeURIComponent(data.search || "")}&status=${encodeURIComponent(data.status || "all")}"><i class="bi bi-chevron-right"></i></a>`
-                : `<span class="page-link"><i class="bi bi-chevron-right"></i></span>`
+            ${
+                data.currentPage < data.totalPages
+                    ? `<a class="page-link" href="/admin/customers?page=${data.currentPage + 1}&search=${encodeURIComponent(data.search || "")}&status=${encodeURIComponent(data.status || "all")}"><i class="bi bi-chevron-right"></i></a>`
+                    : `<span class="page-link"><i class="bi bi-chevron-right"></i></span>`
             }
         </li>
     `;
@@ -203,7 +231,8 @@ const updateCustomerList = data => {
             ? start + data.users.length - 1
             : 0;
 
-        customerCount.textContent = `Showing ${start} - ${end} of ${data.totalUsers}`;
+        customerCount.textContent =
+            `Showing ${start} - ${end} of ${data.totalUsers}`;
     }
 
     if (pageInfo) {
@@ -216,7 +245,8 @@ const updateCustomerList = data => {
         customerSearch.value = data.search || "";
     }
 
-    const statusInput = customerSearchForm?.querySelector('input[name="status"]');
+    const statusInput =
+        customerSearchForm?.querySelector('input[name="status"]');
 
     if (statusInput) {
         statusInput.value = data.status || "all";
@@ -229,11 +259,19 @@ const handleClearSearch = async event => {
 
     clearTimeout(searchDebounceTimer);
 
+    // Cancel any pending search request.
+    if (searchController) {
+        searchController.abort();
+        searchController = null;
+    }
+
     if (customerSearch) {
         customerSearch.value = "";
     }
 
-    const status = customerSearchForm?.querySelector('input[name="status"]')?.value || "all";
+    const status =
+        customerSearchForm?.querySelector('input[name="status"]')?.value ||
+        "all";
 
     const params = new URLSearchParams({
         page: "1",
@@ -241,26 +279,49 @@ const handleClearSearch = async event => {
         status
     });
 
+    // Use a separate controller for the clear-search request.
+    const controller = new AbortController();
+    searchController = controller;
+
     try {
-        const response = await fetch(`/admin/customers?${params.toString()}`, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json"
+        const response = await fetch(
+            `/admin/customers?${params.toString()}`,
+            {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
+                signal: controller.signal
             }
-        });
+        );
 
         const data = await response.json();
 
         if (!response.ok || !data.success) {
-            throw new Error(data.message || "Unable to clear search.");
+            throw new Error(
+                data.message || "Unable to clear search."
+            );
         }
+
+        // Ignore the response if another request has replaced this one.
+        if (searchController !== controller) return;
 
         updateCustomerList(data);
         updateClearSearchButton();
 
-        window.history.pushState({}, "", `/admin/customers?${params.toString()}`);
+        window.history.pushState(
+            {},
+            "",
+            `/admin/customers?${params.toString()}`
+        );
     } catch (error) {
-        console.error("AJAX clear search error:", error);
+        if (error.name !== "AbortError") {
+            console.error("AJAX clear search error:", error);
+        }
+    } finally {
+        if (searchController === controller) {
+            searchController = null;
+        }
     }
 };
 
@@ -284,11 +345,23 @@ if (customerSearch && customerSearchForm) {
 
         updateClearSearchButton();
 
+        // Reset the timer whenever the user types.
         clearTimeout(searchDebounceTimer);
 
+        // Cancel an older request immediately.
+        if (searchController) {
+            searchController.abort();
+            searchController = null;
+        }
+
+        // Wait until the user stops typing for 500 milliseconds.
         searchDebounceTimer = setTimeout(async () => {
             const search = customerSearch.value.trim();
-            const status = customerSearchForm.querySelector('input[name="status"]')?.value || "all";
+
+            const status =
+                customerSearchForm.querySelector(
+                    'input[name="status"]'
+                )?.value || "all";
 
             const params = new URLSearchParams({
                 page: "1",
@@ -296,26 +369,51 @@ if (customerSearch && customerSearchForm) {
                 status
             });
 
+            const controller = new AbortController();
+            searchController = controller;
+
             try {
-                const response = await fetch(`/admin/customers?${params.toString()}`, {
-                    method: "GET",
-                    headers: {
-                        "Accept": "application/json"
+                const response = await fetch(
+                    `/admin/customers?${params.toString()}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Accept": "application/json"
+                        },
+                        signal: controller.signal
                     }
-                });
+                );
 
                 const data = await response.json();
 
                 if (!response.ok || !data.success) {
-                    throw new Error(data.message || "Unable to search customers.");
+                    throw new Error(
+                        data.message || "Unable to search customers."
+                    );
                 }
+
+                // Do not display results from an outdated request.
+                if (searchController !== controller) return;
 
                 updateCustomerList(data);
                 updateClearSearchButton();
 
-                window.history.pushState({}, "", `/admin/customers?${params.toString()}`);
+                window.history.pushState(
+                    {},
+                    "",
+                    `/admin/customers?${params.toString()}`
+                );
             } catch (error) {
-                console.error("AJAX customer search error:", error);
+                if (error.name !== "AbortError") {
+                    console.error(
+                        "AJAX customer search error:",
+                        error
+                    );
+                }
+            } finally {
+                if (searchController === controller) {
+                    searchController = null;
+                }
             }
         }, 500);
     });
@@ -330,6 +428,14 @@ if (customerPagination) {
 
         event.preventDefault();
 
+        // Cancel pending search before changing pages.
+        clearTimeout(searchDebounceTimer);
+
+        if (searchController) {
+            searchController.abort();
+            searchController = null;
+        }
+
         const url = new URL(link.href, window.location.origin);
 
         try {
@@ -343,7 +449,9 @@ if (customerPagination) {
             const data = await response.json();
 
             if (!response.ok || !data.success) {
-                throw new Error(data.message || "Unable to load customers.");
+                throw new Error(
+                    data.message || "Unable to load customers."
+                );
             }
 
             updateCustomerList(data);
@@ -351,12 +459,16 @@ if (customerPagination) {
 
             window.history.pushState({}, "", url);
         } catch (error) {
-            console.error("AJAX pagination error:", error);
+            if (error.name !== "AbortError") {
+                console.error("AJAX pagination error:", error);
+            }
         }
     });
 }
 
 // # AJAX FILTERS
+
+ // # AJAX FILTERS
 if (customerFilters) {
     customerFilters.addEventListener("click", async event => {
         const link = event.target.closest(".customer-filter");
@@ -365,37 +477,82 @@ if (customerFilters) {
 
         event.preventDefault();
 
-        const url = new URL(link.href, window.location.origin);
+        // Cancel pending search and any previous request.
+        clearTimeout(searchDebounceTimer);
+
+        if (searchController) {
+            searchController.abort();
+            searchController = null;
+        }
+
+        // Get the selected status from the clicked filter.
+        const linkUrl = new URL(link.href, window.location.origin);
+        const status = linkUrl.searchParams.get("status") || "all";
+
+        // Get the CURRENT search input, not the old link's search value.
+        const search = customerSearch
+            ? customerSearch.value.trim().slice(0, 100)
+            : "";
+
+        // Combine search and status in the same request.
+        const params = new URLSearchParams({
+            page: "1",
+            search,
+            status
+        });
+
+        const url = `/admin/customers?${params.toString()}`;
+
+        const controller = new AbortController();
+        searchController = controller;
 
         try {
             const response = await fetch(url, {
                 method: "GET",
                 headers: {
                     "Accept": "application/json"
-                }
+                },
+                signal: controller.signal
             });
 
             const data = await response.json();
 
             if (!response.ok || !data.success) {
-                throw new Error(data.message || "Unable to filter customers.");
+                throw new Error(
+                    data.message || "Unable to filter customers."
+                );
             }
+
+            // Ignore outdated responses.
+            if (searchController !== controller) return;
 
             updateCustomerList(data);
             updateClearSearchButton();
 
-            customerFilters.querySelectorAll(".customer-filter").forEach(filter => {
-                filter.classList.remove("active");
-            });
+            // Update the active filter.
+            customerFilters
+                .querySelectorAll(".customer-filter")
+                .forEach(filter => {
+                    filter.classList.remove("active");
+                });
 
             link.classList.add("active");
 
+            // Update the browser URL with both search and status.
             window.history.pushState({}, "", url);
+
         } catch (error) {
-            console.error("AJAX customer filter error:", error);
+            if (error.name !== "AbortError") {
+                console.error("AJAX customer filter error:", error);
+            }
+        } finally {
+            if (searchController === controller) {
+                searchController = null;
+            }
         }
     });
 }
+
 
 // # BLOCK / UNBLOCK
 const confirmationModal = document.querySelector("#confirmationModal");
@@ -409,6 +566,8 @@ const confirmationConfirm = document.querySelector("#confirmationConfirm");
 let selectedButton = null;
 
 const closeConfirmationModal = () => {
+    if (!confirmationModal) return;
+
     confirmationModal.classList.remove("show");
     confirmationModal.setAttribute("aria-hidden", "true");
     selectedButton = null;
@@ -417,7 +576,9 @@ const closeConfirmationModal = () => {
 // # CUSTOMER ACTIONS
 if (customerTableBody) {
     customerTableBody.addEventListener("click", event => {
-        const button = event.target.closest("[data-action], .view-button");
+        const button = event.target.closest(
+            "[data-action], .view-button"
+        );
 
         if (!button) return;
 
@@ -427,7 +588,9 @@ if (customerTableBody) {
 
             if (!userId) return;
 
-            window.location.href = `/admin/customers/${encodeURIComponent(userId)}`;
+            window.location.href =
+                `/admin/customers/${encodeURIComponent(userId)}`;
+
             return;
         }
 
@@ -435,7 +598,21 @@ if (customerTableBody) {
         const userId = button.dataset.userId;
         const action = button.dataset.action;
 
-        if (!userId || !["block", "unblock"].includes(action)) return;
+        if (!userId || !["block", "unblock"].includes(action)) {
+            return;
+        }
+
+        // Check that the modal elements exist.
+        if (
+            !confirmationModal ||
+            !confirmationBox ||
+            !confirmationTitle ||
+            !confirmationMessage ||
+            !confirmationIcon ||
+            !confirmationConfirm
+        ) {
+            return;
+        }
 
         selectedButton = button;
 
@@ -465,65 +642,84 @@ if (customerTableBody) {
 }
 
 // # CANCEL CONFIRMATION
-confirmationCancel.addEventListener("click", closeConfirmationModal);
+if (confirmationCancel) {
+    confirmationCancel.addEventListener(
+        "click",
+        closeConfirmationModal
+    );
+}
 
 // # CONFIRM ACTION
-confirmationConfirm.addEventListener("click", async () => {
-    if (!selectedButton) return;
+if (confirmationConfirm) {
+    confirmationConfirm.addEventListener("click", async () => {
+        if (!selectedButton) return;
 
-    const button = selectedButton;
-    const userId = button.dataset.userId;
-    const isBlocked = button.dataset.action === "block";
+        const button = selectedButton;
+        const userId = button.dataset.userId;
+        const isBlocked = button.dataset.action === "block";
 
-    button.disabled = true;
-    confirmationConfirm.disabled = true;
+        button.disabled = true;
+        confirmationConfirm.disabled = true;
 
-    try {
-        const response = await fetch(
-            `/admin/customers/${encodeURIComponent(userId)}/block-status`,
-            {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ isBlocked })
-            }
-        );
-
-        const data = await response.json();
-
-        if (!response.ok || !data.success) {
-            throw new Error(
-                data.message || "Unable to update customer status."
+        try {
+            const response = await fetch(
+                `/admin/customers/${encodeURIComponent(userId)}/block-status`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ isBlocked })
+                }
             );
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(
+                    data.message ||
+                    "Unable to update customer status."
+                );
+            }
+
+            closeConfirmationModal();
+
+            window.location.reload();
+        } catch (error) {
+            console.error(
+                "Customer status update error:",
+                error
+            );
+
+            closeConfirmationModal();
+
+            alert(
+                error.message ||
+                "Something went wrong. Please try again."
+            );
+
+            button.disabled = false;
+            confirmationConfirm.disabled = false;
         }
-
-        closeConfirmationModal();
-        window.location.reload();
-    } catch (error) {
-        console.error("Customer status update error:", error);
-
-        closeConfirmationModal();
-        alert(error.message || "Something went wrong. Please try again.");
-
-        button.disabled = false;
-        confirmationConfirm.disabled = false;
-    }
-});
+    });
+}
 
 // # CLOSE ON BACKDROP
-confirmationModal.addEventListener("click", event => {
-    if (event.target === confirmationModal) {
-        closeConfirmationModal();
-    }
-});
+if (confirmationModal) {
+    confirmationModal.addEventListener("click", event => {
+        if (event.target === confirmationModal) {
+            closeConfirmationModal();
+        }
+    });
+}
 
 // # EXPORT CUSTOMERS
 const exportButton = document.querySelector(".export-button");
 
 if (exportButton) {
     exportButton.addEventListener("click", event => {
-        event.preventDefault();
+        // The EJS page currently handles export using its onclick attribute.
+        // Do not prevent the default behavior here.
         console.log("Export customers");
     });
 }

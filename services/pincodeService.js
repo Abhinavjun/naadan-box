@@ -8,11 +8,14 @@ const getPincodeDetails = async (pincode) => {
     }
 
     try {
-        const response = await axios.get(  `https://api.postalpincode.in/pincode/${pincode}`, {   timeout: 5000  }  );
+       const response = await axios.get(
+    `${process.env.PINCODE_API_URL}/pincode/${pincode}`,
+    { timeout: 5000 }
+);
 
         const result = response.data?.[0];
 
-        
+
         if (!result) {
             throw new Error("PINCODE_NOT_FOUND");
         }
@@ -39,10 +42,8 @@ const getPincodeDetails = async (pincode) => {
 
     } catch (error) {
 
-            console.error("Pincode API error:", error.response?.data || error.message);
 
 
-            
         if (error.message === "INVALID_PINCODE") {
             throw error;
         }

@@ -1,12 +1,12 @@
+
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const Admin = require("../models/adminModel");
 const User = require("../models/userModel");
+const Address = require("../models/addressModel");
 
 
-//log admin
-
-
+// log admin
 const loginAdminService = async (email, password) => {
     const admin = await Admin.findOne({ email: email });
 
@@ -40,28 +40,28 @@ const getAdminService = async (adminId) => {
     }
 
     return admin;
+    
 };
-
 
 const escapeRegex = (value) => {
     return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 };
 
-// # GET USERS
+// GET USERS
 const getUsersService = async (page = 1, search = "", status = "all") => {
     const limit = 10;
 
-    let pageNumber = parseInt(page) || 1;
+    // pagination
+    let currentPage = Number(page);
 
-    if (pageNumber < 1) {
-        pageNumber = 1;
+    if (!Number.isInteger(currentPage) || currentPage < 1) {
+        currentPage = 1;
     }
 
     let cleanSearch = "";
 
     if (typeof search === "string") {
-        cleanSearch = search.trim();
-        cleanSearch = cleanSearch.slice(0, 100);
+        cleanSearch = search.trim().slice(0, 100);
     }
 
     let cleanStatus = "all";
@@ -91,35 +91,27 @@ const getUsersService = async (page = 1, search = "", status = "all") => {
         query.isBlocked = true;
     }
 
-
-
-
-   
-
-
-
-    // count users
+    // count matching users
     const totalUsers = await User.countDocuments(query);
     const totalPages = Math.ceil(totalUsers / limit);
 
-    
-    let currentPage = pageNumber;
-
+    // handle empty results and invalid page numbers
     if (totalPages === 0) {
         currentPage = 1;
-    }
-
-    if (currentPage > totalPages && totalPages > 0) {
+    } else if (currentPage > totalPages) {
         currentPage = totalPages;
     }
 
-    // get users
+    // get users for the current page
     const users = await User.find(query)
         .select("name email phone profileImage isVerified isBlocked createdAt")
         .sort({ createdAt: -1 })
         .skip((currentPage - 1) * limit)
         .limit(limit)
         .lean();
+        
+        
+  
 
     return {
         users: users,
@@ -128,8 +120,6 @@ const getUsersService = async (page = 1, search = "", status = "all") => {
         totalUsers: totalUsers,
         search: cleanSearch,
         status: cleanStatus
-        
-        
     };
 };
 
@@ -143,10 +133,14 @@ const getCustomersForExportService = async () => {
     return customers;
 };
 
-// actions 
+// actions
 const updateUserBlockStatusService = async (userId, isBlocked) => {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
         throw new Error("INVALID_USER_ID");
+    }
+
+    if (typeof isBlocked !== "boolean") {
+        throw new Error("INVALID_BLOCK_STATUS");
     }
 
     const user = await User.findById(userId);
@@ -163,8 +157,6 @@ const updateUserBlockStatusService = async (userId, isBlocked) => {
 };
 
 // get customers details
-
-
 const getCustomerDetailsService = async (userId) => {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
         throw new Error("INVALID_USER_ID");

@@ -416,12 +416,20 @@
         font-size:.6rem;
     }
 
-    #pincodeMessage {
-        min-height:12px;
-        margin-top:.15rem!important;
-        color:var(--brand-primary-green);
-        font-size:.6rem;
-    }
+  #pincodeMessage {
+    display: block;
+    min-height: 12px;
+    margin-top: .15rem !important;
+    font-size: .6rem;
+}
+
+#pincodeMessage.error {
+    color: red;
+}
+
+#pincodeMessage.success {
+    color: var(--brand-primary-green);
+}
 
     /* =========================================
        DEFAULT ADDRESS

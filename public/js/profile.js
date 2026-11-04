@@ -333,30 +333,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
 
-         if (response.status === 403 && data.code === "USER_BLOCKED") {
 
-    const modalElement = document.getElementById("customBlockedUserPopup");
-    const logoutButton = document.getElementById("customBlockedLogoutButton");
 
-    if (modalElement) {
 
-        document.body.appendChild(modalElement);
+if (response.status === 403 && data.code === "USER_BLOCKED") {
+    const accountBlockedModal = document.getElementById("accountBlockedModal");
 
-        modalElement.classList.add("show");
-
-    }
-
-    if (logoutButton) {
-
-        logoutButton.onclick = () => {
-            window.location.href = "/login";
-        };
-
+    if (accountBlockedModal) {
+        accountBlockedModal.classList.add("show");
+        accountBlockedModal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
     }
 
     return;
 }
-
 
 
             // =========================
